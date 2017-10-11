@@ -1,0 +1,56 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --env=dev --colors --progress -w",
+    "build": "webpack --env=prod --colors --progress -p",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:marceljager/4IT445-tym3.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "eslint-config-airbnb": "16.0.0",
+    "eslint-loader": "^1.9.0",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.4.0",
+    "gulp-less": "^3.3.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-util": "^3.0.7",
+    "path": "^0.12.7",
+    "postcss-loader": "^2.0.6",
+    "react-scripts": "0.4.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2.git#harmony-v2.8.22",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.6.0",
+    "webpack-chunk-hash": "^0.5.0",
+    "webpack-manifest-plugin": "^1.1.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-polyfill": "^6.23.0",
+    "react": "^15.3.2",
+    "node-sass": "^4.5.3",
+    "promise-polyfill": "6.0.2",
+    "prop-types": "^15.5.10",
+    "react-router-dom": "^4.2.2",
+    "react-dom": "^15.3.2",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
