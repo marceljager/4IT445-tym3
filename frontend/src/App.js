@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { Menu } from './components/Menu';
+import PageContent from './pages/PageContent';
 import configureStore from './store/configureStore';
-import createRoutes from './createRoutes';
 
 import './App.css';
 
 class App extends Component {
     render() {
         const store = configureStore;
-        const routes = createRoutes;
 
         return (
             <Provider store={store}>
                 <Router>
-                    {routes}
+                    <div>
+                        <Menu />
+                        <PageContent />
+                    </div>
                 </Router>
             </Provider>
         );

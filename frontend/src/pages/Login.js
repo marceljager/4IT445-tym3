@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -29,12 +28,11 @@ export class LoginRaw extends Component {
     };
 
     handleSubmit = (e) => {
-        axios.post(API_URL, {
+        axios.post(`${API_URL}/login.php`, {
             loginEmail: this.state.loginEmail,
             loginPassword: this.state.loginPassword
         })
             .then((response) => {
-                console.log(response);
                 const { user } = response.data;
                 this.props.logIn(user);
             })
@@ -48,7 +46,7 @@ export class LoginRaw extends Component {
     render() {
         return (
             <div>
-                <Link to="/">Home</Link>
+                <h1>Login</h1>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="login">
                         Email:

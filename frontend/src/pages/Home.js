@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 export class HomeRaw extends Component {
     render() {
         const { user } = this.props;
-        console.log(user);
+
         return (
             <div>
                 <h1>Home</h1>
                 {user.email &&
-                    <div>Přihlášen: {user.firstName} {user.lastName}</div>
+                <div>Přihlášen: {user.firstName} {user.lastName}</div>
                 }
                 <Link to="/prihlaseni">Login</Link>
             </div>
@@ -20,7 +20,7 @@ export class HomeRaw extends Component {
 
 const mapStateToProps = (state) => {
     const { userData } = state;
-    console.log(state);
+
     return {
         user: userData.user,
     };
