@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { LOG_IN } from '../actions/user';
+import { ADD_TO_FRIENDS, LOG_IN } from '../actions/user';
 
 // TEMPORARY TEST DATA
 const userInitialState = {
@@ -8,6 +8,7 @@ const userInitialState = {
         firstName: null,
         lastName: null
     },
+    friends: [],
 };
 
 const userReducer = (state = userInitialState, action) => {
@@ -16,6 +17,14 @@ const userReducer = (state = userInitialState, action) => {
         return {
             ...state,
             user: action.payload.user
+        };
+    case ADD_TO_FRIENDS:
+        return {
+            ...state,
+            friends: [
+                ...state.friends,
+                action.payload.userId
+            ]
         };
     default:
         return state;

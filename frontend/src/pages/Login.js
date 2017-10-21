@@ -33,6 +33,7 @@ export class LoginRaw extends Component {
             loginPassword: this.state.loginPassword
         })
             .then((response) => {
+                console.log(response);
                 const { user } = response.data;
                 this.props.logIn(user);
             })

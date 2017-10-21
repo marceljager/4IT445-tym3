@@ -12,7 +12,7 @@ export class HomeRaw extends Component {
                 {user.email &&
                 <div>Přihlášen: {user.firstName} {user.lastName}</div>
                 }
-                <Link to="/prihlaseni">Login</Link>
+                <Link to="/">Login</Link>
             </div>
         );
     }
