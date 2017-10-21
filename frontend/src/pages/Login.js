@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import { API_URL } from '../constants';
+import { logIn } from '../actions/user';
 
-class Login extends Component {
+export class LoginRaw extends Component {
     constructor(props) {
         super(props);
 
@@ -32,6 +35,8 @@ class Login extends Component {
         })
             .then((response) => {
                 console.log(response);
+                const { user } = response.data;
+                this.props.logIn(user);
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
@@ -43,6 +48,7 @@ class Login extends Component {
     render() {
         return (
             <div>
+                <Link to="/">Home</Link>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="login">
                         Email:
@@ -61,4 +67,13 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+    logIn,
+};
+
+export const Login = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginRaw);

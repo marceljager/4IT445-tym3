@@ -2,32 +2,20 @@ import { combineReducers } from 'redux';
 import { LOG_IN } from '../actions/user';
 
 // TEMPORARY TEST DATA
-const shoppingCartInitialState = {
-    items: [
-        {
-            product: {
-                id: 3,
-                title: 'Moped',
-                price: '1 000',
-                shortInfo: ' No comment.'
-            },
-            count: 2
-        },
-    ],
+const userInitialState = {
+    user: {
+        email: null,
+        firstName: null,
+        lastName: null
+    },
 };
 
-const userReducer = (state = shoppingCartInitialState, action) => {
+const userReducer = (state = userInitialState, action) => {
     switch (action.type) {
     case LOG_IN:
         return {
             ...state,
-            items: [
-                ...state.items,
-                {
-                    product: action.payload.product,
-                    count: 1
-                }
-            ]
+            user: action.payload.user
         };
     default:
         return state;
@@ -35,7 +23,7 @@ const userReducer = (state = shoppingCartInitialState, action) => {
 };
 
 const rootReducer = combineReducers({
-    user: userReducer,
+    userData: userReducer,
 });
 
 export default rootReducer;
