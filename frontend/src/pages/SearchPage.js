@@ -22,6 +22,12 @@ class SearchPage extends Component {
         }
     }
 
+    componentWillReceiveProps(props) {
+        if (props.match && props.match.params.searchText) {
+            this.loadData(props.match.params.searchText);
+        }
+    }
+
     loadData(searchText) {
         axios.post(`${API_URL}/search.php`, {
             searchText
