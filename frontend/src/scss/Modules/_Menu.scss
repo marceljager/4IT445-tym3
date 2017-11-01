@@ -4,4 +4,66 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &-navigationItemsContainer {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+    &-navigationItem {
+        height: $menu-height;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+
+        &:first-of-type {
+            padding-left: 0;
+        }
+
+        &:last-of-type {
+            padding-right: 30px;
+        }
+    }
+
+    &-link {
+        height: $menu-height;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-size: 0.875rem;
+        position: relative;
+        overflow: hidden;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: $secondary-color;
+            transform: translateY(2px);
+            transition: all 300ms;
+            box-shadow: 0 0 2px rgba($secondary-color, 0.5);
+            border-radius: 50% 50% 0 0;
+        }
+
+        &:hover {
+            color: black;
+        }
+
+        &:hover:after {
+            transform: translateY(0);
+        }
+    }
+
+    &-link.isActive {
+        &:after {
+            transform: translateY(0);
+        }
+    }
 }
+

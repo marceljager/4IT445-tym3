@@ -1,0 +1,23 @@
+.Link {
+    position: relative;
+    display: inline-block;
+    color: $secondary-color;
+
+    &:after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        left: 0;
+        bottom: 3px;
+        opacity: 0;
+        background: $secondary-color;
+        transition: all 300ms;
+        transform: scale(0);
+    }
+
+    &:hover:after {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

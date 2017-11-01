@@ -29,7 +29,7 @@
 }
 
 .Button--transparent {
-    background: rgba(black, 0.51);
+    background: rgba(black, 0.5);
     border: 2px solid $light-green;
     border-radius: 2px;
 
@@ -47,20 +47,20 @@
 }
 
 .Button--big {
-    padding: 20px;
-
     .Button-text {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+        text-transform: uppercase;
     }
 }
 
 .Button--secondary {
     background: #3475f2;
-    box-shadow: 0 3px 10px rgba(#3475f2, 0.5);
+    box-shadow: 0 3px 10px rgba($secondary-color, 0.5);
 
     &:hover,
     &:focus {
-        background: darken(#3475f2, 10%);
+        background: darken($secondary-color, 10%);
+        color: #fff;
     }
 }
 

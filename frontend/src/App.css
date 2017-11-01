@@ -3185,6 +3185,73 @@ h5,
 h6 {
   color: #3f3f3f; }
 
+.Button {
+  display: inline-block;
+  background: #36dc99;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(54, 220, 153, 0.57);
+  transition: all 300ms ease;
+  border: none;
+  apperance: none;
+  font-size: 0.733rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer; }
+  .Button-text {
+    color: white; }
+  .Button:hover, .Button:focus {
+    outline: none;
+    background: #21be7f;
+    transform: translateY(-1px); }
+  .Button:active {
+    transform: translateY(1px); }
+
+.Button--transparent {
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid #36dc99;
+  border-radius: 2px; }
+  .Button--transparent .Button-text {
+    color: #36dc99; }
+  .Button--transparent:hover {
+    background: #36dc99; }
+    .Button--transparent:hover .Button-text {
+      color: white; }
+
+.Button--big .Button-text {
+  font-size: 1.125rem;
+  text-transform: uppercase; }
+
+.Button--secondary {
+  background: #3475f2;
+  box-shadow: 0 3px 10px rgba(52, 117, 242, 0.5); }
+  .Button--secondary:hover, .Button--secondary:focus {
+    background: #0f58e4;
+    color: #fff; }
+
+.Button--facebook {
+  background: #3b5998;
+  box-shadow: 0 3px 10px rgba(59, 89, 152, 0.5);
+  display: flex;
+  padding: 0;
+  overflow: hidden; }
+  .Button--facebook:hover, .Button--facebook:focus {
+    background: #2d4373; }
+  .Button--facebook .Button-iconContainer {
+    width: 37px;
+    height: 37px;
+    background: #2d4373;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .Button--facebook .Button-icon {
+    fill: #fff;
+    width: 12px;
+    height: 12px;
+    display: block; }
+  .Button--facebook .Button-text {
+    padding: 10px 20px; }
+
 .Header {
   background: url("./img/header.jpg");
   background-size: cover;
@@ -3216,13 +3283,6 @@ h6 {
     width: 50%;
     text-align: left; } }
 
-.Menu {
-  height: 60px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
-
 .Input-label {
   font-size: 0.688rem;
   color: #1f2749;
@@ -3244,72 +3304,111 @@ h6 {
     outline: none;
     border: 1px solid #3475f2; }
 
-.Button {
+.Link {
+  position: relative;
   display: inline-block;
-  background: #36dc99;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(54, 220, 153, 0.57);
-  transition: all 300ms ease;
-  border: none;
-  apperance: none;
-  font-size: 0.733rem;
-  font-weight: bold;
-  color: white;
-  cursor: pointer; }
-  .Button-text {
-    color: white; }
-  .Button:hover, .Button:focus {
-    outline: none;
-    background: #21be7f;
-    transform: translateY(-1px); }
-  .Button:active {
-    transform: translateY(1px); }
+  color: #3475f2; }
+  .Link:after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    left: 0;
+    bottom: 3px;
+    opacity: 0;
+    background: #3475f2;
+    transition: all 300ms;
+    transform: scale(0); }
+  .Link:hover:after {
+    transform: scale(1);
+    opacity: 1; }
 
-.Button--transparent {
-  background: rgba(0, 0, 0, 0.51);
-  border: 2px solid #36dc99;
-  border-radius: 2px; }
-  .Button--transparent .Button-text {
-    color: #36dc99; }
-  .Button--transparent:hover {
-    background: #36dc99; }
-    .Button--transparent:hover .Button-text {
-      color: white; }
-
-.Button--big {
-  padding: 20px; }
-  .Button--big .Button-text {
-    font-size: 1.25rem; }
-
-.Button--secondary {
-  background: #3475f2;
-  box-shadow: 0 3px 10px rgba(52, 117, 242, 0.5); }
-  .Button--secondary:hover, .Button--secondary:focus {
-    background: #0f58e4; }
-
-.Button--facebook {
-  background: #3b5998;
-  box-shadow: 0 3px 10px rgba(59, 89, 152, 0.5);
+.Menu {
+  height: 60px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
   display: flex;
-  padding: 0;
-  overflow: hidden; }
-  .Button--facebook:hover, .Button--facebook:focus {
-    background: #2d4373; }
-  .Button--facebook .Button-iconContainer {
-    width: 37px;
-    height: 37px;
-    background: #2d4373;
+  justify-content: space-between;
+  align-items: center; }
+  .Menu-navigationItemsContainer {
+    padding: 0;
+    margin: 0;
+    list-style-type: none; }
+  .Menu-navigationItem {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px; }
+    .Menu-navigationItem:first-of-type {
+      padding-left: 0; }
+    .Menu-navigationItem:last-of-type {
+      padding-right: 30px; }
+  .Menu-link {
+    height: 60px;
     display: flex;
     justify-content: center;
-    align-items: center; }
-  .Button--facebook .Button-icon {
-    fill: #fff;
-    width: 12px;
-    height: 12px;
-    display: block; }
-  .Button--facebook .Button-text {
-    padding: 10px 20px; }
+    align-items: center;
+    color: black;
+    font-size: 0.875rem;
+    position: relative;
+    overflow: hidden; }
+    .Menu-link:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #3475f2;
+      transform: translateY(2px);
+      transition: all 300ms;
+      box-shadow: 0 0 2px rgba(52, 117, 242, 0.5);
+      border-radius: 50% 50% 0 0; }
+    .Menu-link:hover {
+      color: black; }
+    .Menu-link:hover:after {
+      transform: translateY(0); }
+  .Menu-link.isActive:after {
+    transform: translateY(0); }
+
+.SearchBar {
+  position: relative; }
+  .SearchBar-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 44px;
+    width: 44px;
+    background: transparent;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 300ms; }
+    .SearchBar-button:hover .SearchBar-icon {
+      fill: #0c45b4; }
+  .SearchBar-icon {
+    width: 16px;
+    height: 16px;
+    fill: #3475f2;
+    display: block;
+    transform: translate(-1px, -1px);
+    transition: all 300ms; }
+  .SearchBar-input {
+    background: #fff;
+    border: 1px solid #dcdfe7;
+    border-radius: 5px;
+    color: #3e4150;
+    font-size: 1rem;
+    width: 100%;
+    padding: 0 16px;
+    height: 44px;
+    transition: all 300ms; }
+    .SearchBar-input::placeholder {
+      color: rgba(62, 65, 80, 0.4); }
+    .SearchBar-input:focus, .SearchBar-input:hover {
+      outline: none;
+      border: 1px solid #3475f2; }
 
 .Separator {
   width: 100%;

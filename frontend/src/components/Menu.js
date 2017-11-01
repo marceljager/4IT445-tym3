@@ -11,17 +11,38 @@ export const MenuRaw = (props) => {
 
     return (
         <div className="Menu">
-            <Link to="/timeline" className="Menu-logo">
-                <img src={logo} alt="EatWithMe" />
-            </Link>
-            <div className="Menu-search">
-                <SearchBar />
-            </div>
-            <div className="Menu-right">
-                {user.email
-                    ? <div>{user.firstName} {user.lastName}</div>
-                    : <Link to="/">Přihlásit se</Link>
-                }
+            <div className="container">
+                <div className="row">
+                    <div className="col-5 d-flex justify-content-between align-items-center">
+                        <Link to="/timeline" className="Menu-logo">
+                            <img src={logo} alt="EatWithMe" />
+                        </Link>
+                        <SearchBar />
+                    </div>
+                    <div className="col-7 d-flex align-items-center justify-content-end">
+                        {!user.email &&
+                            <ul className="Menu-navigationItemsContainer d-flex">
+                                <li className="Menu-navigationItem">
+                                    <Link to="/" className="Menu-link isActive">Nová akce</Link>
+                                </li>
+                                <li className="Menu-navigationItem">
+                                    <Link to="/" className="Menu-link">Akce v okolí</Link>
+                                </li>
+                                <li className="Menu-navigationItem">
+                                    <Link to="/" className="Menu-link">Upozornění</Link>
+                                </li>
+                                <li className="Menu-navigationItem">
+                                    <Link to="/" className="Menu-link">Přátelé</Link>
+                                </li>
+                            </ul>
+                        }
+
+                        {user.email
+                            ? <div>{user.firstName} {user.lastName}</div>
+                            : <Link to="/" className="Button Button--secondary">Přihlásit se</Link>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );
