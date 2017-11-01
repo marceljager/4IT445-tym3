@@ -20,7 +20,7 @@ export const MenuRaw = (props) => {
             <div className="Menu-right">
                 {user.email
                     ? <div>{user.firstName} {user.lastName}</div>
-                    : <Link to="/" className="Button">Přihlásit se</Link>
+                    : <Link to="/">Přihlásit se</Link>
                 }
             </div>
         </div>

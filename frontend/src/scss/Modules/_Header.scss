@@ -1,0 +1,41 @@
+.Header {
+    background: url('./img/header.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+
+    &-overlay {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(white, 0.95);
+    }
+
+    &-content {
+        position: relative;
+        padding: 60px 0 85px;
+        width: 100%;
+        text-align: center;
+        z-index: 5;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .Header {
+        &-overlay {
+            width: 150%;
+            transform-origin: 100% 0;
+            transform: skew(30deg);
+            left: -100%;
+        }
+
+        &-content {
+            width: 50%;
+            text-align: left;
+        }
+    }
+}

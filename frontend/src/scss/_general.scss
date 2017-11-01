@@ -1,0 +1,9 @@
+body {
+    color: $light-grey;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}

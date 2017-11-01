@@ -1,5 +1,17 @@
-@import './Modules/Menu';
 @import 'variables';
+
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/bootstrap-reboot';
+@import '../../node_modules/bootstrap/scss/bootstrap-grid';
+@import '../../node_modules/bootstrap/scss/_utilities';
+@import '../../node_modules/bootstrap/scss/_type';
+
+@import 'general';
+@import 'typography';
+
+@import './Modules/Header';
+@import './Modules/Menu';
+@import './Modules/Button';
 
 body {
     margin: 0;
