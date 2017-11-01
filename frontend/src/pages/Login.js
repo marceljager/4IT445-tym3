@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ReactSVG from 'react-svg';
 
 import { API_URL } from '../constants';
 import { logIn } from '../actions/user';
+
+import FacebookIcon from '../img/icons/facebook.svg';
 
 export class LoginRaw extends Component {
     constructor(props) {
@@ -46,21 +49,37 @@ export class LoginRaw extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="login">
-                        Email:
-                    </label>
-                    <input type="text" id="login" value={this.state.loginEmail} onChange={this.handleLoginChange} />
-
-                    <label htmlFor="password">
-                        Password:
-                    </label>
-                    <input type="password" id="password" value={this.state.loginPassword} onChange={this.handlePasswordChange} />
-
-                    <input type="submit" value="Submit" />
-                </form>
+            <div className="Login">
+                <div className="Login-logo">
+                    Logo
+                </div>
+                <div className="Login-box">
+                    <h3 className="Login-title">Přihlášení</h3>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="Input mb-3">
+                            <label htmlFor="login" className="Input-label">Váš email</label>
+                            <input type="text" id="login" value={this.state.loginEmail} onChange={this.handleLoginChange} className="Input-input" />
+                        </div>
+                        <div className="Input mb-3">
+                            <label htmlFor="password" className="Input-label">Vaše heslo</label>
+                            <input type="password" id="password" value={this.state.loginPassword} onChange={this.handlePasswordChange} className="Input-input" />
+                        </div>
+                        <div className="Login-buttonContainer">
+                            <input type="submit" value="Přihlásit se" className="Button Button--secondary mt-2" />
+                        </div>
+                    </form>
+                    <div className="Separator">
+                        <span className="Separator-text">Nebo se</span>
+                    </div>
+                    <div className="Login-facebookContainer">
+                        <button className="Button Button--facebook">
+                            <div className="Button-iconContainer">
+                                <ReactSVG path={FacebookIcon} callback={svg => console.log(svg)} className="Button-icon" />
+                            </div>
+                            <span className="Button-text">Přihlašte přes Facebook</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

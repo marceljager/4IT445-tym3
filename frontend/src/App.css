@@ -3080,7 +3080,7 @@ h1, h2, h3, h4, h5, h6,
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
-  color: inherit; }
+  color: #1f2749; }
 
 h1, .h1 {
   font-size: 2.5rem; }
@@ -3223,18 +3223,48 @@ h6 {
   justify-content: space-between;
   align-items: center; }
 
+.Input-label {
+  font-size: 0.688rem;
+  color: #1f2749;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 5px; }
+
+.Input-input {
+  background: #fff;
+  border: 1px solid #dcdfe7;
+  border-radius: 5px;
+  color: #3e4150;
+  font-size: 1rem;
+  width: 100%;
+  padding: 0 16px;
+  height: 44px;
+  transition: all 300ms; }
+  .Input-input:focus, .Input-input:hover {
+    outline: none;
+    border: 1px solid #3475f2; }
+
 .Button {
   display: inline-block;
   background: #36dc99;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 5px;
   box-shadow: 0 0 10px rgba(54, 220, 153, 0.57);
-  transition: all 300ms ease; }
+  transition: all 300ms ease;
+  border: none;
+  apperance: none;
+  font-size: 0.733rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer; }
   .Button-text {
-    color: white;
-    text-transform: uppercase; }
-  .Button:hover {
-    background: #21be7f; }
+    color: white; }
+  .Button:hover, .Button:focus {
+    outline: none;
+    background: #21be7f;
+    transform: translateY(-1px); }
+  .Button:active {
+    transform: translateY(1px); }
 
 .Button--transparent {
   background: rgba(0, 0, 0, 0.51);
@@ -3252,7 +3282,98 @@ h6 {
   .Button--big .Button-text {
     font-size: 1.25rem; }
 
+.Button--secondary {
+  background: #3475f2;
+  box-shadow: 0 3px 10px rgba(52, 117, 242, 0.5); }
+  .Button--secondary:hover, .Button--secondary:focus {
+    background: #0f58e4; }
+
+.Button--facebook {
+  background: #3b5998;
+  box-shadow: 0 3px 10px rgba(59, 89, 152, 0.5);
+  display: flex;
+  padding: 0;
+  overflow: hidden; }
+  .Button--facebook:hover, .Button--facebook:focus {
+    background: #2d4373; }
+  .Button--facebook .Button-iconContainer {
+    width: 37px;
+    height: 37px;
+    background: #2d4373;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .Button--facebook .Button-icon {
+    fill: #fff;
+    width: 12px;
+    height: 12px;
+    display: block; }
+  .Button--facebook .Button-text {
+    padding: 10px 20px; }
+
+.Separator {
+  width: 100%;
+  height: 1px;
+  background: #dcdfe7;
+  position: relative;
+  margin: 30px 0; }
+  .Separator-text {
+    background: #fff;
+    padding: 0 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+.Login {
+  background-color: #1e2e75;
+  background-image: url("./img/header.jpg");
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; }
+  .Login:after {
+    display: block;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background: rgba(30, 46, 117, 0.5);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0; }
+  .Login-title {
+    color: #1f2749;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 30px; }
+  .Login-logo {
+    width: 100%;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold; }
+  .Login-box {
+    background: #fff;
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    padding: 40px 75px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    z-index: 2; }
+  .Login-buttonContainer {
+    text-align: center; }
+  .Login-facebookContainer {
+    display: flex;
+    justify-content: center; }
+
 body {
   margin: 0;
   padding: 0;
-  font-size: 16px; }
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px; }

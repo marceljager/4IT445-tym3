@@ -1,0 +1,58 @@
+.Login {
+    background-color: #1e2e75;
+    background-image: url('./img/header.jpg');
+    min-height: calc(100vh - #{$menu-height});
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        z-index: 1;
+        background: rgba(#1e2e75, 0.5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    &-title {
+        color: $headings-color;
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &-logo {
+        width: 100%;
+        margin-bottom: 25px;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    &-box {
+        background: #fff;
+        box-shadow: 0 1px 20px 0 rgba(#000, 0.1);
+        border-radius: 3px;
+        padding: 40px 75px;
+        max-width: 500px;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+    }
+
+    &-buttonContainer {
+        text-align: center;
+    }
+
+    &-facebookContainer {
+        display: flex;
+        justify-content: center;
+    }
+}
