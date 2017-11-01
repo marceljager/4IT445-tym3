@@ -1,0 +1,62 @@
+.EventItem {
+    max-width: calc(33% - 10px);
+    box-shadow: 0 0 10px rgba(#000, 0.1);
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+
+    &-image {
+        width: 180px;
+        background-color: darken($secondary-color, 30%);
+        background-position: center;
+        background-size: cover;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    &-textSide {
+        padding: 10px 20px;
+        margin-left: 100px;
+        background: #fff;
+        border-radius: 0 0 0 10%;
+        position: relative;
+        z-index: 2;
+    }
+
+    &-title {
+        font-weight: bold;
+        font-size: 1.125rem;
+        color: $headings-color;
+        display: block;
+    }
+
+    &-place {
+        display: block;
+    }
+
+    &-time {
+        display: block;
+        font-size: 0.875rem;
+    }
+
+    &-date {
+        font-size: 0.875rem;
+    }
+
+    &-badge {
+        background: $secondary-color;
+        color: #fff;
+        padding: 5px 10px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px 0 0 0;
+        font-size: 0.875rem;
+    }
+}

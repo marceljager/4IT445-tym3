@@ -10,6 +10,7 @@
 @import 'typography';
 
 @import './Modules/Button';
+@import './Modules/EventItem';
 @import './Modules/Header';
 @import './Modules/Input';
 @import './Modules/Link';
@@ -26,5 +27,15 @@ body {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     text-shadow: rgba(#000, 0.01) 0 0 1px;
+}
+
+h1 {
+    font-weight: bold;
+    color: $headings-color;
+}
+
+h4 {
+    font-weight: normal;
+    color: $headings-color;
 }
 

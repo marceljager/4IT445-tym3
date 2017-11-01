@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import RecommendedEvents from '../components/RecommendedEvents';
+
 export class HomeRaw extends Component {
     render() {
         /* const { user } = this.props; */
@@ -35,12 +37,21 @@ export class HomeRaw extends Component {
                         </div>
                     </div>
                 </header>
+                <div className="container">
+                    <div className="row">
+                        <div className="col d-flex">
+                            <div className="RecommendedEvents pt-5">
+                                <h4 className="mb-4"><strong>Doporučené</strong> akce</h4>
+                                <RecommendedEvents />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
 
-                <Link to="/" className="Button Button--transparent">
-                    <span className="Button-text">
-                        Přihlásit se
-                    </span>
-                </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

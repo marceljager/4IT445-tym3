@@ -20,7 +20,7 @@ export const MenuRaw = (props) => {
                         <SearchBar />
                     </div>
                     <div className="col-7 d-flex align-items-center justify-content-end">
-                        {!user.email &&
+                        {user.email &&
                             <ul className="Menu-navigationItemsContainer d-flex">
                                 <li className="Menu-navigationItem">
                                     <Link to="/" className="Menu-link isActive">Nová akce</Link>
