@@ -3,6 +3,10 @@
     display: inline-block;
     color: $secondary-color;
 
+    &-highlight {
+        color: $light-green;
+    }
+
     &:after {
         content: '';
         display: block;
