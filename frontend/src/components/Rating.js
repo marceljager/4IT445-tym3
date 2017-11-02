@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
 
 import RatingItem from './RatingItem';
-
-import RatingIcon from '../img/icons/rating.svg';
 
 const filled = (<span className="Rating-positive" />);
 const empty = (<span className="Rating-neutral" />);
@@ -28,8 +25,10 @@ const Rating = (props) => {
 
     return (
         <div className="Rating">
-            <ReactSVG path={RatingIcon} className="" />
             {ratingStars}
+            <div className="Rating-number">
+                ({props.number})
+            </div>
         </div>
     );
 };

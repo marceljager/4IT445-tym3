@@ -37,7 +37,9 @@ const EventItem = (props) => {
                 <span className="EventItem-title">{eventInfo.title}</span>
                 <div className="EventItem-place">
                     {eventInfo.place}
-                    <Rating rating={eventInfo.rating} />
+                </div>
+                <div className="EventItem-rating">
+                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
                 </div>
                 <span className="EventItem-time">{eventInfo.time}</span>
                 <span className="EventItem-time">{eventInfo.date}</span>

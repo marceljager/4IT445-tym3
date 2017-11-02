@@ -1,16 +1,18 @@
 .Rating {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
 
     &-item {
-        width: 38px;
-        height: 48px;
+        width: 16px;
+        height: 16px;
         display: inline-flex;
-        margin-right: 5px;
-        clip-path: url(#clip-path);
+        margin-right: 1px;
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        // clip-path: url(./img/icons/rating.svg#clip);
 
         span {
             display: inline-flex;
-            width: 50px;
+            width: 50%;
         }
     }
 
@@ -20,5 +22,11 @@
 
     &-neutral {
         background: #dcdfe7;
+    }
+
+    &-number {
+        font-size: 0.875rem;
+        margin-left: 10px;
+        color: $text-color;
     }
 }
