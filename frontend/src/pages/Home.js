@@ -32,7 +32,7 @@ export class HomeRaw extends Component {
 
                             <div className="mt-2">
                                 <p>
-                                    nebo <Link to="/" className="Link">vytvoř novou akci</Link>
+                                    nebo <Link to="/nova-udalost/krok-1" className="Link">vytvoř novou akci</Link>
                                 </p>
                             </div>
                         </div>

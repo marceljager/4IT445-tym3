@@ -1,0 +1,28 @@
+.NewEvent {
+    &-head {
+        padding: 30px 0;
+        background: $light-grey;
+        color: black;
+    }
+
+    &-content {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    &-title {
+        display: block;
+        font-size: 1.25rem;
+        color: $headings-color;
+    }
+
+    &-userPhoto {
+        display: inline-block;
+        background: $secondary-color;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 15px;
+        vertical-align: middle;
+    }
+}
