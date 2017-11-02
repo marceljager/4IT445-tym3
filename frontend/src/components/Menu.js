@@ -1,46 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ReactSVG from 'react-svg';
 
 import SearchBar from '../components/SearchBar';
 
-const logo = '';
+import LogoImg from '../img/logo.svg';
 
 export const MenuRaw = (props) => {
-    const { user } = props;
+    const { user, location } = props;
+    const MenuClass = `Menu ${location.pathname && location.pathname === '/' ? 'isHidden' : ''}`;
 
     return (
-        <div className="Menu">
-            <div className="container">
-                <div className="row">
-                    <div className="col-5 d-flex justify-content-between align-items-center">
-                        <Link to="/timeline" className="Menu-logo">
-                            <img src={logo} alt="EatWithMe" />
-                        </Link>
-                        <SearchBar />
-                    </div>
-                    <div className="col-7 d-flex align-items-center justify-content-end">
-                        {user.email &&
-                            <ul className="Menu-navigationItemsContainer d-flex">
-                                <li className="Menu-navigationItem">
-                                    <Link to="/" className="Menu-link isActive">Nová akce</Link>
-                                </li>
-                                <li className="Menu-navigationItem">
-                                    <Link to="/" className="Menu-link">Akce v okolí</Link>
-                                </li>
-                                <li className="Menu-navigationItem">
-                                    <Link to="/" className="Menu-link">Upozornění</Link>
-                                </li>
-                                <li className="Menu-navigationItem">
-                                    <Link to="/" className="Menu-link">Přátelé</Link>
-                                </li>
-                            </ul>
-                        }
+        <div className={MenuClass}>
+            <div className="Menu-fixed">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-5 d-flex align-items-center">
+                            <Link to="/timeline" className="Menu-logo">
+                                <ReactSVG path={LogoImg} className="Menu-logoIcon" />
+                            </Link>
+                            <SearchBar />
+                        </div>
+                        <div className="col-7 d-flex align-items-center justify-content-end">
+                            {user.email &&
+                                <div class="Menu-user">{user.firstName}</div>
+                            }
 
-                        {user.email
-                            ? <div>{user.firstName} {user.lastName}</div>
-                            : <Link to="/" className="Button Button--secondary">Přihlásit se</Link>
-                        }
+                            {user.email &&
+                                <ul className="Menu-navigationItemsContainer d-flex">
+                                    <li className="Menu-navigationItem">
+                                        <Link to="/" className="Menu-link isActive">Nová akce</Link>
+                                    </li>
+                                    <li className="Menu-navigationItem">
+                                        <Link to="/" className="Menu-link">Akce v okolí</Link>
+                                    </li>
+                                    <li className="Menu-navigationItem">
+                                        <Link to="/" className="Menu-link">Upozornění</Link>
+                                    </li>
+                                    <li className="Menu-navigationItem">
+                                        <Link to="/" className="Menu-link">Přátelé</Link>
+                                    </li>
+                                </ul>
+                            }
+
+                            {!user.email &&
+                                <Link to="/" className="Button Button--secondary">Přihlásit se</Link>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

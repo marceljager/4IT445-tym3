@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import RecommendedEvents from '../components/RecommendedEvents';
+import TodayEvents from '../components/TodayEvents';
 
 export class HomeRaw extends Component {
     render() {
@@ -37,18 +38,23 @@ export class HomeRaw extends Component {
                         </div>
                     </div>
                 </header>
-                <div className="container">
+                <div className="container mb-5">
                     <div className="row">
-                        <div className="col d-flex">
-                            <div className="RecommendedEvents pt-5">
-                                <h4 className="mb-4"><strong>Doporučené</strong> akce</h4>
-                                <RecommendedEvents />
-                            </div>
+                        <div className="col d-flex flex-column pt-5">
+                            <h4 className="mb-4"><strong>Doporučené</strong> akce</h4>
+                            <RecommendedEvents />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
-
+                    <div className="row mt-5">
+                        <div className="col-8">
+                            <h4 className="mb-4"><strong>Dnes</strong> na programu</h4>
+                            <TodayEvents />
+                        </div>
+                        <div className="col-4">
+                            <h6 className="mt-4">Vyhledat</h6>
+                            <div className="Input">
+                                <input type="text" className="Input-input" title="Vyhledat" placeholder="Najít restauraci nebo akci" />
+                            </div>
                         </div>
                     </div>
                 </div>

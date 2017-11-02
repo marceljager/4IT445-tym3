@@ -56,6 +56,7 @@
 .Button--secondary {
     background: #3475f2;
     box-shadow: 0 3px 10px rgba($secondary-color, 0.5);
+    box-shadow: none;
 
     &:hover,
     &:focus {

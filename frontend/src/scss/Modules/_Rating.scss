@@ -1,0 +1,24 @@
+.Rating {
+    display: flex;
+
+    &-item {
+        width: 38px;
+        height: 48px;
+        display: inline-flex;
+        margin-right: 5px;
+        clip-path: url(#clip-path);
+
+        span {
+            display: inline-flex;
+            width: 50px;
+        }
+    }
+
+    &-positive {
+        background: #27cf7b;
+    }
+
+    &-neutral {
+        background: #dcdfe7;
+    }
+}

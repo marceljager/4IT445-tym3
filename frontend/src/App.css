@@ -3224,7 +3224,8 @@ h6 {
 
 .Button--secondary {
   background: #3475f2;
-  box-shadow: 0 3px 10px rgba(52, 117, 242, 0.5); }
+  box-shadow: 0 3px 10px rgba(52, 117, 242, 0.5);
+  box-shadow: none; }
   .Button--secondary:hover, .Button--secondary:focus {
     background: #0f58e4;
     color: #fff; }
@@ -3253,12 +3254,13 @@ h6 {
     padding: 10px 20px; }
 
 .EventItem {
-  max-width: calc(33% - 10px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   border-radius: 5px;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  margin-bottom: 10px; }
   .EventItem-image {
     width: 180px;
     background-color: #083385;
@@ -3269,10 +3271,11 @@ h6 {
     top: 0;
     bottom: 0; }
   .EventItem-textSide {
+    width: 100%;
     padding: 10px 20px;
     margin-left: 100px;
     background: #fff;
-    border-radius: 0 0 0 10%;
+    border-radius: 0 0 0 20px;
     position: relative;
     z-index: 2; }
   .EventItem-title {
@@ -3300,12 +3303,19 @@ h6 {
     border-radius: 5px 0 0 0;
     font-size: 0.875rem; }
 
+.EventItem--compact {
+  max-width: calc(33% - 10px);
+  margin: 0; }
+
 .Header {
   background: url("./img/header.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  color: #fff; }
+  .Header h1 {
+    color: #fff; }
   .Header-overlay {
     content: '';
     position: absolute;
@@ -3313,7 +3323,7 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.95); }
+    background: rgba(31, 39, 73, 0.95); }
   .Header-content {
     position: relative;
     padding: 60px 0 85px;
@@ -3331,26 +3341,30 @@ h6 {
     width: 50%;
     text-align: left; } }
 
-.Input-label {
-  font-size: 0.688rem;
-  color: #1f2749;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 5px; }
-
-.Input-input {
-  background: #fff;
-  border: 1px solid #dcdfe7;
-  border-radius: 5px;
-  color: #3e4150;
-  font-size: 1rem;
-  width: 100%;
-  padding: 0 16px;
-  height: 44px;
-  transition: all 300ms; }
-  .Input-input:focus, .Input-input:hover {
-    outline: none;
-    border: 1px solid #3475f2; }
+.Input {
+  width: 100%; }
+  .Input-label {
+    font-size: 0.688rem;
+    color: #1f2749;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px; }
+  .Input-input {
+    background: #fff;
+    border: 1px solid #dcdfe7;
+    border-radius: 5px;
+    color: #3e4150;
+    font-size: 1rem;
+    width: 100%;
+    padding: 0 16px;
+    height: 44px;
+    transition: all 300ms; }
+    .Input-input::placeholder {
+      color: rgba(62, 65, 80, 0.4); }
+    .Input-input:focus, .Input-input:hover {
+      outline: none;
+      border: 1px solid #3475f2;
+      color: #3475f2; }
 
 .Link {
   position: relative;
@@ -3373,12 +3387,9 @@ h6 {
 
 .Menu {
   height: 60px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: relative;
-  z-index: 10; }
+  z-index: 10;
+  transition: all 300ms; }
   .Menu-navigationItemsContainer {
     padding: 0;
     margin: 0;
@@ -3387,9 +3398,9 @@ h6 {
     height: 60px;
     display: flex;
     align-items: center;
-    padding: 0 15px; }
+    padding: 0 10px; }
     .Menu-navigationItem:first-of-type {
-      padding-left: 0; }
+      padding-left: 50px; }
     .Menu-navigationItem:last-of-type {
       padding-right: 30px; }
   .Menu-link {
@@ -3397,7 +3408,8 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: white;
+    font-weight: 600;
     font-size: 0.875rem;
     position: relative;
     overflow: hidden; }
@@ -3415,20 +3427,62 @@ h6 {
       box-shadow: 0 0 2px rgba(52, 117, 242, 0.5);
       border-radius: 50% 50% 0 0; }
     .Menu-link:hover {
-      color: black; }
+      color: white; }
     .Menu-link:hover:after {
       transform: translateY(0); }
   .Menu-link.isActive:after {
     transform: translateY(0); }
+  .Menu-logo {
+    margin-right: 20px; }
+  .Menu-logoIcon {
+    width: 30px;
+    height: 30px;
+    display: block; }
+  .Menu-user {
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: bold; }
+  .Menu-fixed {
+    height: 60px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0E1739; }
+  .Menu:not(.isHidden) .Menu-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0; }
+  .Menu.isHidden {
+    margin-top: -60px; }
+
+.Rating {
+  display: flex; }
+  .Rating-item {
+    width: 38px;
+    height: 48px;
+    display: inline-flex;
+    margin-right: 5px;
+    clip-path: url(#clip-path); }
+    .Rating-item span {
+      display: inline-flex;
+      width: 50px; }
+  .Rating-positive {
+    background: #27cf7b; }
+  .Rating-neutral {
+    background: #dcdfe7; }
 
 .SearchBar {
-  position: relative; }
+  position: relative;
+  max-width: 300px;
+  width: 100%; }
   .SearchBar-button {
     position: absolute;
     top: 0;
     right: 0;
-    height: 44px;
-    width: 44px;
+    height: 30px;
+    width: 30px;
     background: transparent;
     border-radius: 100%;
     display: flex;
@@ -3452,13 +3506,14 @@ h6 {
     font-size: 1rem;
     width: 100%;
     padding: 0 16px;
-    height: 44px;
+    height: 30px;
     transition: all 300ms; }
     .SearchBar-input::placeholder {
       color: rgba(62, 65, 80, 0.4); }
     .SearchBar-input:focus, .SearchBar-input:hover {
       outline: none;
-      border: 1px solid #3475f2; }
+      border: 1px solid #3475f2;
+      color: #3475f2; }
 
 .Separator {
   width: 100%;
@@ -3477,7 +3532,7 @@ h6 {
 .Login {
   background-color: #1e2e75;
   background-image: url("./img/header.jpg");
-  min-height: calc(100vh - 60px);
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -3504,7 +3559,12 @@ h6 {
     margin-bottom: 25px;
     text-align: center;
     color: #fff;
-    font-weight: bold; }
+    font-weight: bold;
+    position: relative;
+    z-index: 2; }
+  .Login-logoImage {
+    width: 30px;
+    height: 30px; }
   .Login-box {
     background: #fff;
     box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.1);
@@ -3520,6 +3580,45 @@ h6 {
     display: flex;
     justify-content: center; }
 
+.ParticipationBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; }
+
+.RestaurantInfo-avatarsContainer {
+  margin: 0 -5px; }
+
+.RestaurantInfo-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: inline-flex;
+  margin: 0 5px; }
+  .RestaurantInfo-avatar img {
+    width: 100%; }
+
+.EventDetail-title {
+  color: #1f2749;
+  font-weight: bold;
+  font-size: 3rem; }
+
+.EventDetail-mainImageContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+.EventDetail-textSide {
+  background: #fff;
+  min-height: calc(100vh - 60px);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1); }
+
 body {
   margin: 0;
   padding: 0;
@@ -3533,4 +3632,8 @@ h1 {
 
 h4 {
   font-weight: normal;
+  color: #1f2749; }
+
+h6 {
+  font-size: 1rem;
   color: #1f2749; }
