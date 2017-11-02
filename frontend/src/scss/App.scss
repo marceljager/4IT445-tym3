@@ -15,11 +15,13 @@
 @import './Modules/Input';
 @import './Modules/Link';
 @import './Modules/Menu';
+@import './Modules/Rating';
 @import './Modules/SearchBar';
 @import './Modules/Separator';
 
 // Pages
 @import './Login/Login';
+@import './EventDetail/EventDetail';
 
 body {
     margin: 0;
@@ -36,6 +38,11 @@ h1 {
 
 h4 {
     font-weight: normal;
+    color: $headings-color;
+}
+
+h6 {
+    font-size: 1rem;
     color: $headings-color;
 }
 

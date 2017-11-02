@@ -24,7 +24,7 @@ class SearchBar extends Component {
             <div className="SearchBar">
                 <input type="text" value={this.state.searchValue} onChange={this.handleSearchValueChange} className="SearchBar-input" placeholder="Hledat" />
                 <Link to={`/hledat/${this.state.searchValue}`} className="SearchBar-button" >
-                    <ReactSVG path={SearchIcon} callback={svg => console.log(svg)} className="SearchBar-icon" />
+                    <ReactSVG path={SearchIcon} className="SearchBar-icon" />
                 </Link>
             </div>
         );

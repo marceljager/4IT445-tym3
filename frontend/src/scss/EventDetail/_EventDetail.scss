@@ -1,0 +1,27 @@
+@import './Modules/ParticipationBar';
+@import './Modules/RestaurantInfo';
+
+.EventDetail {
+    &-title {
+        color: $headings-color;
+        font-weight: bold;
+        font-size: 3rem;
+    }
+
+    &-mainImageContainer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 50%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    &-textSide {
+        background: #fff;
+        min-height: calc(100vh - #{$menu-height});
+        box-shadow: -10px 0 10px rgba(#000, 0.1);
+    }
+}

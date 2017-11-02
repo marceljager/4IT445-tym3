@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
+import { Link } from 'react-router-dom';
 
 import { API_URL } from '../constants';
 import { logIn } from '../actions/user';
 
 import FacebookIcon from '../img/icons/facebook.svg';
+import Logo from '../img/logo.svg';
 
 export class LoginRaw extends Component {
     constructor(props) {
@@ -50,9 +52,9 @@ export class LoginRaw extends Component {
     render() {
         return (
             <div className="Login">
-                <div className="Login-logo">
-                    Logo
-                </div>
+                <Link to="/timeline" className="Login-logo">
+                    <ReactSVG path={Logo} className="Login-logoImage" />
+                </Link>
                 <div className="Login-box">
                     <h3 className="Login-title">Přihlášení</h3>
                     <form onSubmit={this.handleSubmit}>
@@ -74,7 +76,7 @@ export class LoginRaw extends Component {
                     <div className="Login-facebookContainer">
                         <button className="Button Button--facebook">
                             <div className="Button-iconContainer">
-                                <ReactSVG path={FacebookIcon} callback={svg => console.log(svg)} className="Button-icon" />
+                                <ReactSVG path={FacebookIcon} className="Button-icon" />
                             </div>
                             <span className="Button-text">Přihlašte přes Facebook</span>
                         </button>
