@@ -10,8 +10,8 @@ const Rating = (props) => {
 
     const ratingStars = [];
     let halfGroup = [];
-    for (let i = 1; i <= 10; i += 1) {
-        if (i < ratingDoubled) {
+    for (let i = 1; i <= 11; i += 1) {
+        if (i <= ratingDoubled) {
             halfGroup.push(filled);
         } else {
             halfGroup.push(empty);

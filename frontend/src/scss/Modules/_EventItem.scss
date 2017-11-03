@@ -1,11 +1,12 @@
 .EventItem {
     width: 100%;
-    box-shadow: 0 10px 10px rgba(#000, 0.1);
     display: flex;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
     margin-bottom: 10px;
+    color: $text-color;
+    box-shadow: 0 10px 10px rgba(#000, 0.1);
 
     &-image {
         width: 180px;
@@ -21,9 +22,8 @@
     &-textSide {
         width: 100%;
         padding: 10px 20px;
-        margin-left: 100px;
+        margin-left: 200px;
         background: #fff;
-        border-radius: 0 0 0 20px;
         position: relative;
         z-index: 2;
     }
@@ -66,4 +66,9 @@
 .EventItem--compact {
     max-width: calc(33% - 10px);
     margin: 0;
+
+    .EventItem-textSide {
+        border-radius: 0 0 0 20px;
+        margin-left: 100px;
+    }
 }

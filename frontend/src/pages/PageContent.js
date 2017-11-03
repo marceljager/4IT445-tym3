@@ -9,6 +9,7 @@ import { Step1 } from './CreateEvent/Step1';
 import { Step2 } from './CreateEvent/Step2';
 import { Step3 } from './CreateEvent/Step3';
 import EventDetail from './EventDetail';
+import EventsAround from './EventsAround';
 
 const PageContent = () => (
     <div className="PageContent">
@@ -20,6 +21,7 @@ const PageContent = () => (
         <Route path="/nova-udalost/krok-1" component={Step1} />
         <Route path="/nova-udalost/krok-2" component={Step2} />
         <Route path="/nova-udalost/krok-3" component={Step3} />
+        <Route path="/akce-v-okoli" component={EventsAround} />
     </div>
 );
 

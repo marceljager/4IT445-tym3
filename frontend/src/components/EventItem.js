@@ -12,7 +12,7 @@ const EventItem = (props) => {
 
     if (itemType === 'compact') {
         return (
-            <div className="EventItem EventItem--compact">
+            <Link to="/detail-restaurace" className="EventItem EventItem--compact">
                 <div className="EventItem-image" style={itemStyle} />
                 <div className="EventItem-textSide">
                     <span className="EventItem-title">{eventInfo.title}</span>
@@ -26,7 +26,7 @@ const EventItem = (props) => {
                         }
                     </div>
                 </div>
-            </div>
+            </Link>
         );
     }
 

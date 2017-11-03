@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Rating from '../components/Rating';
+
 class EventDetail extends Component {
     render() {
         const mainImage = {
@@ -24,6 +26,7 @@ class EventDetail extends Component {
                     </div>
                     <div className="col-7 EventDetail-textSide p-5">
                         <h2 className="EventDetail-title mb-4">Slavnostní otevření restaurace Marjánka</h2>
+                        <Rating rating={4.5} number={12} />
                         <div className="EventDetail-date"><strong>Sobota</strong> 14. listopadu</div>
                         <div className="EventDetail-time">v 17 hodin</div>
 

@@ -47,8 +47,14 @@ export class HomeRaw extends Component {
                     </div>
                     <div className="row mt-5">
                         <div className="col-8">
-                            <h4 className="mb-4"><strong>Dnes</strong> na programu</h4>
-                            <TodayEvents />
+                            <div className="row">
+                                <h4 className="my-4"><strong>Dnes</strong> na programu</h4>
+                                <TodayEvents />
+                            </div>
+                            <div className="row">
+                                <h4 className="my-4"><strong>Zítřejší</strong> akce</h4>
+                                <TodayEvents />
+                            </div>
                         </div>
                         <div className="col-4">
                             <h6 className="mt-4">Vyhledat</h6>

@@ -24,7 +24,7 @@ export const MenuRaw = (props) => {
                         </div>
                         <div className="col-7 d-flex align-items-center justify-content-end">
                             {user.email &&
-                                <div class="Menu-user">{user.firstName}</div>
+                                <div className="Menu-user">{user.firstName}</div>
                             }
 
                             {user.email &&
@@ -33,7 +33,7 @@ export const MenuRaw = (props) => {
                                         <Link to="/" className="Menu-link isActive">Nová akce</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
-                                        <Link to="/" className="Menu-link">Akce v okolí</Link>
+                                        <Link to="/akce-v-okoli" className="Menu-link">Akce v okolí</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
                                         <Link to="/" className="Menu-link">Upozornění</Link>
