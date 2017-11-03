@@ -8,15 +8,8 @@ import TodayEvents from '../components/TodayEvents';
 export class HomeRaw extends Component {
     render() {
         /* const { user } = this.props; */
-
         return (
             <div>
-                {/* <h1>Home</h1> */}
-                {/* {user.email && */}
-                {/* <div>Přihlášen: {user.firstName} {user.lastName}</div> */}
-                {/* } */}
-                {/* <Link to="/">Login</Link> */}
-
                 <header className="Header">
                     <div className="Header-overlay"></div>
                     <div className="container">

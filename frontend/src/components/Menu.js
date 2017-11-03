@@ -24,7 +24,12 @@ export const MenuRaw = (props) => {
                         </div>
                         <div className="col-7 d-flex align-items-center justify-content-end">
                             {user.email &&
-                                <div className="Menu-user">{user.firstName}</div>
+                                <div>
+                                    {user.picture &&
+                                        <img className="Menu-userPhoto" src={user.picture} alt="user picture"/>
+                                    }
+                                    <div className="Menu-user">{user.name}</div>
+                                </div>
                             }
 
                             {user.email &&
