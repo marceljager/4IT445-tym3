@@ -1,0 +1,25 @@
+{
+	"events": [
+    {
+      "id": 1,
+      "name": "Párky u Márky",
+      "desc": "parkovna",
+			"image": "https://images.pexels.com/photos/428339/pexels-photo-428339.jpeg",
+			"date": "12.1.2017"
+    },
+    {
+      "id": 2,
+      "name": "Polífka",
+      "desc": "hnusna",
+			"image": "https://images.pexels.com/photos/423364/pexels-photo-423364.jpeg",
+			"date": "5.5.2017"
+    },
+		{
+      "id": 3,
+      "name": "Mirkovo překvapení",
+      "desc": "hnusna",
+			"image": "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg",
+			"date": "2.11.2017"
+    }
+  ]
+}
