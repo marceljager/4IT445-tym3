@@ -26,9 +26,11 @@ const Rating = (props) => {
     return (
         <div className="Rating">
             {ratingStars}
-            <div className="Rating-number">
-                ({props.number})
-            </div>
+            {props.number &&
+                <div className="Rating-number">
+                    ({props.number})
+                </div>
+            }
         </div>
     );
 };

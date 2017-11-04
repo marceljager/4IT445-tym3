@@ -28,7 +28,7 @@ const events = [
     },{
         title: 'Speeddating pro všechny svobodné',
         place: 'Cukr káva limonáda',
-        rating: 4.5,
+        rating: 4.25,
         numberOfRatings: 23,
         time: '21:00',
         date: '1. listopad',
