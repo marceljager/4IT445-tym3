@@ -49,30 +49,28 @@ const Timeline = () => {
     const items = notificationsObject.map(notification => <Notification item={notification} />);
 
     return (
-        <div className="PageContent--background">
-            <div className="container mb-5">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-9">
-                        <div className="row mt-5">
-                            <div className="col-8">
-                                <div className="row">
-                                    <h4 className="my-4"><strong>Dnes</strong> na programu</h4>
-                                    <TodayEvents />
-                                </div>
-                                <div className="row">
-                                    <h4 className="my-4"><strong>Zítřejší</strong> akce</h4>
-                                    <TodayEvents />
-                                </div>
+        <div className="container mb-5">
+            <div className="row d-flex justify-content-center">
+                <div className="col-9">
+                    <div className="row mt-5">
+                        <div className="col-8">
+                            <div className="row">
+                                <h4 className="my-4"><strong>Dnes</strong> na programu</h4>
+                                <TodayEvents />
                             </div>
-                            <div className="col-4">
-                                <div className="Notifications">
-                                    <div className="Notifications-header">
-                                        <span className="Notifications-title">Co se děje (2)</span>
-                                        <button className="Link">Přečteno</button>
-                                    </div>
-                                    <div className="Notifications-itemsContainer">
-                                        {items}
-                                    </div>
+                            <div className="row">
+                                <h4 className="my-4"><strong>Zítřejší</strong> akce</h4>
+                                <TodayEvents />
+                            </div>
+                        </div>
+                        <div className="col-4">
+                            <div className="Notifications">
+                                <div className="Notifications-header">
+                                    <span className="Notifications-title">Co se děje (2)</span>
+                                    <button className="Link">Přečteno</button>
+                                </div>
+                                <div className="Notifications-itemsContainer">
+                                    {items}
                                 </div>
                             </div>
                         </div>
