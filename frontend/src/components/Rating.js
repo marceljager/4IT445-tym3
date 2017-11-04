@@ -18,7 +18,7 @@ const Rating = (props) => {
         }
 
         if (i % 2 === 0) {
-            ratingStars.push(<RatingItem item={halfGroup} />);
+            ratingStars.push(<RatingItem key={i} item={halfGroup} />);
             halfGroup = [];
         }
     }
@@ -28,7 +28,7 @@ const Rating = (props) => {
             {ratingStars}
             {props.number &&
                 <div className="Rating-number">
-                    ({props.number})
+                    <span className="Link">{props.number} hodnocení</span>
                 </div>
             }
         </div>

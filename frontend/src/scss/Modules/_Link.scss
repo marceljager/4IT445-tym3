@@ -4,6 +4,8 @@
     color: $secondary-color;
     background: transparent;
     border: none;
+    cursor: pointer;
+    white-space: nowrap;
 
     &-highlight {
         color: $light-green;

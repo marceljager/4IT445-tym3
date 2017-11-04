@@ -42,7 +42,7 @@ class UserProfile extends Component {
             <div>
                 <h1>User profile</h1>
                 {user
-                    ? <div>{user.firstName} {user.lastName}<AddToFriendsButton id={user.id} /></div>
+                    ? <div>{user.name}<AddToFriendsButton id={user.id} /></div>
                     : <div>user not found</div>
                 }
             </div>

@@ -17,7 +17,7 @@ export const MenuRaw = (props) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-5 d-flex align-items-center">
-                            <Link to="/timeline" className="Menu-logo">
+                            <Link to="/landing" className="Menu-logo">
                                 <ReactSVG path={LogoImg} className="Menu-logoIcon" />
                             </Link>
                             <SearchBar />
@@ -33,7 +33,7 @@ export const MenuRaw = (props) => {
                                         <Link to="/" className="Menu-link isActive">Nová akce</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
-                                        <Link to="/akce-v-okoli" className="Menu-link">Akce v okolí</Link>
+                                        <Link to="/timeline" className="Menu-link">Akce v okolí</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
                                         <Link to="/" className="Menu-link">Upozornění</Link>

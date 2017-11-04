@@ -52,7 +52,7 @@ export class LoginRaw extends Component {
     render() {
         return (
             <div className="Login">
-                <Link to="/timeline" className="Login-logo">
+                <Link to="/landing" className="Login-logo">
                     <ReactSVG path={Logo} className="Login-logoImage" />
                 </Link>
                 <div className="Login-box">

@@ -100,3 +100,20 @@
         padding: 10px 20px;
     }
 }
+
+.Button--wide {
+    min-width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.Button--red {
+    background: #D0021B;
+    box-shadow: 0 3px 10px rgba(#D0021B, 0.5);
+    color: #fff !important;
+
+    &:hover,
+    &:focus {
+        background: darken(#D0021B, 10%);
+    }
+}

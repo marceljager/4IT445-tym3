@@ -24,4 +24,14 @@
         min-height: calc(100vh - #{$menu-height});
         box-shadow: -10px 0 10px rgba(#000, 0.1);
     }
+
+    &-calendar {
+        position: fixed;
+        z-index: 10;
+        margin-top: 40px;
+    }
+
+    &-about {
+        font-size: 0.875rem;
+    }
 }
