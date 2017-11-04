@@ -9,7 +9,7 @@ import LogoImg from '../img/logo.svg';
 
 export const MenuRaw = (props) => {
     const { user, location } = props;
-    const MenuClass = `Menu ${location.pathname && location.pathname === '/' ? 'isHidden' : ''}`;
+    const MenuClass = `Menu ${location.pathname === '/' ? 'isHidden' : ''}`;
 
     return (
         <div className={MenuClass}>
@@ -24,9 +24,11 @@ export const MenuRaw = (props) => {
                         </div>
                         <div className="col-7 d-flex align-items-center justify-content-end">
                             {user.email &&
-                                <div>
+                                <div className="d-flex align-items-center">
                                     {user.picture &&
-                                        <img className="Menu-userPhoto" src={user.picture} alt="user picture"/>
+                                        <div className="Avatar">
+                                            <img src={`https://graph.facebook.com/${user.picture}/picture`} alt={user.name}/>
+                                        </div>
                                     }
                                     <div className="Menu-user">{user.name}</div>
                                 </div>
@@ -35,16 +37,13 @@ export const MenuRaw = (props) => {
                             {user.email &&
                                 <ul className="Menu-navigationItemsContainer d-flex">
                                     <li className="Menu-navigationItem">
-                                        <Link to="/" className="Menu-link isActive">Nová akce</Link>
+                                        <Link to="/nova-udalost/krok-1" className={`Menu-link ${location.pathname.indexOf('nova-udalost') > 0 ? 'isActive' : ''}`}>Nová akce</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
-                                        <Link to="/timeline" className="Menu-link">Akce v okolí</Link>
+                                        <Link to="/timeline" className={`Menu-link ${location.pathname === '/timeline' ? 'isActive' : ''}`}>Akce v okolí</Link>
                                     </li>
                                     <li className="Menu-navigationItem">
-                                        <Link to="/" className="Menu-link">Upozornění</Link>
-                                    </li>
-                                    <li className="Menu-navigationItem">
-                                        <Link to="/" className="Menu-link">Přátelé</Link>
+                                        <Link to="/friends" className={`Menu-link ${location.pathname === '/friends' ? 'isActive' : ''}`}>Přátelé</Link>
                                     </li>
                                 </ul>
                             }

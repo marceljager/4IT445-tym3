@@ -40,11 +40,12 @@ class UserProfile extends Component {
         const { user } = this.state;
         return (
             <div>
-                <h1>User profile</h1>
-                {user
-                    ? <div>{user.name}<AddToFriendsButton id={user.id} /></div>
-                    : <div>user not found</div>
-                }
+                <h1>User profile -
+                    {user
+                        ? <div>{user.name}<AddToFriendsButton id={user.id} /></div>
+                        : <div>user not found</div>
+                    }
+                </h1>
             </div>
         );
     }

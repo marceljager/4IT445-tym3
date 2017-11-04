@@ -67,13 +67,13 @@ class EventDetail extends Component {
                                         <h6 className="mb-3">Kdo přijde?</h6>
                                         <div className="RestaurantInfo">
                                             <div className="RestaurantInfo-avatarsContainer">
-                                                <div className="RestaurantInfo-avatar">
+                                                <div className="Avatar">
                                                     <img src="https://graph.facebook.com/100001023439070/picture" alt="Marcel Jäger" />
                                                 </div>
-                                                <div className="RestaurantInfo-avatar">
+                                                <div className="Avatar">
                                                     <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek" />
                                                 </div>
-                                                <div className="RestaurantInfo-avatar">
+                                                <div className="Avatar">
                                                     <img src="https://graph.facebook.com/1422340757/picture" alt="Miroslav Horňák" />
                                                 </div>
                                             </div>
