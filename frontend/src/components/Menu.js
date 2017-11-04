@@ -24,9 +24,11 @@ export const MenuRaw = (props) => {
                         </div>
                         <div className="col-7 d-flex align-items-center justify-content-end">
                             {user.email &&
-                                <div>
+                                <div className="d-flex align-items-center">
                                     {user.picture &&
-                                        <img className="Menu-userPhoto" src={user.picture} alt="user picture"/>
+                                        <div className="Avatar">
+                                            <img src={`https://graph.facebook.com/${user.picture}/picture`} alt={user.name}/>
+                                        </div>
                                     }
                                     <div className="Menu-user">{user.name}</div>
                                 </div>

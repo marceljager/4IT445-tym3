@@ -40,6 +40,7 @@ export class LoginRaw extends Component {
         })
             .then((response) => {
                 const { user } = response.data;
+                console.log(user);
                 this.props.logIn(user);
                 this.props.history.push('/timeline');
             })
@@ -51,8 +52,9 @@ export class LoginRaw extends Component {
     };
 
     handleFbSubmit = (response) => {
-        let user = response;
-        user.picture = user.picture.data.url;
+        const user = response;
+        user.picture = user.userID;
+        console.log(user);
         this.props.logIn(user);
         this.props.history.push('/timeline');
     };
@@ -84,7 +86,7 @@ export class LoginRaw extends Component {
                     <div className="Login-facebookContainer">
                         <FacebookLogin
                             appId="816743241749139"
-                            autoLoad={true}
+                            autoLoad={false}
                             fields="name, email, picture"
                             callback={this.handleFbSubmit}
                             cssClass="Button Button--facebook"
