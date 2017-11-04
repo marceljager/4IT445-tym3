@@ -5,8 +5,8 @@ import { ADD_TO_FRIENDS, LOG_IN } from '../actions/user';
 const userInitialState = {
     user: {
         email: null,
-        firstName: null,
-        lastName: null
+        name: null,
+        picture: null
     },
     friends: [],
 };

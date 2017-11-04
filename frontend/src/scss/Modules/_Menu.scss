@@ -76,7 +76,16 @@
         display: block;
     }
 
+    &-userPhoto {
+        display: inline-block;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
     &-user {
+        display: inline-block;
         color: #fff;
         font-size: 0.875rem;
         font-weight: bold;
