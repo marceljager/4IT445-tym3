@@ -6,7 +6,7 @@ import Map from '../components/Map';
 import Calendar from '../components/Calendar';
 
 import { MAPS_URL } from '../constants';
-import Comments from "../components/Comments";
+import Comments from '../components/Comments';
 
 const dateFrom = new Date('2017-12-16T20:15:00+01:00');
 const dateTo = new Date('2017-12-16T21:45:00+01:00');
@@ -27,12 +27,12 @@ const comments = [
         author: 'Roman F.',
         avatar: '1702981537',
         text: 'Registrace je na Roman Fausek. Přijďte prosím včas',
-        date: new Date('2017-11-05T12:45:06+01:00')
+        date: new Date('2017-11-06T12:45:06+01:00')
     },{
         author: 'Mirek H.',
         avatar: '1422340757',
         text: 'Bere někdo trumpetu?',
-        date: new Date('2017-11-05T11:36:45+01:00')
+        date: new Date('2017-11-06T11:36:45+01:00')
     },
 ];
 

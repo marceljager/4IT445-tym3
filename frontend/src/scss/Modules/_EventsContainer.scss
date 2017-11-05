@@ -1,0 +1,30 @@
+.EventsContainer {
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    &-top {
+        width: 100%;
+        height: 50px;
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #EEEFF1;
+        font-size: 0.75rem;
+    }
+
+    &-title {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: $headings-color;
+    }
+}
+
+.EventsContainer--new {
+    padding: 30px 20px;
+}

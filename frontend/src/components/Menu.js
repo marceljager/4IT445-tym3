@@ -9,22 +9,22 @@ import LogoImg from '../img/logo.svg';
 
 const MenuRaw = (props) => {
     const { user, location } = props;
-    const MenuClass = `Menu ${location.pathname === '/' ? 'isHidden' : ''}`;
+    const MenuClass = `Menu ${location.pathname === '/' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
 
     return (
         <div className={MenuClass}>
             <div className="Menu-fixed">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-9">
+                        <div className="col-12">
                             <div className="row">
-                                <div className="col-5 d-flex align-items-center">
-                                    <Link to="/landing" className="Menu-logo">
+                                <div className={`col-5 align-items-center${location.pathname === '/landing' ? ' d-none' : ' d-flex'}`}>
+                                    <Link to={user.email ? '/timeline' : '/landing'} className="Menu-logo">
                                         <ReactSVG path={LogoImg} className="Menu-logoIcon" />
                                     </Link>
                                     <SearchBar />
                                 </div>
-                                <div className="col-7 d-flex align-items-center justify-content-end">
+                                <div className={`d-flex align-items-center justify-content-end${location.pathname === '/landing' ? ' col-12' : ' col-7'}`}>
                                     {user.email &&
                                         <div className="d-flex align-items-center">
                                             {user.picture &&

@@ -12,44 +12,49 @@ const EventItem = (props) => {
 
     if (itemType === 'compact') {
         return (
-            <Link to="/detail-restaurace" className="EventItem EventItem--compact">
-                <div className="EventItem-image" style={itemStyle} />
-                <div className="EventItem-textSide">
-                    <span className="EventItem-title">{eventInfo.title}</span>
-                    <span className="EventItem-place">{eventInfo.place}</span>
-                    <span className="EventItem-time">{eventInfo.time}</span>
-                    <span className="EventItem-time">{eventInfo.date}</span>
-                    <div className="EventItem-badge">
+            <Link to="/detail-akce" className="EventItem EventItem--compact">
+                <span className="EventItem-image" style={itemStyle}>
+                    <span className="EventItem-badge">
                         {eventInfo.private
                             ? 'Soukromá'
                             : 'Veřejná'
                         }
-                    </div>
-                </div>
+                    </span>
+                </span>
+                <span className="EventItem-textSide">
+                    <span className="EventItem-title">{eventInfo.title}</span>
+                    <span className="EventItem-place">
+                        {eventInfo.place}
+                        <span className="EventItem-rating">
+                            <Rating rating={eventInfo.rating} />
+                        </span>
+                    </span>
+                    <span className="EventItem-date">{eventInfo.time}, {eventInfo.date}</span>
+                </span>
             </Link>
         );
     }
 
     return (
-        <Link to="/detail-restaurace" className="EventItem">
-            <div className="EventItem-image" style={itemStyle} />
-            <div className="EventItem-textSide">
-                <span className="EventItem-title">{eventInfo.title}</span>
-                <div className="EventItem-place">
-                    {eventInfo.place}
-                </div>
-                <div className="EventItem-rating">
-                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
-                </div>
-                <span className="EventItem-time">{eventInfo.time}</span>
-                <span className="EventItem-time">{eventInfo.date}</span>
-                <div className="EventItem-badge">
+        <Link to="/detail-akce" className="EventItem">
+            <span className="EventItem-image" style={itemStyle}>
+                <span className="EventItem-badge">
                     {eventInfo.private
                         ? 'Soukromá'
                         : 'Veřejná'
                     }
-                </div>
-            </div>
+                </span>
+            </span>
+            <span className="EventItem-textSide">
+                <span className="EventItem-title">{eventInfo.title}</span>
+                <span className="EventItem-place">
+                    {eventInfo.place}
+                </span>
+                <span className="EventItem-rating">
+                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
+                </span>
+                <span className="EventItem-date">{eventInfo.time}, {eventInfo.date}</span>
+            </span>
         </Link>
     );
 };

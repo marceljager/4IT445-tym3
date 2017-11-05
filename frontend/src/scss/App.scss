@@ -14,6 +14,7 @@
 @import './Modules/Calendar';
 @import './Modules/Comments';
 @import './Modules/EventItem';
+@import './Modules/EventsContainer';
 @import './Modules/Header';
 @import './Modules/Input';
 @import './Modules/Link';
@@ -25,6 +26,7 @@
 @import './Modules/Separator';
 
 // Pages
+@import './Home/Home';
 @import './Login/Login';
 @import './EventDetail/EventDetail';
 @import './NewEvent/NewEvent';

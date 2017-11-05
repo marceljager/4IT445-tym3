@@ -52,12 +52,11 @@ class SearchBar extends Component {
     };
 
     render() {
-        console.log(this.state.searchData);
         let items = [];
 
         if (this.state.searchData.length > 0) {
-            items = this.state.searchData.map(item => (
-                <Link to={`/uzivatel/${item.id}`} className="SearchBar-whispererItem">
+            items = this.state.searchData.map((item, index) => (
+                <Link to={`/uzivatel/${item.id}`} key={index.toString()} className="SearchBar-whispererItem">
                     <div className="Avatar">
                         <img src={`https://graph.facebook.com/${item.photo}/picture`} alt={item.name}/>
                     </div>

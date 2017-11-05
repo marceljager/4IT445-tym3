@@ -15,7 +15,7 @@ const PageContent = () => (
     <div className="PageContent">
         <Route exact path="/" component={Login} />
         <Route path="/landing" component={Home} />
-        <Route path="/detail-restaurace" component={EventDetail} />
+        <Route path="/detail-akce" component={EventDetail} />
         <Route path="/hledat/:searchText" component={SearchPage} />
         <Route path="/uzivatel/:userId" component={UserProfile} />
         <Route path="/nova-udalost/krok-1" component={Step1} />

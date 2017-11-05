@@ -33,14 +33,14 @@
             top: 0;
             width: 2px;
             height: 100%;
-            background: #27CF7B;
+            background: $primary-color;
             transition: all 300ms;
             transform: translateX(-2px) scale(0);
         }
     }
 
     &-item--unread {
-        background: rgba(#27CF7B, 0.2);
+        background: rgba($primary-color, 0.2);
 
         &:after {
             transform: translateX(0) scale(1);

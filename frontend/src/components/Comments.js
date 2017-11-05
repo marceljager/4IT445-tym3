@@ -37,8 +37,8 @@ class CommentsRaw extends Component {
     render() {
         const { user } = this.props;
 
-        const yourComments = this.state.comments.map(comment => (
-            <div className="Comments-item">
+        const yourComments = this.state.comments.map((comment, index) => (
+            <div key={index.toString()} className="Comments-item">
                 <div className="Avatar">
                     <img src={`https://graph.facebook.com/${user.picture}/picture`} alt={user.name} />
                 </div>
@@ -56,8 +56,8 @@ class CommentsRaw extends Component {
             </div>
         ));
 
-        const comments = this.props.data.map(comment => (
-            <div className="Comments-item">
+        const comments = this.props.data.map((comment, index) => (
+            <div key={index.toString()} className="Comments-item">
                 <div className="Avatar">
                     <img src={`https://graph.facebook.com/${comment.avatar}/picture`} alt={comment.author} />
                 </div>

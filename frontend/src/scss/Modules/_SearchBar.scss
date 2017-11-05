@@ -90,7 +90,7 @@
         &:hover,
         &:focus {
             color: $headings-color;
-            background: rgba(#27CF7B, 0.2);
+            background: rgba($primary-color, 0.2);
         }
     }
 

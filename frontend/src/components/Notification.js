@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Rating from './Rating';
 
@@ -57,7 +58,7 @@ const Notification = (props) => {
                 }
                 {item.type === 'invited' &&
                     <div className="Notifications-container">
-                        <button className="Button Button--secondary Button--small">Zobrazit</button>
+                        <Link to="/detail-akce" className="Button Button--secondary Button--small">Zobrazit</Link>
                     </div>
                 }
                 {item.rating &&
