@@ -8,8 +8,8 @@ import Calendar from '../components/Calendar';
 import { MAPS_URL } from '../constants';
 import Comments from "../components/Comments";
 
-const dateFrom = '2017-12-16T20:15:00+0100';
-const dateTo = '2017-12-16T21:45:00+0100';
+const dateFrom = new Date('2017-12-16T20:15:00+01:00');
+const dateTo = new Date('2017-12-16T21:45:00+01:00');
 
 const event = {
     title: 'Slavnostní otevření restaurace Marjánka',
@@ -27,12 +27,12 @@ const comments = [
         author: 'Roman F.',
         avatar: '1702981537',
         text: 'Registrace je na Roman Fausek. Přijďte prosím včas',
-        date: '2017-11-05T12:45:06+0100'
+        date: new Date('2017-11-05T12:45:06+01:00')
     },{
         author: 'Mirek H.',
         avatar: '1422340757',
         text: 'Bere někdo trumpetu?',
-        date: '2017-11-05T11:36:45+0100'
+        date: new Date('2017-11-05T11:36:45+01:00')
     },
 ];
 
