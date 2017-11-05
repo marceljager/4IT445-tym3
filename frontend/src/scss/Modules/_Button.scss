@@ -73,11 +73,31 @@
     box-shadow: 0 3px 10px rgba(#3b5998, 0.5);
     display: flex;
     overflow: hidden;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 47px;
+    position: relative;
 
     &:hover,
     &:focus {
         background: darken(#3b5998, 10%);
+    }
+
+    .Button-iconContainer {
+        width: 37px;
+        height: 37px;
+        background: darken(#3b5998, 10%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .Button-icon {
+        fill: #fff;
+        width: 12px;
+        height: 12px;
+        display: block;
     }
 }
 

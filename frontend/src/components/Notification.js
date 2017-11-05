@@ -38,7 +38,7 @@ const Notification = (props) => {
     }
 
     return (
-        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`}>
+        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`} onMouseOver={() => props.onSetRead(props.index)}>
             <div className="Notifications-avatarContainer">
                 <img src={`./icons/${item.type}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
                 <div className="Notifications-avatar">

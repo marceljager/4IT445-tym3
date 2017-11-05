@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import TodayEvents from '../components/TodayEvents';
 import Notification from '../components/Notification';
@@ -45,40 +45,64 @@ const notificationsObject = [
     }
 ];
 
-const Timeline = () => {
-    const items = notificationsObject.map(notification => <Notification item={notification} />);
+class Timeline extends Component{
+    constructor(props) {
+        super(props);
 
-    return (
-        <div className="container mb-5">
-            <div className="row d-flex justify-content-center">
-                <div className="col-9">
-                    <div className="row mt-5">
-                        <div className="col-8">
-                            <div className="row">
+        this.state = {
+            notifications: notificationsObject
+        };
+    }
+
+    handleReadAllClick = () => {
+        const notifications = this.state.notifications;
+        notifications.map((item) => {
+            item.unread = false;
+        });
+
+        this.setState({ notifications });
+    };
+
+    setRead = (index) => {
+        const notifications = this.state.notifications;
+        notifications[index].unread = false;
+
+        this.setState({ notifications });
+    };
+
+    render() {
+        const items = this.state.notifications.map((notification, index) => <Notification item={notification} index={index} onSetRead={this.setRead} />);
+
+        return (
+            <div className="container mb-5">
+                <div className="row d-flex justify-content-center">
+                    <div className="col-9">
+                        <div className="row mt-5">
+                            <div className="col-8">
                                 <h4 className="my-4"><strong>Dnes</strong> na programu</h4>
                                 <TodayEvents />
-                            </div>
-                            <div className="row">
                                 <h4 className="my-4"><strong>Zítřejší</strong> akce</h4>
                                 <TodayEvents />
                             </div>
-                        </div>
-                        <div className="col-4">
-                            <div className="Notifications">
-                                <div className="Notifications-header">
-                                    <span className="Notifications-title">Co se děje (2)</span>
-                                    <button className="Link">Přečteno</button>
-                                </div>
-                                <div className="Notifications-itemsContainer">
-                                    {items}
+                            <div className="col-4">
+                                <div className="Notifications">
+                                    <div className="Notifications-header">
+                                        <span className="Notifications-title">Co se děje (2)</span>
+                                        <button className="Link" onClick={this.handleReadAllClick}>
+                                            Přečteno
+                                        </button>
+                                    </div>
+                                    <div className="Notifications-itemsContainer">
+                                        {items}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Timeline;

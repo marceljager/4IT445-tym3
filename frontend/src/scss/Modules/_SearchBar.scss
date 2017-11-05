@@ -2,6 +2,7 @@
     position: relative;
     max-width: 300px;
     width: 100%;
+    z-index: 11;
 
     &-inputContainer {
         width: 100%;
@@ -70,6 +71,7 @@
         opacity: 0;
         visibility: hidden;
         transform: translate(0, -50px) scale(0.95);
+        z-index: 100;
     }
 
     &-whisperer.isVisible {

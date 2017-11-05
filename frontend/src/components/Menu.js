@@ -44,14 +44,16 @@ const MenuRaw = (props) => {
                                             <li className="Menu-navigationItem">
                                                 <Link to="/timeline" className={`Menu-link ${location.pathname === '/timeline' ? 'isActive' : ''}`}>Akce v okolí</Link>
                                             </li>
+                                            {/*
                                             <li className="Menu-navigationItem">
                                                 <Link to="/friends" className={`Menu-link ${location.pathname === '/friends' ? 'isActive' : ''}`}>Přátelé</Link>
                                             </li>
+                                            */}
                                         </ul>
                                     }
 
                                     {!user.email &&
-                                        <Link to="/" className="Button Button--secondary">Přihlásit se</Link>
+                                        <Link to="/" className="Button Button--secondary Button--small">Přihlásit se</Link>
                                     }
                                 </div>
                             </div>

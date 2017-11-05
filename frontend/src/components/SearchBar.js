@@ -7,11 +7,6 @@ import SearchIcon from '../img/icons/search.svg';
 
 import { API_URL } from '../constants';
 
-const makeBold = (str, find) => {
-    const re = new RegExp(find, 'g');
-    return str.replace(re, `<b>${find}</b>`);
-}
-
 class SearchBar extends Component {
     constructor(props) {
         super(props);

@@ -90,7 +90,8 @@ export class LoginRaw extends Component {
                             fields="name, email, picture"
                             callback={this.handleFbSubmit}
                             cssClass="Button Button--facebook"
-                            textButton="Přihlašte se přes facebook"
+                            textButton="Přihlašte přes facebook"
+                            icon={<div className="Button-iconContainer"><ReactSVG path={FacebookIcon} className="Button-icon" /></div>}
                         />
                     </div>
                 </div>
