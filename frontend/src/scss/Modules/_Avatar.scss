@@ -5,6 +5,11 @@
     overflow: hidden;
     display: inline-flex;
     margin: 0 5px;
+    justify-content: center;
+    align-items: center;
+    color: $headings-color;
+    background: #EEEFF1;
+    flex-shrink: 0;
 
     img {
         width: 100%;

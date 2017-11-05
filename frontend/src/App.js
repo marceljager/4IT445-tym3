@@ -5,7 +5,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 
 import cs from 'react-intl/locale-data/cs';
 
-import { Menu } from './components/Menu';
+import Menu from './components/Menu';
 import PageContent from './pages/PageContent';
 import configureStore from './store/configureStore';
 

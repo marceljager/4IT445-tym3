@@ -2,6 +2,8 @@
 @import './Modules/RestaurantInfo';
 
 .EventDetail {
+    background: #fff;
+
     &-title {
         color: $headings-color;
         font-weight: bold;
@@ -33,5 +35,10 @@
 
     &-about {
         font-size: 0.875rem;
+    }
+
+    &-avatarsContainer {
+        display: flex;
+        align-items: center;
     }
 }
