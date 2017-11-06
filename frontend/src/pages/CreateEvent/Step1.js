@@ -2,47 +2,88 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Rating from '../../components/Rating';
+
 export class Step1Raw extends Component {
     render() {
         return (
-            <section className="NewEvent">
-                <div>
-                    <div className="NewEvent-head">
-                        <div className="container">
-                            <div className="text-center">
-                                <h1>Vytvoř novou akci</h1>
-                                <p className="NewEvent-headParagraph">a my ti ji pomůžeme zrealizovat</p>
+            <section>
+                <div className="SubHead">
+                    <div className="SubHead-head">
+                        <div className="SubHead-overlay"></div>
+                        <div className="SubHead-content">
+                            <div className="container">
+                                <div className="text-center">
+                                    <h1 className="SubHead-title">Vytvoř novou akci</h1>
+                                    <p className="SubHead-text">a my ti ji pomůžeme zrealizovat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="NewEvent">
+                    <div className="NewEvent-box">
+                        <div className="NewEvent-step">
+                            <b>Krok 1</b> ze 3
+                        </div>
+
+                        <div className="Input">
+                            <label htmlFor="" className="Input-label--big">Kam půjdeme?</label>
+                            <input type="text" className="Input-input"/>
+                        </div>
+
+                        <div className="Separator">
+                            <span className="Separator-text">Doporučené restaurace v okolí</span>
+                        </div>
+
+                        <div className="NewEvent-restaurants">
+                            <div className="RestOverview RestOverview--half">
+                                <div>
+                                    <div className="RestOverview-img"></div>
+                                </div>
+                                <div>
+                                    <Rating rating={5} number={3} />
+                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
+                                    <Link to="/" className="Link">Vybrat</Link>
+                                </div>
+                            </div>
+                            <div className="RestOverview RestOverview--half">
+                                <div>
+                                    <div className="RestOverview-img"></div>
+                                </div>
+                                <div>
+                                    <Rating rating={5} number={3} />
+                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
+                                    <Link to="/" className="Link">Vybrat</Link>
+                                </div>
+                            </div>
+                            <div className="RestOverview RestOverview--half">
+                                <div>
+                                    <div className="RestOverview-img"></div>
+                                </div>
+                                <div>
+                                    <Rating rating={5} number={3} />
+                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
+                                    <Link to="/" className="Link">Vybrat</Link>
+                                </div>
+                            </div>
+                            <div className="RestOverview RestOverview--half">
+                                <div>
+                                    <div className="RestOverview-img"></div>
+                                </div>
+                                <div>
+                                    <Rating rating={5} number={3} />
+                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
+                                    <Link to="/" className="Link">Vybrat</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="container mt-4">
-                        <div className="NewEvent-content">
-                            <span className="NewEvent-step">
-                                <b>Krok 1 ze 3</b>
-                            </span>
-                            <div className="mb-3">
-                                <div className="Input">
-                                    <label htmlFor="title" className="Input-label Input-label--big">Titulek</label>
-                                    <input type="text" id="title" className="Input-input"/>
-                                </div>
-                            </div>
-
-                            <div className="mb-3">
-                                <div className="Input">
-                                    <label htmlFor="desc" className="Input-label Input-label--big">Popis</label>
-                                    <span className="d-block mb-2">
-                                        Potřebuješ inspiraci? Podívej se na <Link to="/" className="Link">příklady nejlepších akcí</Link>
-                                    </span>
-                                    <textarea name="desc" id="desc" className="Input-input Input-input--textarea"></textarea>
-                                </div>
-                            </div>
-
-                            <Link to="/nova-udalost/krok-2" className="Button">
-                                <span className="Button-text">Další</span>
-                            </Link>
-                        </div>
-                    </div>
+                    <Link to="/" className="Button">
+                        <span className="Button-text">Pokračovat</span>
+                    </Link>
                 </div>
             </section>
         );

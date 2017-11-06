@@ -1,19 +1,28 @@
+@import './modules/RestOverview';
+
 .NewEvent {
-    &-head {
-        padding: 30px 0;
-        background: $light-grey;
-        color: black;
+    max-width: 500px;
+    margin: 0 auto;
+
+    &-box {
+        background: white;
+        border-radius: 5px;
+        margin-top: 30px;
     }
 
     &-content {
-        max-width: 500px;
-        margin: 0 auto;
+        padding: 20px;
     }
 
     &-title {
         display: block;
         font-size: 1.25rem;
         color: $headings-color;
+    }
+
+    &-restaurant {
+        display: flex;
+        justify-content: space-between;
     }
 
     &-userPhoto {

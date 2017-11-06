@@ -1,0 +1,17 @@
+.RestOverview {
+    display: flex;
+    justify-content: flex-start;
+
+    &-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 5px;
+        background: red;
+        margin-right: 10px;
+    }
+}
+
+.RestOverview--half {
+    display: inline-flex;
+    width: 50%;
+}
