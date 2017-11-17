@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { ADD_TO_FRIENDS, LOG_IN, LOG_OUT } from '../actions/user';
+import {STORE_NEW_EVENT} from "../actions/event";
 
 // TEMPORARY TEST DATA
 const userInitialState = {
@@ -33,6 +34,18 @@ const userReducer = (state = userInitialState, action) => {
         };
     default:
         return state;
+    }
+};
+
+const eventReducer = (state = userInitialState, action) => {
+    switch (action.type) {
+        case STORE_NEW_EVENT:
+            return {
+                ...state,
+                user: action.payload.newEvent
+            };
+        default:
+            return state;
     }
 };
 

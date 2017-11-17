@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import { storeNewEvent } from '../../actions/event';
 
 import Rating from '../../components/Rating';
 
 export class Step1Raw extends Component {
+    constructor(props) {
+        console.log(props);
+        super(props);
+        this.state = {eventRestaurant: ''};
+    }
+
+    handleSubmit = (e) => {
+        alert('A name was submitted: ' + this.state.eventRestaurant);
+        const event = this.state.eventRestaurant;
+        console.log(event);
+        this.props.storeNewEvent(event);
+        this.props.history.push('/nova-udalost/krok-2');
+        e.preventDefault();
+    };
+
+    handleChange = (e) => {
+        this.setState({
+            eventRestaurant: e.target.value
+        });
+    };
+
     render() {
         return (
             <section>
@@ -22,7 +45,7 @@ export class Step1Raw extends Component {
                     </div>
                 </div>
 
-                <div className="NewEvent">
+                <form onSubmit={this.handleSubmit} className="NewEvent">
                     <div className="NewEvent-box">
                         <div className="NewEvent-step">
                             <strong>Krok 1</strong> ze 3
@@ -30,7 +53,7 @@ export class Step1Raw extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <input type="text" id="place" className="Input-input"/>
+                            <input type="text" value={this.state.eventRestaurant} onChange={this.handleChange} id="place" className="Input-input"/>
                         </div>
 
                         <div className="Separator">
@@ -82,11 +105,11 @@ export class Step1Raw extends Component {
                     </div>
 
                     <div className="my-4 text-center">
-                        <Link to="/nova-udalost/krok-2" className="Button">
+                        <button type="submit" className="Button">
                             <span className="Button-text">Pokračovat</span>
-                        </Link>
+                        </button>
                     </div>
-                </div>
+                </form>
             </section>
         );
     }
@@ -100,4 +123,11 @@ const mapStateToProps = (state) => {
     };
 };
 
-export const Step1 = connect(mapStateToProps)(Step1Raw);
+const mapDispatchToProps = {
+    storeNewEvent,
+};
+
+export const Step1 = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(Step1Raw));
