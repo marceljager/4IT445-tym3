@@ -2,30 +2,18 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { storeNewEvent } from '../../actions/event';
+import { storeNewEventRestaurant } from '../../actions/event';
 
 import Rating from '../../components/Rating';
 
 export class Step1Raw extends Component {
-    constructor(props) {
-        console.log(props);
-        super(props);
-        this.state = {eventRestaurant: ''};
-    }
-
     handleSubmit = (e) => {
-        alert('A name was submitted: ' + this.state.eventRestaurant);
-        const event = this.state.eventRestaurant;
-        console.log(event);
-        this.props.storeNewEvent(event);
-        this.props.history.push('/nova-udalost/krok-2');
         e.preventDefault();
+        this.props.history.push('/nova-udalost/krok-2');
     };
 
     handleChange = (e) => {
-        this.setState({
-            eventRestaurant: e.target.value
-        });
+        this.props.onHandleChange(e.target.value);
     };
 
     render() {
@@ -53,7 +41,7 @@ export class Step1Raw extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <input type="text" value={this.state.eventRestaurant} onChange={this.handleChange} id="place" className="Input-input"/>
+                            <input type="text" value={this.props.eventRestaurant} onChange={this.handleChange} id="place" className="Input-input"/>
                         </div>
 
                         <div className="Separator">
@@ -116,16 +104,14 @@ export class Step1Raw extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { userData } = state;
-
     return {
-        user: userData.user,
+        eventRestaurant: state.event.restaurant
     };
 };
 
-const mapDispatchToProps = {
-    storeNewEvent,
-};
+const mapDispatchToProps = (dispatch) => ({
+    onHandleChange: (event) => dispatch(storeNewEventRestaurant(event)),
+});
 
 export const Step1 = connect(
     mapStateToProps,

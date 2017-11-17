@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux';
 import { ADD_TO_FRIENDS, LOG_IN, LOG_OUT } from '../actions/user';
-import {STORE_NEW_EVENT} from "../actions/event";
+import {
+    STORE_NEW_EVENT_RESTAURANT,
+    STORE_NEW_EVENT_NAME,
+    STORE_NEW_EVENT_DESCRIPTION,
+    STORE_NEW_EVENT_TYPE,
+    CLEAR_NEW_EVENT
+} from "../actions/event";
 
 // TEMPORARY TEST DATA
 const userInitialState = {
@@ -37,12 +43,38 @@ const userReducer = (state = userInitialState, action) => {
     }
 };
 
-const eventReducer = (state = userInitialState, action) => {
+const initialEvent = {
+    restaurant: '',
+    name: '',
+    description: '',
+    type: 'public'
+};
+
+const eventReducer = (state = initialEvent, action) => {
     switch (action.type) {
-        case STORE_NEW_EVENT:
+        case STORE_NEW_EVENT_RESTAURANT:
             return {
                 ...state,
-                user: action.payload.newEvent
+                restaurant: action.event,
+            };
+        case STORE_NEW_EVENT_NAME:
+            return {
+                ...state,
+                name: action.event,
+            };
+        case STORE_NEW_EVENT_DESCRIPTION:
+            return {
+                ...state,
+                description: action.event,
+            };
+        case STORE_NEW_EVENT_TYPE:
+            return {
+                ...state,
+                type: action.event,
+            };
+        case CLEAR_NEW_EVENT:
+            return {
+                ...initialEvent
             };
         default:
             return state;
@@ -51,6 +83,7 @@ const eventReducer = (state = userInitialState, action) => {
 
 const rootReducer = combineReducers({
     userData: userReducer,
+    event: eventReducer
 });
 
 export default rootReducer;

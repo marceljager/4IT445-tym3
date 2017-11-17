@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import {
+    storeNewEventName,
+    storeNewEventDescription
+} from '../../actions/event';
+
 export class Step2Raw extends Component {
+    componentDidMount = () => {
+        if (this.props.eventRestaurant === '') {
+            this.props.history.goBack();
+            this.props.history.push('/nova-udalost/krok-1');
+        }
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.history.push('/nova-udalost/krok-3');
+    };
+
+    handleNameChange = (e) => {
+        this.props.onHandleNameChange(e.target.value);
+    };
+
+    handleDescChange = (e) => {
+        this.props.onHandleDescriptionChange(e.target.value);
+    };
+
     render() {
         return (
             <section>
@@ -20,7 +45,7 @@ export class Step2Raw extends Component {
                     </div>
                 </div>
 
-                <div className="NewEvent">
+                <form onSubmit={this.handleSubmit} className="NewEvent">
                     <div className="NewEvent-box">
                         <div className="NewEvent-step">
                             <strong>Krok 1</strong> ze 3{' '}
@@ -31,7 +56,7 @@ export class Step2Raw extends Component {
                         </label>
 
                         <p>
-                            Restaurace na koby
+                            {this.props.eventRestaurant}
                         </p>
 
                         <hr className="my-4" />
@@ -42,32 +67,40 @@ export class Step2Raw extends Component {
 
                         <div className="Input mb-3">
                             <label htmlFor="title" className="Input-label--big">Název akce</label>
-                            <input type="text" id="title" className="Input-input"/>
+                            <input type="text" value={this.props.eventName} onChange={this.handleNameChange} id="title" className="Input-input"/>
                         </div>
 
                         <div className="Input">
                             <label htmlFor="description" className="Input-label--big">Popis akce</label>
-                            <textarea type="text" id="description" className="Input-input Input-input--textarea" />
+                            <textarea type="text" value={this.props.eventDescription} onChange={this.handleDescChange} id="description" className="Input-input Input-input--textarea" />
                         </div>
                     </div>
 
                     <div className="my-4 text-center">
-                        <Link to="/nova-udalost/krok-3" className="Button">
+                        <button type="submit" className="Button">
                             <span className="Button-text">Pokračovat</span>
-                        </Link>
+                        </button>
                     </div>
-                </div>
+                </form>
             </section>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    const { userData } = state;
-
     return {
-        user: userData.user,
+        eventRestaurant: state.event.restaurant,
+        eventName: state.event.name,
+        eventDescription: state.event.description
     };
 };
 
-export const Step2 = connect(mapStateToProps)(Step2Raw);
+const mapDispatchToProps = (dispatch) => ({
+    onHandleNameChange: (event) => dispatch(storeNewEventName(event)),
+    onHandleDescriptionChange: (event) => dispatch(storeNewEventDescription(event)),
+});
+
+export const Step2 = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(Step2Raw));

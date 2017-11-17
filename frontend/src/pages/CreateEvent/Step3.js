@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import {
+    storeNewEventType,
+    clearNewEvent
+} from '../../actions/event';
+
 export class Step3Raw extends Component {
+    componentDidMount = () => {
+        if (this.props.eventRestaurant === '') {
+            this.props.history.goBack();
+            this.props.history.push('/nova-udalost/krok-1');
+        }
+
+        if (this.props.eventName === '' || this.props.eventDescription === '') {
+            this.props.history.goBack();
+            this.props.history.push('/nova-udalost/krok-2');
+        }
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.props);
+        this.props.onSubmitClear();
+        this.props.history.push('/nova-udalost/krok-1');
+    };
+
+    handleTypeChange = (e) => {
+        this.props.onHandleTypeChange(e.target.value);
+    };
+
     render() {
         return (
             <section>
@@ -20,7 +48,7 @@ export class Step3Raw extends Component {
                     </div>
                 </div>
 
-                <div className="NewEvent">
+                <form onSubmit={this.handleSubmit} className="NewEvent">
                     <div className="NewEvent-box">
                         <div className="NewEvent-step">
                             <strong>Krok 1</strong> ze 3{' '}
@@ -31,7 +59,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            Restaurace na koby
+                            {this.props.eventRestaurant}
                         </p>
 
                         <hr className="my-4" />
@@ -45,7 +73,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            Restaurace na koby
+                            {this.props.eventName}
                         </p>
 
                         <label className="NewEvent-label">
@@ -53,7 +81,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            Restaurace na koby
+                            {this.props.eventDescription}
                         </p>
 
                         <hr className="my-4" />
@@ -67,7 +95,15 @@ export class Step3Raw extends Component {
                         <div className="d-flex my-3">
                             <div className="mr-2">
                                 <label className="Radio" htmlFor="public">
-                                    <input className="Radio-input" id="public" name="actionType" type="radio" value="public" checked={true} />
+                                    <input
+                                        className="Radio-input"
+                                        id="public"
+                                        name="actionType"
+                                        type="radio"
+                                        value="public"
+                                        checked={this.props.eventType === 'public'}
+                                        onChange={this.handleTypeChange}
+                                    />
                                         <div className="Radio-content">
                                             <div className="Radio-radioBox">
                                                 Veřejná akce
@@ -78,7 +114,15 @@ export class Step3Raw extends Component {
 
                             <div>
                                 <label className="Radio" htmlFor="private">
-                                    <input className="Radio-input" id="private" name="actionType" value="private" type="radio" />
+                                    <input
+                                        className="Radio-input"
+                                        id="private"
+                                        name="actionType"
+                                        value="private"
+                                        type="radio"
+                                        checked={this.props.eventType === 'private'}
+                                        onChange={this.handleTypeChange}
+                                    />
                                     <div className="Radio-content">
                                         <div className="Radio-radioBox">
                                             Akce s přáteli
@@ -130,149 +174,31 @@ export class Step3Raw extends Component {
                     </div>
 
                     <div className="my-4 text-center">
-                        <Link to="/" className="Button">
+                        <button type="submit" className="Button">
                             <span className="Button-text">Vytvořit</span>
-                        </Link>
+                        </button>
                     </div>
-                </div>
+                </form>
             </section>
-
-
-
-
-
-
-
-
-
-
-            // <section className="NewEvent">
-            //     <div>
-            //         <div className="NewEvent-head">
-            //             <div className="container">
-            //                 <div className="text-center">
-            //                     <h1>Vytvoř novou akci</h1>
-            //                     <p className="NewEvent-headParagraph">a my ti ji pomůžeme zrealizovat</p>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //
-            //         <div className="container mt-4">
-            //             <div className="NewEvent-content">
-            //                 <span className="NewEvent-step">
-            //                     <b>Krok 1 ze 3</b>
-            //                 </span>
-            //
-            //                 <div>
-            //                     <span className="NewEvent-title">
-            //                         Step1 title
-            //                     </span>
-            //                 </div>
-            //
-            //                 <div>
-            //                     <p>Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. Step1 description. </p>
-            //                 </div>
-            //
-            //                 <hr className="my-5"/>
-            //
-            //
-            //                 <span className="NewEvent-step">
-            //                     <b>Krok 2 ze 3</b>
-            //                 </span>
-            //
-            //                 <div>
-            //                     <span className="NewEvent-title">
-            //                         Kam půjdete?
-            //                     </span>
-            //                 </div>
-            //
-            //                 <div>
-            //                     <span>Restaurace Kobylisy</span>
-            //                     <Link to="/nova-udalost/krok-2" className="Link">(změnit)</Link>
-            //                 </div>
-            //
-            //                 <div>
-            //                     <p>Sezení venku</p>
-            //                 </div>
-            //
-            //                 <hr className="my-5"/>
-            //
-            //                 <span className="NewEvent-step">
-            //                     <b>Krok 3 ze 3</b>
-            //                 </span>
-            //
-            //                 <span className="NewEvent-title">
-            //                     Kdo půjde s Vámi?
-            //                 </span>
-            //
-            //                 <div className="d-flex my-3">
-            //                     <div className="mr-2">
-            //                         <Link to="/" className="Button Button--secondary">
-            //                             <span className="Button-text">Veřejná akce</span>
-            //                         </Link>
-            //                     </div>
-            //
-            //                     <div>
-            //                         <Link to="/" className="Button Button--secondary">
-            //                             <span className="Button-text">Akce s přáteli</span>
-            //                         </Link>
-            //                     </div>
-            //                 </div>
-            //
-            //                 <h5>Pozvěte přátelé</h5>
-            //                 <div>
-            //                     <div className="d-flex justify-content-between mb-3">
-            //                         <div>
-            //                             <div className="NewEvent-userPhoto"></div>
-            //                             <span>Roman Fausek</span>
-            //                         </div>
-            //                         <div>
-            //                             <Link to="/" className="Button">
-            //                                 <span className="Button-text">Pozvat</span>
-            //                             </Link>
-            //                         </div>
-            //                     </div>
-            //                     <div className="d-flex justify-content-between mb-3">
-            //                         <div>
-            //                             <div className="NewEvent-userPhoto"></div>
-            //                             <span>Roman Fausek</span>
-            //                         </div>
-            //                         <div>
-            //                             <Link to="/" className="Button">
-            //                                 <span className="Button-text">Pozvat</span>
-            //                             </Link>
-            //                         </div>
-            //                     </div>
-            //                     <div className="d-flex justify-content-between mb-3">
-            //                         <div>
-            //                             <div className="NewEvent-userPhoto"></div>
-            //                             <span>Roman Fausek</span>
-            //                         </div>
-            //                         <div>
-            //                             <Link to="/" className="Button">
-            //                                 <span className="Button-text">Pozvat</span>
-            //                             </Link>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //
-            //                 <Link to="/" className="Button">
-            //                     <span className="Button-text">Vytvořit akci</span>
-            //                 </Link>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </section>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    const { userData } = state;
-
     return {
-        user: userData.user,
+        eventRestaurant: state.event.restaurant,
+        eventName: state.event.name,
+        eventDescription: state.event.description,
+        eventType: state.event.type,
     };
 };
 
-export const Step3 = connect(mapStateToProps)(Step3Raw);
+const mapDispatchToProps = (dispatch) => ({
+    onHandleTypeChange: (event) => dispatch(storeNewEventType(event)),
+    onSubmitClear: () => dispatch(clearNewEvent())
+});
+
+export const Step3 = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(Step3Raw));
