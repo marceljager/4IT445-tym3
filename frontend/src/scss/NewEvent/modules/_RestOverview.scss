@@ -1,6 +1,8 @@
 .RestOverview {
     display: flex;
     justify-content: flex-start;
+    width: 50%;
+    margin-bottom: 20px;
 
     &-img {
         width: 80px;
@@ -9,9 +11,8 @@
         background: red;
         margin-right: 10px;
     }
-}
 
-.RestOverview--half {
-    display: inline-flex;
-    width: 50%;
+    &-name {
+        font-size: 0.875rem;
+    }
 }

@@ -38,42 +38,42 @@ export class Step1Raw extends Component {
                         </div>
 
                         <div className="NewEvent-restaurants">
-                            <div className="RestOverview RestOverview--half">
+                            <div className="RestOverview">
                                 <div>
                                     <div className="RestOverview-img"></div>
                                 </div>
-                                <div>
-                                    <Rating rating={5} number={3} />
+                                <div className="pr-3">
+                                    <Rating rating={5} />
                                     <div className="RestOverview-name">Restaurace na Kobylisích</div>
                                     <Link to="/" className="Link">Vybrat</Link>
                                 </div>
                             </div>
-                            <div className="RestOverview RestOverview--half">
+                            <div className="RestOverview">
                                 <div>
                                     <div className="RestOverview-img"></div>
                                 </div>
-                                <div>
-                                    <Rating rating={5} number={3} />
+                                <div className="pr-3">
+                                    <Rating rating={5} />
                                     <div className="RestOverview-name">Restaurace na Kobylisích</div>
                                     <Link to="/" className="Link">Vybrat</Link>
                                 </div>
                             </div>
-                            <div className="RestOverview RestOverview--half">
+                            <div className="RestOverview">
                                 <div>
                                     <div className="RestOverview-img"></div>
                                 </div>
-                                <div>
-                                    <Rating rating={5} number={3} />
+                                <div className="pr-3">
+                                    <Rating rating={5} />
                                     <div className="RestOverview-name">Restaurace na Kobylisích</div>
                                     <Link to="/" className="Link">Vybrat</Link>
                                 </div>
                             </div>
-                            <div className="RestOverview RestOverview--half">
+                            <div className="RestOverview">
                                 <div>
                                     <div className="RestOverview-img"></div>
                                 </div>
-                                <div>
-                                    <Rating rating={5} number={3} />
+                                <div className="pr-3">
+                                    <Rating rating={5} />
                                     <div className="RestOverview-name">Restaurace na Kobylisích</div>
                                     <Link to="/" className="Link">Vybrat</Link>
                                 </div>
@@ -81,9 +81,11 @@ export class Step1Raw extends Component {
                         </div>
                     </div>
 
-                    <Link to="/" className="Button">
-                        <span className="Button-text">Pokračovat</span>
-                    </Link>
+                    <div className="my-4 text-center">
+                        <Link to="/nova-udalost/krok-2" className="Button">
+                            <span className="Button-text">Pokračovat</span>
+                        </Link>
+                    </div>
                 </div>
             </section>
         );

@@ -8,6 +8,7 @@
         background: white;
         border-radius: 5px;
         margin-top: 30px;
+        padding: 30px;
     }
 
     &-content {
@@ -20,9 +21,11 @@
         color: $headings-color;
     }
 
-    &-restaurant {
+    &-restaurants {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 50px;
     }
 
     &-userPhoto {
