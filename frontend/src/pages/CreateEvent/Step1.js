@@ -25,12 +25,12 @@ export class Step1Raw extends Component {
                 <div className="NewEvent">
                     <div className="NewEvent-box">
                         <div className="NewEvent-step">
-                            <b>Krok 1</b> ze 3
+                            <strong>Krok 1</strong> ze 3
                         </div>
 
-                        <div className="Input">
-                            <label htmlFor="" className="Input-label--big">Kam půjdeme?</label>
-                            <input type="text" className="Input-input"/>
+                        <div className="Input mb-5">
+                            <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
+                            <input type="text" id="place" className="Input-input"/>
                         </div>
 
                         <div className="Separator">

@@ -28,13 +28,11 @@
         margin-top: 50px;
     }
 
-    &-userPhoto {
-        display: inline-block;
-        background: $secondary-color;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin-right: 15px;
-        vertical-align: middle;
+    &-label {
+        font-size: 0.688rem;
+        color: #989898;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 5px;
     }
 }
