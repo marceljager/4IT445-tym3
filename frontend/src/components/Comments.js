@@ -75,11 +75,11 @@ class CommentsRaw extends Component {
         return (
             <div className="Comments">
                 {this.props.user.email &&
-                    <form onSubmit={e => e.preventDefault()} className="Comments-addContainer">
+                    <form onSubmit={e => e.preventDefault()} className="Comments-addContainer mb-3">
                         <div className="Comments-avatarContainer">
                             <Avatar user={user} />
                         </div>
-                        <div className="Input mb-2">
+                        <div className="Input">
                             <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..."/>
                         </div>
                     </form>

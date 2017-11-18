@@ -1,6 +1,28 @@
 .ParticipationBar {
     position: fixed;
-    bottom: 0;
+    min-width: 100%;
+    top: $menu-height;
     left: 0;
-    width: 100%;
+    background: rgba($headings-color, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(#000, 0.1);
+    padding: 0 20px;
+    height: 80px;
+    transition: transform 300ms;
+    transform: translate(0, -200%);
+    visibility: visible;
+    opacity: 1;
+    z-index: 5;
+
+    &-text {
+        display: inline-block;
+        margin-right: 20px;
+        color: white;
+        font-weight: bold;
+    }
+
+    &.isVisible {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
 }

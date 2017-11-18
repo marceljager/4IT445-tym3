@@ -24,6 +24,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     &-name {
@@ -42,5 +43,8 @@
 
     &-avatarContainer {
         margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

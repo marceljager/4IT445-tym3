@@ -119,3 +119,22 @@
         background: darken(#D0021B, 10%);
     }
 }
+
+.Button--accept {
+    background: $primary-color;
+    box-shadow: none;
+}
+
+.Button--deny {
+    background: #D0021B;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+        background: darken(#D0021B, 10%);
+    }
+}
+
+.Button--darkText {
+    color: $headings-color;
+}

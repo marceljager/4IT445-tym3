@@ -4,20 +4,10 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { API_URL } from '../constants';
+import { isInObject } from '../functions';
 import Avatar from './Avatar';
 
 import feelsBadMan from '../img/noFriends.png';
-
-const isAlreadyParticipating = (obj, list) => {
-    let i;
-    for (i = 0; i < list.length; i += 1) {
-        if (list[i].id === obj.id) {
-            return true;
-        }
-    }
-
-    return false;
-};
 
 class InviteModalRaw extends Component {
     constructor(props) {
@@ -76,7 +66,6 @@ class InviteModalRaw extends Component {
     };
 
     render() {
-        console.log(this.props, this.state.friends);
         let friends = this.state.friends.map((friend, index) => (
             <div className="InviteModal-friend" key={friend.id}>
                 <div className="InviteModal-friendLeft">
@@ -86,7 +75,7 @@ class InviteModalRaw extends Component {
                     </div>
                 </div>
                 <div className="InviteModal-buttonContainer">
-                    {this.props.guests && isAlreadyParticipating(friend, this.props.guests)
+                    {this.props.guests && isInObject(friend, this.props.guests)
                         ? 'Přijde'
                         : <div>
                             {friend.invited

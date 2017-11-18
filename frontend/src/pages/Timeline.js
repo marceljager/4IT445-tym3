@@ -8,6 +8,7 @@ import EventsFeed from '../components/EventsFeed';
 import Notification from '../components/Notification';
 
 import { API_URL } from '../constants';
+import { isInObject } from '../functions';
 
 const notificationsObject = [
     {
@@ -56,17 +57,6 @@ const notificationsObject = [
 const date = new Date();
 const tommorow = date.setDate(date.getDate() + 1);
 
-const containsObject = (obj, list) => {
-    let i;
-    for (i = 0; i < list.length; i += 1) {
-        if (list[i] === obj) {
-            return true;
-        }
-    }
-
-    return false;
-};
-
 class TimelineRaw extends Component{
     constructor(props) {
         super(props);
@@ -111,7 +101,7 @@ class TimelineRaw extends Component{
             .then((response) => {
                 const events = response.data.data;
                 events.forEach((feedItem) => {
-                    if (!containsObject(feedItem, events)) {
+                    if (!isInObject(feedItem, events)) {
                         publicFeed.push(feedItem);
                     }
                 });

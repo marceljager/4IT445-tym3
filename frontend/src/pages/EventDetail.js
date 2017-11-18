@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import ReactSVG from 'react-svg';
@@ -7,9 +8,11 @@ import ReactSVG from 'react-svg';
 import Rating from '../components/Rating';
 import Map from '../components/Map';
 import Calendar from '../components/Calendar';
+import Comments from '../components/Comments';
 
 import { API_URL, MAPS_URL } from '../constants';
-import Comments from '../components/Comments';
+import { isInObject } from '../functions';
+
 
 import Loading from '../img/loading.svg';
 import EventParticipants from '../components/EventParticipants';
@@ -20,7 +23,7 @@ const comments = [
         avatar: '1702981537',
         text: 'Registrace je na Roman Fausek. Přijďte prosím včas',
         date: new Date('2017-11-06T12:45:06+01:00')
-    },{
+    }, {
         author: 'Mirek H.',
         avatar: '1422340757',
         text: 'Bere někdo trumpetu?',
@@ -28,7 +31,7 @@ const comments = [
     },
 ];
 
-class EventDetail extends Component {
+class EventDetailRaw extends Component {
     constructor(props) {
         super(props);
 
@@ -40,7 +43,9 @@ class EventDetail extends Component {
                 dateFrom: '2000-01-01T00:00:00+01:00',
                 dateTo: '2000-01-01T00:00:00+01:00',
                 guests: []
-            }
+            },
+            participationBar: false,
+            signedIn: false
         };
     }
 
@@ -55,11 +60,49 @@ class EventDetail extends Component {
                 this.setState({
                     eventInfo: response.data
                 });
+                this.showBar(500);
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
             });
     }
+
+    showBar = (timeout) => {
+        setTimeout(() => {
+            console.log(this.state.eventInfo, this.props.user);
+
+            if (!isInObject(this.props.user, this.state.eventInfo.guests)) {
+                this.setState({
+                    participationBar: true
+                });
+            } else {
+                this.setState({
+                    signedIn: true
+                });
+            }
+        }, timeout);
+    };
+
+    hideBar = () => {
+        this.setState({
+            participationBar: false
+        });
+    };
+
+    participate = () => {
+        const { eventId } = this.props.match.params;
+        const { id, accessToken } = this.props.user;
+        axios.put(`${API_URL}/events/${eventId}/invited/rel/${id}?access_token=${accessToken}`)
+            .then(() => {
+                this.setState({
+                    signedIn: true,
+                    participationBar: false
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
 
     render() {
         const { eventInfo } = this.state;
@@ -80,20 +123,12 @@ class EventDetail extends Component {
                     </div>
                 }
                 <div className={`container ${!eventInfo.name ? ' Loading-content' : ''}`}>
-                    <div className="ParticipationBar">
-                        <span className="ParticipationBar-text">Přijdeš na akci?</span>
-                        <div className="ParticipationBar-buttonsContainer">
-                            <button className="Button">Ano, přijdu</button>
-                            <button className="Button Button-deny">Ne, nepřijdu</button>
-                        </div>
-                    </div>
-
                     <div className="row justify-content-center">
                         <div className="col-9">
                             <div className="row">
                                 <div className="col-3 position-static">
                                     <div className="EventDetail-calendar">
-                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent}/>
+                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
                                     </div>
                                     <div className="EventDetail-mainImageContainer">
                                         <Map
@@ -113,11 +148,20 @@ class EventDetail extends Component {
                                     <div className="EventDetail-about">
                                         {eventInfo.description}
                                     </div>
+                                    <div className={`${this.state.participationBar ? 'isVisible ' : ''}ParticipationBar d-flex align-items-center`}>
+                                        <div className="container d-flex justify-content-center align-items-center">
+                                            <span className="ParticipationBar-text">Přijdeš na akci?</span>
+                                            <div className="ParticipationBar-buttonsContainer">
+                                                <button className="Button Button--small Button--accept mr-2" onClick={this.participate}>Ano, přijdu</button>
+                                                <button className="Button Button--small Button--deny" onClick={this.hideBar}>Ještě nevím</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="Separator" />
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kdo přijde?</h6>
-                                            <EventParticipants guests={eventInfo.guests} />
+                                            <EventParticipants signedIn={this.state.signedIn ? this.props.user : null} guests={eventInfo.guests} />
                                         </div>
                                     </div>
                                     <div className="Separator" />
@@ -153,4 +197,13 @@ class EventDetail extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const { userData } = state;
+
+    return {
+        user: userData.user,
+    };
+};
+
+const EventDetail = connect(mapStateToProps)(withRouter(EventDetailRaw));
 export default EventDetail;
