@@ -2,8 +2,8 @@ import React from 'react';
 
 import RatingItem from './RatingItem';
 
-const filled = (key) => (<span className="Rating-positive" key={key} />);
-const empty = (key) => (<span className="Rating-neutral" key={key} />);
+const filled = key => (<span className="Rating-positive" key={key} />);
+const empty = key => (<span className="Rating-neutral" key={key} />);
 
 const Rating = (props) => {
     const ratingDoubled = parseFloat(props.rating) * 2;
@@ -26,7 +26,7 @@ const Rating = (props) => {
     return (
         <div className="Rating">
             {ratingStars}
-            {props.number &&
+            {(props.number || props.number === 0) &&
                 <div className="Rating-number">
                     <span className="Link">{props.number} hodnocení</span>
                 </div>

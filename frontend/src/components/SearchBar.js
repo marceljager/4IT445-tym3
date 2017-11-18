@@ -33,6 +33,7 @@ class SearchBar extends Component {
     loadData(searchText) {
         axios.get(`${API_URL}/events/search?q=${searchText}`)
             .then((response) => {
+
                 this.setState({
                     searchData: response.data.data,
                     searchVisible: true
@@ -55,7 +56,7 @@ class SearchBar extends Component {
         if (this.state.searchData.length > 0) {
             items = this.state.searchData.map((item, index) => {
                 let url = 'detail-akce';
-                if (item.resultType === 'user') {
+                if (item.resultType === 'User') {
                     url = 'uzivatel';
                 }
                 return (

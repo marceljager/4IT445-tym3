@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Rating from '../components/Rating';
 import Map from '../components/Map';
 import Calendar from '../components/Calendar';
 
-import { MAPS_URL } from '../constants';
+import { API_URL, MAPS_URL } from '../constants';
 import Comments from '../components/Comments';
-
-const dateFrom = new Date('2017-12-16T20:15:00+01:00');
-const dateTo = new Date('2017-12-16T21:45:00+01:00');
-
-const event = {
-    title: 'Slavnostní otevření restaurace Marjánka',
-    description: 'Lorem Ipsum je demonstrativní výplňový text používaný v tiskařském a knihařském průmyslu.\n' +
-    'Lorem Ipsum je považováno za standard v této oblasti už od začátku 16. století, kdy dnes neznámý\n' +
-    'tiskař vzal kusy textu a na jejich základě vytvořil speciální vzorovou knihu. Jeho odkaz nevydržel\n' +
-    'pouze pět století, on přežil i nástup elektronické sazby v podstatě beze změny.',
-    location: 'Plážová 33, Praha 5',
-    startTime: dateFrom,
-    endTime: dateTo
-};
 
 const comments = [
     {
@@ -37,7 +24,47 @@ const comments = [
 ];
 
 class EventDetail extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            eventInfo: {
+                eventName: '',
+                description: '',
+                place: '',
+                dateFrom: '2000-01-01T00:00:00+01:00',
+                dateTo: '2000-01-01T00:00:00+01:00'
+            }
+        };
+    }
+
+    componentDidMount() {
+        const { eventId } = this.props.match.params;
+        this.loadData(eventId);
+    }
+
+    loadData(eventId) {
+        axios.get(`${API_URL}/events/${eventId}?filter[include]=guests`)
+            .then((response) => {
+                this.setState({
+                    eventInfo: response.data
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    }
+
     render() {
+        const { eventInfo } = this.state;
+
+        const calendarEvent = {
+            title: eventInfo.name,
+            description: eventInfo.description,
+            location: eventInfo.place,
+            startTime: eventInfo.dateFrom,
+            endTime: eventInfo.dateTo
+        };
         return (
             <div className="EventDetail">
                 <div className="container">
@@ -54,7 +81,7 @@ class EventDetail extends Component {
                             <div className="row">
                                 <div className="col-3 position-static">
                                     <div className="EventDetail-calendar">
-                                        <Calendar dateFrom={dateFrom} dateTo={dateTo} addToCalendar={event} />
+                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
                                     </div>
                                     <div className="EventDetail-mainImageContainer">
                                         <Map
@@ -70,10 +97,9 @@ class EventDetail extends Component {
                                     </div>
                                 </div>
                                 <div className="col-9 EventDetail-textSide p-5">
-                                    <h2 className="EventDetail-title mb-2">Slavnostní otevření restaurace Marjánka</h2>
+                                    <h2 className="EventDetail-title mb-2">{eventInfo.name}</h2>
                                     <div className="EventDetail-about">
-                                        Lorem Ipsum je demonstrativní výplňový text používaný v tiskařském a knihařském průmyslu.
-                                        Lorem Ipsum je považováno za standard v této oblasti už od začátku 16. století.
+                                        {eventInfo.description}
                                     </div>
                                     <div className="Separator" />
                                     <div className="row">
@@ -107,7 +133,7 @@ class EventDetail extends Component {
                                                 <span className="RestaurantInfo-text">
                                                     <span className="RestaurantInfo-name">Restaurace Marjánka</span>
                                                     <span className="RestaurantInfo-address">Plážová 33, Praha 5</span>
-                                                    <Rating rating={4.5} number={12} />
+                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
                                                 </span>
                                             </Link>
                                         </div>
