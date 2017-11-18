@@ -34,21 +34,33 @@ export class LoginRaw extends Component {
     };
 
     handleSubmit = (e) => {
-        axios.post(`${API_URL}/login.php`, {
-            loginEmail: this.state.loginEmail,
-            loginPassword: this.state.loginPassword
+        axios.post(`${API_URL}/customers/login`, {
+            username: this.state.loginEmail,
+            password: this.state.loginPassword
         })
             .then((response) => {
-                const { user } = response.data;
-                console.log(user);
-                this.props.logIn(user);
-                this.props.history.push('/timeline');
+                console.log(response);
+                const { userId, id } = response.data;
+                this.getUser(userId, id);
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
             });
 
         e.preventDefault();
+    };
+
+    getUser = (id, token) => {
+        axios.get(`${API_URL}/customers/${id}?access_token=${token}`)
+            .then((response) => {
+                console.log(response.data);
+                this.props.logIn(response.data);
+                this.props.history.push('/timeline');
+                return response.data;
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
     };
 
     handleFbSubmit = (response) => {

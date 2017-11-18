@@ -5,7 +5,7 @@ import { ADD_TO_FRIENDS, LOG_IN } from '../actions/user';
 const userInitialState = {
     user: {
         email: null,
-        name: null,
+        username: null,
         picture: null
     },
     friends: [],

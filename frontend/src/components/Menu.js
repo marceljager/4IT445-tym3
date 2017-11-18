@@ -32,7 +32,7 @@ const MenuRaw = (props) => {
                                                     <img src={`https://graph.facebook.com/${user.picture}/picture`} alt={user.name}/>
                                                 </div>
                                             }
-                                            <div className="Menu-user">{user.name}</div>
+                                            <div className="Menu-user">{user.username}</div>
                                         </div>
                                     }
 
@@ -44,11 +44,6 @@ const MenuRaw = (props) => {
                                             <li className="Menu-navigationItem">
                                                 <Link to="/timeline" className={`Menu-link ${location.pathname === '/timeline' ? 'isActive' : ''}`}>Akce v okolí</Link>
                                             </li>
-                                            {/*
-                                            <li className="Menu-navigationItem">
-                                                <Link to="/friends" className={`Menu-link ${location.pathname === '/friends' ? 'isActive' : ''}`}>Přátelé</Link>
-                                            </li>
-                                            */}
                                         </ul>
                                     }
 
