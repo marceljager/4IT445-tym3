@@ -66,32 +66,38 @@ class InviteModalRaw extends Component {
     };
 
     render() {
-        let friends = this.state.friends.map((friend, index) => (
-            <div className="InviteModal-friend" key={friend.id}>
-                <div className="InviteModal-friendLeft">
-                    <Avatar user={friend} />
-                    <div className="InviteModal-friendName">
-                        {friend.username}
-                    </div>
-                </div>
-                <div className="InviteModal-buttonContainer">
-                    {this.props.guests && isInObject(friend, this.props.guests)
-                        ? 'Přijde'
-                        : <div>
-                            {friend.invited
-                                ? 'Pozvánka odeslána'
-                                : <button
-                                    className="Button Button--small Button--secondary"
-                                    onClick={() => this.inviteUser(friend.id, index)}
-                                >
-                                    Pozvat
-                                </button>
+        let friends = this.state.friends.map((friend, index) => {
+            if (friend.id !== this.props.user.id) {
+                return (
+                    <div className="InviteModal-friend" key={friend.id}>
+                        <div className="InviteModal-friendLeft">
+                            <Avatar user={friend} />
+                            <div className="InviteModal-friendName">
+                                {friend.username}
+                            </div>
+                        </div>
+                        <div className="InviteModal-buttonContainer">
+                            {this.props.guests && isInObject(friend, this.props.guests)
+                                ? 'Přijde'
+                                : <div>
+                                    {friend.invited
+                                        ? 'Pozvánka odeslána'
+                                        : <button
+                                            className="Button Button--small Button--secondary"
+                                            onClick={() => this.inviteUser(friend.id, index)}
+                                        >
+                                            Pozvat
+                                        </button>
+                                    }
+                                </div>
                             }
                         </div>
-                    }
-                </div>
-            </div>
-        ));
+                    </div>
+                );
+            }
+
+            return null;
+        });
 
         return (
             <div>
