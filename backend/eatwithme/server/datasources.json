@@ -12,5 +12,12 @@
     "name": "DBsource",
     "user": "team03",
     "connector": "mysql"
+  },
+  "storage": {
+    "name": "myfile",
+    "connector": "loopback-component-storage",
+    "root": "./server/files",
+    "maxFileSize": "10485760",
+    "provider": "filesystem"
   }
 }
