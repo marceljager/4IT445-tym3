@@ -122,6 +122,21 @@
 		font-weight: bold;
 	}
 
+	&-noFriends {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $headings-color;
+		font-size: 0.75rem;
+		font-weight: bold;
+		flex-flow: column;
+		padding: 20px;
+	}
+
+	&-noFriendsImage {
+		margin-bottom: 10px;
+	}
+
 	&.isVisible {
 		max-height: 100vh;
 

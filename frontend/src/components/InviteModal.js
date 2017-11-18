@@ -6,6 +6,8 @@ import axios from 'axios';
 import { API_URL } from '../constants';
 import Avatar from './Avatar';
 
+import feelsBadMan from '../img/noFriends.png';
+
 const isAlreadyParticipating = (obj, list) => {
     let i;
     for (i = 0; i < list.length; i += 1) {
@@ -120,7 +122,7 @@ class InviteModalRaw extends Component {
                                 :
                                 <div className="InviteModal-noFriends">
                                     <div className="InviteModal-noFriendsImage">
-                                        <img src="./img/noFriends.png" alt="FeelsBadMan" />
+                                        <img src={feelsBadMan} alt="FeelsBadMan" width={128} height={128} />
                                     </div>
                                     Nemáš kamarády
                                 </div>
