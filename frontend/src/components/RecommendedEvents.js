@@ -1,54 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
 import EventItem from './EventItem';
 
-const events = [
-    {
-        title: 'Slavnostní otevření restaurace Marjánka',
-        place: 'Rastaurace Marjánka',
-        rating: 4,
-        numberOfRatings: 72,
-        time: '12:00 - 15:00',
-        date: '25. října',
-        dateText: 'Právě v plném proudu',
-        participants: 5,
-        private: false,
-        image: 'thumbnail1.jpg'
-    },{
-        title: 'Pivko a pokec o výsledku voleb',
-        place: 'Nasraný Šálek',
-        rating: 3,
-        numberOfRatings: 56,
-        time: '20:00',
-        date: '28. října',
-        dateText: 'Začne za necelé 3 hodiny',
-        participants: 8,
-        private: true,
-        image: 'thumbnail3.jpg'
-    },{
-        title: 'Speeddating pro všechny svobodné',
-        place: 'Cukr káva limonáda',
-        rating: 4.5,
-        numberOfRatings: 23,
-        time: '21:00',
-        date: '1. listopad',
-        dateText: 'Začne za necelé 4 hodiny',
-        participants: 20,
-        private: false,
-        image: 'thumbnail2.jpg'
+import { API_URL } from '../constants';
+
+class RecomendedEvents extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            events: []
+        };
     }
-];
 
-const RecomendedEvents = () => {
-    const eventsList = events.map((event, index) => (
-        <EventItem key={index.toString()} itemType="compact" eventInfo={event} />
-    ));
+    componentDidMount() {
+        this.loadData();
+    }
 
-    return (
-        <div className="d-flex justify-content-between">
-            {eventsList}
-        </div>
-    );
+    loadData() {
+        axios.get(`${API_URL}/events/publicFeed`)
+            .then((response) => {
+                console.log(response);
+                this.setState({
+                    events: response.data.data
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    }
+
+    render() {
+        let eventsList = [];
+        if (this.state.events.length > 0) {
+            eventsList = this.state.events.map((event, index) => (
+                <EventItem key={index.toString()} itemType="compact" eventInfo={event} />
+            ));
+        }
+
+        return (
+            <div className="Home-recommended">
+                <h4 className="mb-4"><strong>Doporučené</strong> akce</h4>
+                <div className="d-flex justify-content-between">
+                    {this.state.events.length > 0 &&
+                        eventsList
+                    }
+                </div>
+            </div>
+        );
+    }
 };
 
 export default RecomendedEvents;

@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import ReactSVG from 'react-svg';
+
 import Rating from '../components/Rating';
 import Map from '../components/Map';
 import Calendar from '../components/Calendar';
 
 import { API_URL, MAPS_URL } from '../constants';
 import Comments from '../components/Comments';
+
+import Loading from '../img/loading.svg';
 
 const comments = [
     {
@@ -67,7 +71,12 @@ class EventDetail extends Component {
         };
         return (
             <div className="EventDetail">
-                <div className="container">
+                {!eventInfo.name &&
+                    <div className="Loading">
+                        <ReactSVG path={Loading} className="Loading-spinner" />
+                    </div>
+                }
+                <div className={`container${!eventInfo.name ? ' Loading-content' : ''}`}>
                     <div className="ParticipationBar">
                         <span className="ParticipationBar-text">Přijdeš na akci?</span>
                         <div className="ParticipationBar-buttonsContainer">
@@ -81,7 +90,7 @@ class EventDetail extends Component {
                             <div className="row">
                                 <div className="col-3 position-static">
                                     <div className="EventDetail-calendar">
-                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
+                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent}/>
                                     </div>
                                     <div className="EventDetail-mainImageContainer">
                                         <Map
@@ -89,9 +98,9 @@ class EventDetail extends Component {
                                             lng={14.3748887}
                                             zoom={15}
                                             googleMapURL={MAPS_URL}
-                                            containerElement={<div style={{ height: '100%', width: '100%' }} />}
-                                            mapElement={<div style={{ height: '100%', width: '100%' }} />}
-                                            loadingElement={<div style={{ height: '100%', width: '100%' }} />}
+                                            containerElement={<div style={{height: '100%', width: '100%'}}/>}
+                                            mapElement={<div style={{height: '100%', width: '100%'}}/>}
+                                            loadingElement={<div style={{height: '100%', width: '100%'}}/>}
                                             marker
                                         />
                                     </div>
@@ -101,48 +110,50 @@ class EventDetail extends Component {
                                     <div className="EventDetail-about">
                                         {eventInfo.description}
                                     </div>
-                                    <div className="Separator" />
+                                    <div className="Separator"/>
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kdo přijde?</h6>
                                             <div className="EventDetail-avatarsContainer">
                                                 <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/100001023439070/picture" alt="Marcel Jäger" />
+                                                    <img src="https://graph.facebook.com/100001023439070/picture" alt="Marcel Jäger"/>
                                                 </div>
                                                 <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek" />
+                                                    <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek"/>
                                                 </div>
                                                 <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/1422340757/picture" alt="Miroslav Horňák" />
+                                                    <img src="https://graph.facebook.com/1422340757/picture" alt="Miroslav Horňák"/>
                                                 </div>
                                                 <div className="Avatar">
                                                     +5
                                                 </div>
-                                                <button className="ml-2 Button Button--secondary Button--small">Pozvat přítele</button>
+                                                <button className="ml-2 Button Button--secondary Button--small">
+                                                    Pozvat přítele
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="Separator" />
+                                    <div className="Separator"/>
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kde to bude?</h6>
                                             <Link to="/" className="RestaurantInfo">
                                                 <span className="RestaurantInfo-imageContainer">
-                                                    <img src="./upload/userUpload/na-marjance.jpg" alt="Restaurace Marjánka" className="RestaurantInfo-image" />
+                                                    <img src="./upload/userUpload/na-marjance.jpg" alt="Restaurace Marjánka" className="RestaurantInfo-image"/>
                                                 </span>
                                                 <span className="RestaurantInfo-text">
                                                     <span className="RestaurantInfo-name">Restaurace Marjánka</span>
                                                     <span className="RestaurantInfo-address">Plážová 33, Praha 5</span>
-                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
+                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings}/>
                                                 </span>
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="Separator" />
+                                    <div className="Separator"/>
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Komentáře</h6>
-                                            <Comments data={comments} />
+                                            <Comments data={comments}/>
                                         </div>
                                     </div>
                                 </div>

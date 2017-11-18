@@ -38,10 +38,7 @@ export class HomeRaw extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col d-flex flex-column">
-                            <div className="Home-recommended">
-                                <h4 className="mb-4"><strong>Doporučené</strong> akce</h4>
-                                <RecommendedEvents />
-                            </div>
+                            <RecommendedEvents />
                         </div>
                     </div>
                 </div>

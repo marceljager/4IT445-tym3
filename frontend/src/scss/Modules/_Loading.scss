@@ -1,0 +1,22 @@
+.Loading {
+	position: fixed;
+	top: $menu-height;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba($headings-color, 0.6);
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&-spinner {
+		width: 64px;
+		height: 64px;
+		fill: white;
+	}
+
+	&-content {
+		filter: blur(10px);
+	}
+}
