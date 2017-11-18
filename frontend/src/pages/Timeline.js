@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux';
 
-import TodayEvents from '../components/TodayEvents';
+import EventsFeed from '../components/EventsFeed';
 import Notification from '../components/Notification';
+
+import { API_URL } from '../constants';
 
 const notificationsObject = [
     {
@@ -52,7 +56,18 @@ const notificationsObject = [
 const date = new Date();
 const tommorow = date.setDate(date.getDate() + 1);
 
-class Timeline extends Component{
+const containsObject = (obj, list) => {
+    let i;
+    for (i = 0; i < list.length; i += 1) {
+        if (list[i] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+class TimelineRaw extends Component{
     constructor(props) {
         super(props);
 
@@ -61,19 +76,61 @@ class Timeline extends Component{
         };
     }
 
+    componentDidMount() {
+        if (this.props.user.id) {
+            this.loadPublicFeed();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.id) {
+            this.loadPublicFeed();
+        }
+    }
+
+    setRead = (index) => {
+        const { notifications } = this.state;
+        notifications[index].unread = false;
+
+        this.setState({ notifications });
+    };
+
+    loadPublicFeed() {
+        axios.get(`${API_URL}/events/publicFeed`)
+            .then((response) => {
+                const publicFeed = response.data.data;
+                this.loadPersonalFeed(publicFeed);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    }
+
+    loadPersonalFeed(publicFeed) {
+        axios.get(`${API_URL}/customers/feed?custId=${this.props.user.userId}&access_token=${this.props.user.accessToken}`)
+            .then((response) => {
+                const events = response.data.data;
+                events.forEach((feedItem) => {
+                    if (!containsObject(feedItem, events)) {
+                        publicFeed.push(feedItem);
+                    }
+                });
+
+                this.setState({
+                    events
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    }
+
     handleReadAllClick = () => {
         const { notifications } = this.state;
         notifications.map((item) => {
             item.unread = false;
             return null;
         });
-
-        this.setState({ notifications });
-    };
-
-    setRead = (index) => {
-        const { notifications } = this.state;
-        notifications[index].unread = false;
 
         this.setState({ notifications });
     };
@@ -93,7 +150,7 @@ class Timeline extends Component{
                                         <span><FormattedDate value={Date.now()} day="numeric" month="long" /></span>
                                     </div>
                                     <div className="EventsContainer-content">
-                                        <TodayEvents />
+                                        <EventsFeed events={this.state.events} date={Date.now()} />
                                     </div>
                                 </div>
                                 <div className="EventsContainer EventsContainer--new">
@@ -106,7 +163,7 @@ class Timeline extends Component{
                                         <span><FormattedDate value={tommorow} day="numeric" month="long" /></span>
                                     </div>
                                     <div className="EventsContainer-content">
-                                        <TodayEvents />
+                                        <EventsFeed events={this.state.events} />
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +186,15 @@ class Timeline extends Component{
             </div>
         );
     }
+}
+
+const mapStateToProps = (state) => {
+    const { userData } = state;
+
+    return {
+        user: userData.user,
+    };
 };
 
+const Timeline = connect(mapStateToProps)(TimelineRaw);
 export default Timeline;

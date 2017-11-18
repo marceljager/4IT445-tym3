@@ -11,6 +11,13 @@
     background: #EEEFF1;
     flex-shrink: 0;
 
+    &-noPhoto {
+        width: 16px;
+        height: 16px;
+        fill: $headings-color;
+        display: block;
+    }
+
     img {
         width: 100%;
     }

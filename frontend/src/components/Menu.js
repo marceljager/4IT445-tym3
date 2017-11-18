@@ -6,6 +6,7 @@ import ReactSVG from 'react-svg';
 import SearchBar from '../components/SearchBar';
 
 import LogoImg from '../img/logo.svg';
+import Avatar from './Avatar';
 
 const MenuRaw = (props) => {
     const { user, location } = props;
@@ -27,11 +28,7 @@ const MenuRaw = (props) => {
                                 <div className={`d-flex align-items-center justify-content-end${location.pathname === '/landing' ? ' col-12' : ' col-7'}`}>
                                     {user.email &&
                                         <div className="d-flex align-items-center">
-                                            {user.picture &&
-                                                <div className="Avatar">
-                                                    <img src={`https://graph.facebook.com/${user.picture}/picture`} alt={user.name}/>
-                                                </div>
-                                            }
+                                            <Avatar user={user} />
                                             <div className="Menu-user">{user.username}</div>
                                         </div>
                                     }

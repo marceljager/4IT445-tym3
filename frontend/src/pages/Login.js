@@ -53,8 +53,9 @@ export class LoginRaw extends Component {
     getUser = (id, token) => {
         axios.get(`${API_URL}/customers/${id}?access_token=${token}`)
             .then((response) => {
-                console.log(response.data);
-                this.props.logIn(response.data);
+                const userData = response.data;
+                userData.accessToken = token;
+                this.props.logIn(userData);
                 this.props.history.push('/timeline');
                 return response.data;
             })

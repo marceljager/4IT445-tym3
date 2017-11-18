@@ -6,6 +6,7 @@ import axios from 'axios';
 import SearchIcon from '../img/icons/search.svg';
 
 import { API_URL } from '../constants';
+import Avatar from './Avatar';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -60,11 +61,7 @@ class SearchBar extends Component {
                 }
                 return (
                     <Link to={`/${url}/${item.id}`} key={index.toString()} className="SearchBar-whispererItem">
-                        {item.photo &&
-                            <div className="Avatar">
-                                <img src={`https://graph.facebook.com/${item.photo}/picture`} alt={item.name} />
-                            </div>
-                        }
+                        <Avatar user={item} />
                         <span className="SearchBar-whispererItemName">{item.name}</span>
                     </Link>
                 );

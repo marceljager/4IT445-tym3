@@ -12,6 +12,7 @@ import { API_URL, MAPS_URL } from '../constants';
 import Comments from '../components/Comments';
 
 import Loading from '../img/loading.svg';
+import EventParticipants from '../components/EventParticipants';
 
 const comments = [
     {
@@ -37,7 +38,8 @@ class EventDetail extends Component {
                 description: '',
                 place: '',
                 dateFrom: '2000-01-01T00:00:00+01:00',
-                dateTo: '2000-01-01T00:00:00+01:00'
+                dateTo: '2000-01-01T00:00:00+01:00',
+                guests: []
             }
         };
     }
@@ -69,6 +71,7 @@ class EventDetail extends Component {
             startTime: eventInfo.dateFrom,
             endTime: eventInfo.dateTo
         };
+
         return (
             <div className="EventDetail">
                 {!eventInfo.name &&
@@ -76,7 +79,7 @@ class EventDetail extends Component {
                         <ReactSVG path={Loading} className="Loading-spinner" />
                     </div>
                 }
-                <div className={`container${!eventInfo.name ? ' Loading-content' : ''}`}>
+                <div className={`container ${!eventInfo.name ? ' Loading-content' : ''}`}>
                     <div className="ParticipationBar">
                         <span className="ParticipationBar-text">Přijdeš na akci?</span>
                         <div className="ParticipationBar-buttonsContainer">
@@ -98,9 +101,9 @@ class EventDetail extends Component {
                                             lng={14.3748887}
                                             zoom={15}
                                             googleMapURL={MAPS_URL}
-                                            containerElement={<div style={{height: '100%', width: '100%'}}/>}
-                                            mapElement={<div style={{height: '100%', width: '100%'}}/>}
-                                            loadingElement={<div style={{height: '100%', width: '100%'}}/>}
+                                            containerElement={ <div style={{height: '100%', width: '100%' }} />}
+                                            mapElement={ <div style={{height: '100%', width: '100%' }} />}
+                                            loadingElement={ <div style={{height: '100%', width: '100%' }} />}
                                             marker
                                         />
                                     </div>
@@ -110,30 +113,14 @@ class EventDetail extends Component {
                                     <div className="EventDetail-about">
                                         {eventInfo.description}
                                     </div>
-                                    <div className="Separator"/>
+                                    <div className="Separator" />
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kdo přijde?</h6>
-                                            <div className="EventDetail-avatarsContainer">
-                                                <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/100001023439070/picture" alt="Marcel Jäger"/>
-                                                </div>
-                                                <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek"/>
-                                                </div>
-                                                <div className="Avatar">
-                                                    <img src="https://graph.facebook.com/1422340757/picture" alt="Miroslav Horňák"/>
-                                                </div>
-                                                <div className="Avatar">
-                                                    +5
-                                                </div>
-                                                <button className="ml-2 Button Button--secondary Button--small">
-                                                    Pozvat přítele
-                                                </button>
-                                            </div>
+                                            <EventParticipants guests={eventInfo.guests} />
                                         </div>
                                     </div>
-                                    <div className="Separator"/>
+                                    <div className="Separator" />
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kde to bude?</h6>
@@ -149,11 +136,11 @@ class EventDetail extends Component {
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="Separator"/>
+                                    <div className="Separator" />
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Komentáře</h6>
-                                            <Comments data={comments}/>
+                                            <Comments data={comments} />
                                         </div>
                                     </div>
                                 </div>
