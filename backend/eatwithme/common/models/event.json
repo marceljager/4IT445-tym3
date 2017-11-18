@@ -1,0 +1,80 @@
+{
+  "name": "Event",
+  "plural": "events",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "place": {
+      "type": "string",
+      "required": true
+    },
+    "rating": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "numberOfRatings": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "dateFrom": {
+      "type": "date",
+      "required": true
+    },
+    "dateTo": {
+      "type": "date",
+      "required": true
+    },
+    "dateText": {
+      "type": "string",
+      "required": true
+    },
+    "participants": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "private": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "picture": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "guests": {
+      "type": "hasMany",
+      "model": "customer",
+      "foreignKey": "eventID",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "attendance",
+      "keyThrough": "customerID"
+    },
+    "invited": {
+      "type": "hasMany",
+      "model": "customer",
+      "foreignKey": "eventID",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "invitations",
+      "keyThrough": "customerID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

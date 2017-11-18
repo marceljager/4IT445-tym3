@@ -9,17 +9,24 @@
 @import 'general';
 @import 'typography';
 
+@import './Modules/Avatar';
 @import './Modules/Button';
+@import './Modules/Calendar';
+@import './Modules/Comments';
 @import './Modules/EventItem';
+@import './Modules/EventsContainer';
 @import './Modules/Header';
 @import './Modules/Input';
 @import './Modules/Link';
 @import './Modules/Menu';
+@import './Modules/Notifications';
+@import './Modules/PageContent';
 @import './Modules/Rating';
 @import './Modules/SearchBar';
 @import './Modules/Separator';
 
 // Pages
+@import './Home/Home';
 @import './Login/Login';
 @import './EventDetail/EventDetail';
 @import './NewEvent/NewEvent';
@@ -30,6 +37,7 @@ body {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     text-shadow: rgba(#000, 0.01) 0 0 1px;
+    background: #F4F4F6;
 }
 
 h1 {

@@ -1,0 +1,39 @@
+{
+  "name": "attendance",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "eventID": {
+      "type": "number",
+      "required": true
+    },
+    "customerID": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventID",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

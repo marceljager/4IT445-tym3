@@ -2,6 +2,10 @@
     position: relative;
     display: inline-block;
     color: $secondary-color;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 
     &-highlight {
         color: $light-green;
@@ -20,8 +24,15 @@
         transform: scale(0);
     }
 
-    &:hover:after {
+    &:hover:after,
+    &:focus:after {
         transform: scale(1);
         opacity: 1;
+    }
+
+    &:focus,
+    &:hover {
+        outline: none;
+        color: darken($secondary-color, 20%);
     }
 }

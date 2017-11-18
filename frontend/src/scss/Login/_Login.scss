@@ -54,6 +54,9 @@
         width: 100%;
         position: relative;
         z-index: 2;
+        animation-name: slideInUp;
+        animation-fill-mode: both;
+        animation-duration: .75s;
     }
 
     &-buttonContainer {
@@ -63,5 +66,18 @@
     &-facebookContainer {
         display: flex;
         justify-content: center;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate3d(0, 100%, 0);
+        visibility: visible;
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
     }
 }

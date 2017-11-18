@@ -24,24 +24,24 @@ const events = [
         dateText: 'Začne za necelé 3 hodiny',
         participants: 8,
         private: true,
-        image: 'thumbnail1.jpg'
+        image: 'thumbnail3.jpg'
     },{
         title: 'Speeddating pro všechny svobodné',
         place: 'Cukr káva limonáda',
-        rating: 4.5,
+        rating: 4.25,
         numberOfRatings: 23,
         time: '21:00',
         date: '1. listopad',
         dateText: 'Začne za necelé 4 hodiny',
         participants: 20,
         private: false,
-        image: 'thumbnail1.jpg'
+        image: 'thumbnail2.jpg'
     }
 ];
 
 const RecomendedEvents = () => {
-    const eventsList = events.map(event => (
-        <EventItem eventInfo={event} />
+    const eventsList = events.map((event, index) => (
+        <EventItem key={index.toString()} eventInfo={event} />
     ));
 
     return (

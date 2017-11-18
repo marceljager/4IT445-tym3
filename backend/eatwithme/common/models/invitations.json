@@ -1,0 +1,39 @@
+{
+  "name": "invitations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "customerID": {
+      "type": "number",
+      "required": true
+    },
+    "eventID": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventID",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
