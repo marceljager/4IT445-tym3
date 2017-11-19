@@ -45,7 +45,7 @@ const EventItem = (props) => {
     return (
         <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem">
             <span className="EventItem-image" style={itemStyle}>
-                <span className="EventItem-badge">
+                <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
                     {eventInfo.private
                         ? 'Soukromá'
                         : 'Veřejná'
