@@ -27,6 +27,7 @@ export class LoginRaw extends Component {
             .then((response) => {
                 const userData = response.data;
                 userData.accessToken = token;
+                localStorage.setItem('user', JSON.stringify(userData));
                 this.props.logIn(userData);
                 this.props.history.push('/timeline');
                 return response.data;
@@ -67,7 +68,6 @@ export class LoginRaw extends Component {
     handleFbSubmit = (response) => {
         const user = response;
         user.picture = user.userID;
-        console.log(user);
         this.props.logIn(user);
         this.props.history.push('/timeline');
     };
@@ -115,7 +115,9 @@ export class LoginRaw extends Component {
 
 LoginRaw.propTypes = {
     logIn: propTypes.func.isRequired,
-    history: propTypes.shape({})
+    history: propTypes.shape({
+        push: propTypes.func
+    })
 };
 
 LoginRaw.defaultProps = {

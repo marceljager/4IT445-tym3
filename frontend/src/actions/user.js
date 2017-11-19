@@ -1,4 +1,5 @@
 export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
 export const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS';
 
 export const logIn = user => ({
@@ -6,6 +7,11 @@ export const logIn = user => ({
     payload: {
         user,
     },
+});
+
+export const logOut = () => ({
+    type: LOG_OUT,
+    payload: {},
 });
 
 export const addToFriends = userId => ({
