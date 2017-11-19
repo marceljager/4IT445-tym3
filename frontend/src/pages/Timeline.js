@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+import axios from 'axios';
 
 import EventsFeed from '../components/EventsFeed';
 import Notifications from '../components/Notifications';
@@ -10,59 +11,15 @@ import Notifications from '../components/Notifications';
 import { API_URL } from '../constants';
 import { isInObject } from '../functions';
 
-const notificationsObject = [
-    {
-        userName: 'Mirek',
-        userId: '1422340757',
-        type: 'comment',
-        date: '2 minutami',
-        unread: true
-    }, {
-        userName: 'Roman',
-        userId: '1702981537',
-        type: 'attend',
-        name: 'Slavnostní otevření restaurace Marjánka',
-        date: '4 minutami',
-        unread: true
-    }, {
-        userName: 'Mirek',
-        userId: '1422340757',
-        type: 'photo',
-        photo: 'photo.png',
-        date: '7 minutami',
-        unread: true
-    }, {
-        userName: 'Mirek',
-        userId: '1422340757',
-        type: 'invited',
-        name: 'Slavnostní otevření restaurace Marjánka',
-        date: '9 minutami',
-        unread: true
-    }, {
-        userName: 'Roman',
-        userId: '1702981537',
-        type: 'created',
-        name: 'Slavnostní otevření restaurace Marjánka',
-        date: '10 minutami'
-    }, {
-        userName: 'Mirek',
-        userId: '1422340757',
-        type: 'rated',
-        name: 'Slavnostní otevření restaurace Marjánka',
-        rating: 3.5,
-        date: '13 minutami'
-    }
-];
-
 const date = new Date();
 const tommorow = date.setDate(date.getDate() + 1);
 
-class TimelineRaw extends Component{
+class TimelineRaw extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            notifications: notificationsObject
+            events: []
         };
     }
 
@@ -90,10 +47,9 @@ class TimelineRaw extends Component{
     }
 
     loadPersonalFeed(publicFeed) {
-        axios.get(`${API_URL}/customers/feed?custId=${this.props.user.userId}&access_token=${this.props.user.accessToken}`)
+        const { id, accessToken } = this.props.user;
+        axios.get(`${API_URL}/customers/feed?custId=${id}&access_token=${accessToken}`)
             .then((response) => {
-                console.log(publicFeed);
-                console.log(response);
                 const events = response.data.data;
                 events.forEach((feedItem) => {
                     if (!isInObject(feedItem, events)) {
@@ -160,6 +116,20 @@ class TimelineRaw extends Component{
         );
     }
 }
+
+TimelineRaw.propTypes = {
+    user: propTypes.shape({
+        id: propTypes.number,
+        accessToken: propTypes.string
+    })
+};
+
+TimelineRaw.defaultProps = {
+    user: {
+        id: 0,
+        accessToken: ''
+    }
+};
 
 const mapStateToProps = (state) => {
     const { userData } = state;

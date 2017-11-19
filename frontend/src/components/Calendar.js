@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedDate, FormattedTime } from 'react-intl';
+import propTypes from 'prop-types';
 import AddToCalendar from 'react-add-to-calendar';
 
 const Calendar = (props) => {
@@ -21,6 +22,19 @@ const Calendar = (props) => {
             }
         </div>
     );
+};
+
+Calendar.propTypes = {
+    dateFrom: propTypes.string.isRequired,
+    dateTo: propTypes.string.isRequired,
+    addToCalendar: propTypes.oneOfType([
+        propTypes.bool,
+        propTypes.shape({})
+    ])
+};
+
+Calendar.defaultProps = {
+    addToCalendar: false
 };
 
 export default Calendar;

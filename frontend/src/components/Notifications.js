@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 import Notification from './Notification';
@@ -16,8 +17,23 @@ class NotificationsRaw extends Component {
     }
 
     componentDidMount() {
-        this.loadNotifications();
+        if (this.props.user.id) {
+            this.loadNotifications();
+        }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.id) {
+            this.loadNotifications();
+        }
+    }
+
+    setRead = (index) => {
+        const { data } = this.state;
+        data[index].unread = false;
+
+        this.setState({ data });
+    };
 
     loadNotifications = () => {
         const { id, accessToken } = this.props.user;
@@ -30,13 +46,6 @@ class NotificationsRaw extends Component {
             .catch((error) => {
                 console.error('zapni si internet', error);
             });
-    };
-
-    setRead = (index) => {
-        const { data } = this.state;
-        data[index].unread = false;
-
-        this.setState({ data });
     };
 
     render() {
@@ -58,7 +67,21 @@ class NotificationsRaw extends Component {
                     {items}
                 </div>
             </div>
-        )
+        );
+    }
+}
+
+NotificationsRaw.propTypes = {
+    user: propTypes.shape({
+        id: propTypes.number,
+        accessToken: propTypes.string
+    })
+};
+
+NotificationsRaw.defaultProps = {
+    user: {
+        id: 0,
+        accessToken: ''
     }
 };
 

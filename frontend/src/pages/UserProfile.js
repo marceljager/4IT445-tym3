@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 import { AddToFriendsButton } from '../components/AddToFriendsButton';
@@ -16,7 +17,7 @@ class UserProfile extends Component {
 
     componentDidMount() {
         const { userId } = this.props.match.params;
-
+        // TODO IMPLEMENTOVAT API
         axios.post(`${API_URL}/profile.php`, {
             userId
         })
@@ -49,5 +50,21 @@ class UserProfile extends Component {
         );
     }
 }
+
+UserProfile.propTypes = {
+    match: propTypes.shape({
+        params: propTypes.shape({
+            userId: propTypes.string
+        })
+    }),
+};
+
+UserProfile.defaultProps = {
+    match: {
+        params: {
+            userId: 0
+        }
+    }
+};
 
 export default UserProfile;

@@ -48,6 +48,6 @@ class RecomendedEvents extends Component {
             </div>
         );
     }
-};
+}
 
 export default RecomendedEvents;

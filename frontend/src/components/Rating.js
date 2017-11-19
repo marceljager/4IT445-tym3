@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 import RatingItem from './RatingItem';
 
@@ -33,6 +34,19 @@ const Rating = (props) => {
             }
         </div>
     );
+};
+
+Rating.propTypes = {
+    rating: propTypes.number,
+    number: propTypes.oneOfType([
+        propTypes.number,
+        propTypes.bool
+    ])
+};
+
+Rating.defaultProps = {
+    rating: 0,
+    number: false
 };
 
 export default Rating;

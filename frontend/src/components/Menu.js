@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 
 import SearchBar from '../components/SearchBar';
@@ -55,6 +56,24 @@ const MenuRaw = (props) => {
             </div>
         </div>
     );
+};
+
+MenuRaw.propTypes = {
+    user: propTypes.shape({
+        email: propTypes.string
+    }),
+    location: propTypes.shape({
+        pathname: propTypes.string
+    })
+};
+
+MenuRaw.defaultProps = {
+    user: {
+        email: ''
+    },
+    location: {
+        pathname: ''
+    }
 };
 
 const mapStateToProps = (state) => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 import SearchResults from '../components/SearchResults';
@@ -54,5 +55,21 @@ class SearchPage extends Component {
         );
     }
 }
+
+SearchPage.propTypes = {
+    match: propTypes.shape({
+        params: propTypes.shape({
+            searchText: propTypes.string
+        })
+    }),
+};
+
+SearchPage.defaultProps = {
+    match: {
+        params: {
+            searchText: ''
+        }
+    }
+};
 
 export default SearchPage;

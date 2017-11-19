@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
+import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 
@@ -21,16 +22,18 @@ export class LoginRaw extends Component {
         };
     }
 
-    handleLoginChange = (e) => {
-        this.setState({
-            loginEmail: e.target.value
-        });
-    };
-
-    handlePasswordChange = (e) => {
-        this.setState({
-            loginPassword: e.target.value
-        });
+    getUser = (id, token) => {
+        axios.get(`${API_URL}/customers/${id}?access_token=${token}`)
+            .then((response) => {
+                const userData = response.data;
+                userData.accessToken = token;
+                this.props.logIn(userData);
+                this.props.history.push('/timeline');
+                return response.data;
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
     };
 
     handleSubmit = (e) => {
@@ -49,18 +52,16 @@ export class LoginRaw extends Component {
         e.preventDefault();
     };
 
-    getUser = (id, token) => {
-        axios.get(`${API_URL}/customers/${id}?access_token=${token}`)
-            .then((response) => {
-                const userData = response.data;
-                userData.accessToken = token;
-                this.props.logIn(userData);
-                this.props.history.push('/timeline');
-                return response.data;
-            })
-            .catch((error) => {
-                console.error('zapni si internet', error);
-            });
+    handlePasswordChange = (e) => {
+        this.setState({
+            loginPassword: e.target.value
+        });
+    };
+
+    handleLoginChange = (e) => {
+        this.setState({
+            loginEmail: e.target.value
+        });
     };
 
     handleFbSubmit = (response) => {
@@ -112,7 +113,16 @@ export class LoginRaw extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+LoginRaw.propTypes = {
+    logIn: propTypes.func.isRequired,
+    history: propTypes.shape({})
+};
+
+LoginRaw.defaultProps = {
+    history: {}
+};
+
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
     logIn,

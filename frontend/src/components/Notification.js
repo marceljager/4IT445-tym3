@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import { FormattedRelative } from 'react-intl';
 
 import Rating from './Rating';
@@ -44,7 +45,7 @@ const Notification = (props) => {
     }
 
     return (
-        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`} onMouseOver={() => props.onSetRead(props.index)}>
+        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`} onMouseOver={() => props.onSetRead(props.index)} onFocus={() => props.onSetRead(props.index)}>
             <div className="Notifications-avatarContainer">
                 <img src={`./icons/${item.notificationtype}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
                 <Avatar user={user} />
@@ -75,6 +76,24 @@ const Notification = (props) => {
             </div>
         </div>
     );
+};
+
+Notification.propTypes = {
+    item: propTypes.shape({
+        fromPic: propTypes.string,
+        fromName: propTypes.string,
+        notificationtype: propTypes.string,
+        eventID: 0,
+        invSendDate: propTypes.string
+    }),
+    onSetRead: propTypes.func.isRequired,
+    index: propTypes.number.isRequired
+};
+
+Notification.defaultProps = {
+    item: {
+        email: ''
+    }
 };
 
 export default Notification;

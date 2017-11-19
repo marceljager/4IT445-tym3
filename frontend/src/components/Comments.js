@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+
 import Avatar from './Avatar';
 
 class CommentsRaw extends Component {
@@ -80,7 +82,7 @@ class CommentsRaw extends Component {
                             <Avatar user={user} />
                         </div>
                         <div className="Input">
-                            <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..."/>
+                            <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..." />
                         </div>
                     </form>
                 }
@@ -92,6 +94,27 @@ class CommentsRaw extends Component {
         );
     }
 }
+
+CommentsRaw.propTypes = {
+    user: propTypes.shape({
+        email: propTypes.string
+    }),
+    data: propTypes.arrayOf(
+        propTypes.shape({
+            photo: propTypes.string,
+            author: propTypes.string,
+            date: propTypes.instanceOf(Date),
+            text: propTypes.string
+        })
+    )
+};
+
+CommentsRaw.defaultProps = {
+    user: {
+        email: ''
+    },
+    data: []
+};
 
 const mapStateToProps = (state) => {
     const { userData } = state;

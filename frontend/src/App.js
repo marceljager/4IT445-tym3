@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -13,24 +13,22 @@ import './App.css';
 
 addLocaleData([...cs]);
 
-class App extends Component {
-    render() {
-        const store = configureStore;
-        const MenuComponent = withRouter(props => <Menu {...props} />);
+const App = () => {
+    const store = configureStore;
+    const MenuComponent = withRouter(props => <Menu {...props} />);
 
-        return (
-            <IntlProvider locale="cs">
-                <Provider store={store}>
-                    <Router>
-                        <div>
-                            <MenuComponent />
-                            <PageContent />
-                        </div>
-                    </Router>
-                </Provider>
-            </IntlProvider>
-        );
-    }
-}
+    return (
+        <IntlProvider locale="cs">
+            <Provider store={store}>
+                <Router>
+                    <div>
+                        <MenuComponent />
+                        <PageContent />
+                    </div>
+                </Router>
+            </Provider>
+        </IntlProvider>
+    );
+};
 
 export default App;

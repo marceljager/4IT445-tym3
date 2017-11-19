@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
 import Rating from './Rating';
@@ -68,6 +69,28 @@ const EventItem = (props) => {
             </span>
         </Link>
     );
+};
+
+EventItem.propTypes = {
+    eventInfo: propTypes.shape({
+        id: propTypes.number,
+        private: propTypes.number,
+        place: propTypes.string,
+        dateTo: propTypes.string,
+        dateFrom: propTypes.string,
+        name: propTypes.string,
+        rating: propTypes.number,
+        numberOfRatings: propTypes.number
+    }),
+    itemType: propTypes.string
+};
+
+EventItem.defaultProps = {
+    eventInfo: {
+        numberOfRatings: 0,
+        rating: 0
+    },
+    itemType: ''
 };
 
 export default EventItem;

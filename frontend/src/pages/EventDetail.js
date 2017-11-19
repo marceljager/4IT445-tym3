@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 import ReactSVG from 'react-svg';
@@ -135,9 +136,9 @@ class EventDetailRaw extends Component {
                                             lng={14.3748887}
                                             zoom={15}
                                             googleMapURL={MAPS_URL}
-                                            containerElement={ <div style={{height: '100%', width: '100%' }} />}
-                                            mapElement={ <div style={{height: '100%', width: '100%' }} />}
-                                            loadingElement={ <div style={{height: '100%', width: '100%' }} />}
+                                            containerElement={<div style={{ height: '100%', width: '100%' }} />}
+                                            mapElement={<div style={{ height: '100%', width: '100%' }} />}
+                                            loadingElement={<div style={{ height: '100%', width: '100%' }} />}
                                             marker
                                         />
                                     </div>
@@ -175,12 +176,12 @@ class EventDetailRaw extends Component {
                                             <h6 className="mb-3">Kde to bude?</h6>
                                             <Link to="/" className="RestaurantInfo">
                                                 <span className="RestaurantInfo-imageContainer">
-                                                    <img src="./upload/userUpload/na-marjance.jpg" alt="Restaurace Marjánka" className="RestaurantInfo-image"/>
+                                                    <img src="./upload/userUpload/na-marjance.jpg" alt="Restaurace Marjánka" className="RestaurantInfo-image" />
                                                 </span>
                                                 <span className="RestaurantInfo-text">
                                                     <span className="RestaurantInfo-name">Restaurace Marjánka</span>
                                                     <span className="RestaurantInfo-address">Plážová 33, Praha 5</span>
-                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings}/>
+                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
                                                 </span>
                                             </Link>
                                         </div>
@@ -201,6 +202,26 @@ class EventDetailRaw extends Component {
         );
     }
 }
+EventDetailRaw.propTypes = {
+    match: propTypes.shape({
+        params: propTypes.shape({
+            eventId: propTypes.string
+        })
+    }),
+    user: propTypes.shape({
+        id: propTypes.number,
+        accessToken: propTypes.string
+    })
+};
+
+EventDetailRaw.defaultProps = {
+    match: {
+        params: {
+            eventId: 0
+        }
+    },
+    user: {}
+};
 
 const mapStateToProps = (state) => {
     const { userData } = state;
