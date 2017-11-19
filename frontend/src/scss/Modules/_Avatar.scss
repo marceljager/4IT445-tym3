@@ -1,25 +1,64 @@
 .Avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    overflow: hidden;
-    display: inline-flex;
-    margin: 0 5px;
-    justify-content: center;
-    align-items: center;
-    color: $headings-color;
-    background: #EEEFF1;
-    flex-shrink: 0;
+    position: relative;
+
+    &-imageContainer {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        overflow: hidden;
+        display: inline-flex;
+        margin: 0 5px;
+        justify-content: center;
+        align-items: center;
+        color: $headings-color;
+        background: #EEEFF1;
+        flex-shrink: 0;
+    }
 
     &-noPhoto {
         width: 12px;
         height: 12px;
         fill: $headings-color;
         display: block;
+        transition: filter 300ms;
     }
 
-    img {
+    &-name {
+        display: none;
+    }
+
+    &-photo {
         width: 100%;
+        transition: filter 300ms;
+    }
+
+    &-name {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3D(-50%, -50%, 0) scale(0.2);
+        text-transform: capitalize;
+        color: $headings-color;
+        background: rgba(white, 0.7);
+        box-shadow: 0 0 10px rgba(#000, 0.1);
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border-radius: 4px;
+        opacity: 0;
+        transition: all 300ms;
+        cursor: default;
+    }
+
+    &:hover &-photo,
+    &:hover &-noPhoto {
+        filter: blur(5px);
+    }
+
+    &:hover &-name {
+        opacity: 1;
+        transform: translate3D(-50%, 0, 0) scale(1);
     }
 }
 

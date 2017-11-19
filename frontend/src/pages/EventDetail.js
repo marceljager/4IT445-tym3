@@ -60,6 +60,7 @@ class EventDetailRaw extends Component {
                 this.setState({
                     eventInfo: response.data
                 });
+
                 this.showBar(500);
             })
             .catch((error) => {
@@ -69,8 +70,6 @@ class EventDetailRaw extends Component {
 
     showBar = (timeout) => {
         setTimeout(() => {
-            console.log(this.state.eventInfo, this.props.user);
-
             if (!isInObject(this.props.user, this.state.eventInfo.guests)) {
                 this.setState({
                     participationBar: true
@@ -92,7 +91,7 @@ class EventDetailRaw extends Component {
     participate = () => {
         const { eventId } = this.props.match.params;
         const { id, accessToken } = this.props.user;
-        axios.put(`${API_URL}/events/${eventId}/invited/rel/${id}?access_token=${accessToken}`)
+        axios.put(`${API_URL}/events/${eventId}/guests/rel/${id}?access_token=${accessToken}`)
             .then(() => {
                 this.setState({
                     signedIn: true,
@@ -148,15 +147,21 @@ class EventDetailRaw extends Component {
                                     <div className="EventDetail-about">
                                         {eventInfo.description}
                                     </div>
-                                    <div className={`${this.state.participationBar ? 'isVisible ' : ''}ParticipationBar d-flex align-items-center`}>
-                                        <div className="container d-flex justify-content-center align-items-center">
-                                            <span className="ParticipationBar-text">Přijdeš na akci?</span>
-                                            <div className="ParticipationBar-buttonsContainer">
-                                                <button className="Button Button--small Button--accept mr-2" onClick={this.participate}>Ano, přijdu</button>
-                                                <button className="Button Button--small Button--deny" onClick={this.hideBar}>Ještě nevím</button>
+                                    {this.props.user.id &&
+                                        <div className={`${this.state.participationBar ? 'isVisible ' : ''}ParticipationBar d-flex align-items-center`}>
+                                            <div className="container d-flex justify-content-center align-items-center">
+                                                <span className="ParticipationBar-text">Přijdeš na akci?</span>
+                                                <div className="ParticipationBar-buttonsContainer">
+                                                    <button className="Button Button--small Button--accept mr-2" onClick={this.participate}>
+                                                        Ano, přijdu
+                                                    </button>
+                                                    <button className="Button Button--small Button--deny" onClick={this.hideBar}>
+                                                        Ještě nevím
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                     <div className="Separator" />
                                     <div className="row">
                                         <div className="col">

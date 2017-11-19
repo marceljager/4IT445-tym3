@@ -39,7 +39,6 @@ export class LoginRaw extends Component {
             password: this.state.loginPassword
         })
             .then((response) => {
-                console.log(response);
                 const { userId, id } = response.data;
                 this.getUser(userId, id);
             })

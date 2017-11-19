@@ -41,7 +41,6 @@ class NotificationsRaw extends Component {
 
     render() {
         let items = [];
-        console.log(this.state.data)
         if (this.state.data.length > 0) {
             items = this.state.data.map((notification, index) => (
                 <Notification key={index.toString()} item={notification} index={index} onSetRead={this.setRead} />

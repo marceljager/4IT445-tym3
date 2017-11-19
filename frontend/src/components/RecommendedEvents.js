@@ -20,7 +20,6 @@ class RecomendedEvents extends Component {
     loadData() {
         axios.get(`${API_URL}/events/publicFeed?filter[limit]=3`)
             .then((response) => {
-                console.log(response);
                 this.setState({
                     events: response.data.data
                 });

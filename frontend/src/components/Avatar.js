@@ -5,10 +5,13 @@ import noPhoto from '../img/icons/no-photo.svg';
 
 const Avatar = props => (
     <div className={`Avatar${props.animated ? ' Avatar--animated' : ''}`} key={props.user.id}>
-        {props.user.photo
-            ? <img src={props.user.photo} alt={props.user.username} />
-            : <ReactSVG path={noPhoto} className="Avatar-noPhoto" />
-        }
+        <div className="Avatar-imageContainer">
+            {props.user.photo
+                ? <img src={props.user.photo} alt={props.user.username} className="Avatar-photo" />
+                : <ReactSVG path={noPhoto} className="Avatar-noPhoto" />
+            }
+        </div>
+        <span className="Avatar-name">{props.user.username}</span>
     </div>
 );
 

@@ -92,6 +92,8 @@ class TimelineRaw extends Component{
     loadPersonalFeed(publicFeed) {
         axios.get(`${API_URL}/customers/feed?custId=${this.props.user.userId}&access_token=${this.props.user.accessToken}`)
             .then((response) => {
+                console.log(publicFeed);
+                console.log(response);
                 const events = response.data.data;
                 events.forEach((feedItem) => {
                     if (!isInObject(feedItem, events)) {

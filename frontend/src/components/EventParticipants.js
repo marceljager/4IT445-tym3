@@ -8,9 +8,13 @@ const EventParticipantsRaw = (props) => {
     let participants = [];
 
     if (props.guests.length > 0) {
-        participants = props.guests.map(guest => (
-            <Avatar user={guest} key={guest.id} />
-        ));
+        participants = props.guests.map(guest => {
+            if (props.user.id !== guest.id) {
+                return <Avatar user={guest} key={guest.id} />
+            }
+
+            return null;
+        });
     }
 
     return (

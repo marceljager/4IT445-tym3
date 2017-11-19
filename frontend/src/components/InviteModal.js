@@ -49,12 +49,13 @@ class InviteModalRaw extends Component {
             });
     };
 
-    inviteUser = (id, index) => {
+    inviteUser = (invitedId, index) => {
         const { friends } = this.state;
         friends[index].invited = true;
         const { eventId } = this.props.match.params;
+        const { id, accessToken } = this.props.user;
 
-        axios.put(`${API_URL}/events/${eventId}/invited/rel/${id}?access_token=${this.props.user.accessToken}`)
+        axios.put(`${API_URL}/events/${eventId}/invited/rel/${invitedId}?from=${id}&access_token=${accessToken}`)
             .then(() => {
                 this.setState({
                     friends

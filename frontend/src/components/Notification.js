@@ -9,7 +9,7 @@ const Notification = (props) => {
     const { item } = props;
     const user = {
         photo: item.fromPic !== 'string' ? item.fromPic : null,
-        name: item.fromName
+        username: item.fromName
     };
 
     let title;

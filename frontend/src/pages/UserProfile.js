@@ -21,7 +21,6 @@ class UserProfile extends Component {
             userId
         })
             .then((response) => {
-                console.log(response);
                 const { user } = response.data;
                 this.setState({
                     user
