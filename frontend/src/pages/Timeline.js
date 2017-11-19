@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import EventsFeed from '../components/EventsFeed';
-import Notification from '../components/Notification';
+import Notifications from '../components/Notifications';
 
 import { API_URL } from '../constants';
 import { isInObject } from '../functions';
@@ -78,13 +78,6 @@ class TimelineRaw extends Component{
         }
     }
 
-    setRead = (index) => {
-        const { notifications } = this.state;
-        notifications[index].unread = false;
-
-        this.setState({ notifications });
-    };
-
     loadPublicFeed() {
         axios.get(`${API_URL}/events/publicFeed`)
             .then((response) => {
@@ -126,8 +119,6 @@ class TimelineRaw extends Component{
     };
 
     render() {
-        const items = this.state.notifications.map((notification, index) => <Notification key={index.toString()} item={notification} index={index} onSetRead={this.setRead} />);
-
         return (
             <div className="container mb-5">
                 <div className="row d-flex justify-content-center">
@@ -158,17 +149,7 @@ class TimelineRaw extends Component{
                                 </div>
                             </div>
                             <div className="col-4">
-                                <div className="Notifications">
-                                    <div className="Notifications-header">
-                                        <span className="Notifications-title">Co se děje</span>
-                                        <button className="Link" onClick={this.handleReadAllClick}>
-                                            Přečteno
-                                        </button>
-                                    </div>
-                                    <div className="Notifications-itemsContainer">
-                                        {items}
-                                    </div>
-                                </div>
+                                <Notifications />
                             </div>
                         </div>
                     </div>

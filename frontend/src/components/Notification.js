@@ -1,15 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FormattedRelative } from 'react-intl';
 
 import Rating from './Rating';
+import Avatar from './Avatar';
 
 const Notification = (props) => {
     const { item } = props;
-    const imageSource = `https://graph.facebook.com/${item.userId}/picture`;
+    const user = {
+        photo: item.fromPic !== 'string' ? item.fromPic : null,
+        name: item.fromName
+    };
 
     let title;
     let simple;
-    switch (item.type) {
+    switch (item.notificationtype) {
     case 'comment':
         title = 'přidal nový komentář';
         break;
@@ -20,7 +25,7 @@ const Notification = (props) => {
     case 'photo':
         title = 'přidal novou fotku';
         break;
-    case 'invited':
+    case 'invitation':
         simple = true;
         title = 'tě pozval na';
         break;
@@ -41,24 +46,22 @@ const Notification = (props) => {
     return (
         <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`} onMouseOver={() => props.onSetRead(props.index)}>
             <div className="Notifications-avatarContainer">
-                <img src={`./icons/${item.type}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
-                <div className="Notifications-avatar">
-                    <img src={imageSource} className="Notifications-image" alt="" />
-                </div>
+                <img src={`./icons/${item.notificationtype}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
+                <Avatar user={user} />
             </div>
             <div className="Notifications-textColumn">
-                <span className={`Notifications-itemTitle ${simple ? 'Notifications-itemTitle--simple' : ''}`}>{item.userName} {title}</span>
+                <span className={`Notifications-itemTitle ${simple ? 'Notifications-itemTitle--simple' : ''}`}>{item.fromName} {title}</span>
                 {simple &&
                     <div className="Notifications-eventName">{item.name}</div>
                 }
-                {item.type === 'photo' &&
+                {item.notificationtype === 'photo' &&
                     <div className="Notifications-thumbnailContainer">
                         <img src={`./upload/userUpload/${item.photo}`} alt="" className="Notifications-thumbnail" />
                     </div>
                 }
-                {item.type === 'invited' &&
+                {item.notificationtype === 'invitation' &&
                     <div className="Notifications-container">
-                        <Link to="/detail-akce" className="Button Button--secondary Button--small">Zobrazit</Link>
+                        <Link to={`/detail-akce/${item.eventID}`} className="Button Button--secondary Button--small">Zobrazit</Link>
                     </div>
                 }
                 {item.rating &&
@@ -66,7 +69,9 @@ const Notification = (props) => {
                         <Rating rating={item.rating} />
                     </div>
                 }
-                <div className="Notifications-date">před {item.date}</div>
+                <div className="Notifications-date">
+                    <FormattedRelative value={item.invSendDate} />
+                </div>
             </div>
         </div>
     );
