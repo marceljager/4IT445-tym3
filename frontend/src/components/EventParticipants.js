@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 
 import InviteModal from './InviteModal';
@@ -7,6 +8,7 @@ import Avatar from './Avatar';
 
 const EventParticipantsRaw = (props) => {
     let participants = [];
+    const { eventId } = props.match.params;
 
     if (props.guests.length > 0) {
         participants = props.guests.map((guest) => {
@@ -28,7 +30,7 @@ const EventParticipantsRaw = (props) => {
                 </div>
             }
             <div className={(participants.length > 0 || props.signedIn) ? 'ml-2' : ''}>
-                {props.user.id && <InviteModal guests={props.guests} />}
+                {props.user.id && <InviteModal guests={props.guests} eventId={eventId} />}
             </div>
         </div>
     );
@@ -60,5 +62,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-const EventParticipants = connect(mapStateToProps)(EventParticipantsRaw);
+const EventParticipants = connect(mapStateToProps)(withRouter(EventParticipantsRaw));
 export default EventParticipants;

@@ -53,8 +53,8 @@ class InviteModalRaw extends Component {
     inviteUser = (invitedId, index) => {
         const { friends } = this.state;
         friends[index].invited = true;
-        const { eventId } = this.props.match.params;
         const { id, accessToken } = this.props.user;
+        const { eventId } = this.props;
 
         axios.put(`${API_URL}/events/${eventId}/invited/rel/${invitedId}?from=${id}&access_token=${accessToken}`)
             .then(() => {
@@ -138,11 +138,7 @@ InviteModalRaw.propTypes = {
         id: propTypes.number,
         accessToken: propTypes.string
     }),
-    match: propTypes.shape({
-        params: propTypes.shape({
-            eventId: propTypes.string
-        })
-    }),
+    eventId: propTypes.number.isRequired,
     guests: propTypes.arrayOf(
         propTypes.shape({})
     )
@@ -150,11 +146,6 @@ InviteModalRaw.propTypes = {
 
 InviteModalRaw.defaultProps = {
     user: {},
-    match: {
-        params: {
-            eventId: 0
-        }
-    },
     guests: []
 };
 
