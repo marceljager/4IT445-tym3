@@ -107,6 +107,9 @@ export class LoginRaw extends Component {
                             icon={<div className="Button-iconContainer"><ReactSVG path={FacebookIcon} className="Button-icon" /></div>}
                         />
                     </div>
+                    <div className="mt-3 text-center">
+                        <Link to="/registrace">Založit účet</Link>
+                    </div>
                 </div>
             </div>
         );

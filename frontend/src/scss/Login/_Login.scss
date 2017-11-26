@@ -67,6 +67,19 @@
         display: flex;
         justify-content: center;
     }
+
+    &-avatarContainer {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    &-avatar {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 @keyframes slideInUp {

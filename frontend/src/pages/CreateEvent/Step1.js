@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { storeNewEventRestaurant } from '../../actions/event';
+import { Link } from 'react-router-dom';
 
 import Rating from '../../components/Rating';
+import Input from '../../components/Input';
 
-export class Step1Raw extends Component {
+export class Step1 extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.history.push('/nova-udalost/krok-2');
-    };
-
-    handleChange = (e) => {
-        this.props.onHandleChange(e.target.value);
     };
 
     render() {
@@ -41,7 +35,11 @@ export class Step1Raw extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <input type="text" value={this.props.eventRestaurant} onChange={this.handleChange} id="place" className="Input-input"/>
+                            <Input
+                                id="restaurant"
+                                label="Restaurant"
+                                type="text"
+                            />
                         </div>
 
                         <div className="Separator">
@@ -102,18 +100,3 @@ export class Step1Raw extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        eventRestaurant: state.event.restaurant
-    };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    onHandleChange: (event) => dispatch(storeNewEventRestaurant(event)),
-});
-
-export const Step1 = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(Step1Raw));

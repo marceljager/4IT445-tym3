@@ -2,18 +2,20 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import { Login } from './Login';
+import { Register } from './Register';
 import { Home } from './Home';
 import SearchPage from './SearchPage';
 import UserProfile from './UserProfile';
 import { Step1 } from './CreateEvent/Step1';
-import { Step2 } from './CreateEvent/Step2';
-import { Step3 } from './CreateEvent/Step3';
+import Step2 from './CreateEvent/Step2';
+import Step3 from './CreateEvent/Step3';
 import EventDetail from './EventDetail';
 import Timeline from './Timeline';
 
 const PageContent = () => (
     <div className="PageContent">
         <Route exact path="/" component={Login} />
+        <Route exact path="/registrace" component={Register} />
         <Route path="/landing" component={Home} />
         <Route path="/detail-akce/:eventId" component={EventDetail} />
         <Route path="/hledat/:searchText" component={SearchPage} />
