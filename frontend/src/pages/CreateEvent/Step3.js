@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-    storeNewEventType,
-    clearNewEvent
-} from '../../actions/event';
+import { API_URL } from '../../constants';
 
-export class Step3Raw extends Component {
+import Input from '../../components/Input';
+
+import { changeInputValue } from '../../actions/event';
+
+class Step3 extends Component {
     componentDidMount = () => {
-        if (this.props.eventRestaurant === '') {
+        if (this.props.restaurant === '') {
             this.props.history.goBack();
             this.props.history.push('/nova-udalost/krok-1');
-        }
-
-        if (this.props.eventName === '' || this.props.eventDescription === '') {
+        } else if (this.props.name === '' || this.props.desc === '') {
             this.props.history.goBack();
             this.props.history.push('/nova-udalost/krok-2');
         }
@@ -22,13 +22,16 @@ export class Step3Raw extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.props);
-        this.props.onSubmitClear();
-        this.props.history.push('/nova-udalost/krok-1');
-    };
-
-    handleTypeChange = (e) => {
-        this.props.onHandleTypeChange(e.target.value);
+        axios.post(`${API_URL}/events`, {
+            name: this.props.name,
+            private: this.props.private,
+            dateFrom: this.props.dateFrom,
+            dateTo: this.props.dateTo
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
     };
 
     render() {
@@ -59,7 +62,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            {this.props.eventRestaurant}
+                            {this.props.restaurant}
                         </p>
 
                         <hr className="my-4" />
@@ -73,7 +76,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            {this.props.eventName}
+                            {this.props.name}
                         </p>
 
                         <label className="NewEvent-label">
@@ -81,7 +84,7 @@ export class Step3Raw extends Component {
                         </label>
 
                         <p>
-                            {this.props.eventDescription}
+                            {this.props.desc}
                         </p>
 
                         <hr className="my-4" />
@@ -90,87 +93,30 @@ export class Step3Raw extends Component {
                             <strong>Krok 3</strong> ze 3
                         </div>
 
-                        <h5>Pozvěte přátele</h5>
+                        <h5>Typ akce</h5>
 
                         <div className="d-flex my-3">
                             <div className="mr-2">
-                                <label className="Radio" htmlFor="public">
-                                    <input
-                                        className="Radio-input"
-                                        id="public"
-                                        name="actionType"
-                                        type="radio"
-                                        value="public"
-                                        checked={this.props.eventType === 'public'}
-                                        onChange={this.handleTypeChange}
-                                    />
-                                        <div className="Radio-content">
-                                            <div className="Radio-radioBox">
-                                                Veřejná akce
-                                            </div>
-                                        </div>
-                                </label>
+                                <Input
+                                    id="public"
+                                    inpValue="false"
+                                    name="type"
+                                    type="radio"
+                                    label="Veřejná akce"
+                                    checkedValue="public"
+                                />
                             </div>
 
                             <div>
-                                <label className="Radio" htmlFor="private">
-                                    <input
-                                        className="Radio-input"
-                                        id="private"
-                                        name="actionType"
-                                        value="private"
-                                        type="radio"
-                                        checked={this.props.eventType === 'private'}
-                                        onChange={this.handleTypeChange}
-                                    />
-                                    <div className="Radio-content">
-                                        <div className="Radio-radioBox">
-                                            Akce s přáteli
-                                        </div>
-                                    </div>
-                                </label>
+                                <Input
+                                    id="private"
+                                    inpValue="true"
+                                    name="type"
+                                    type="radio"
+                                    label="Akce s přáteli"
+                                />
                             </div>
                         </div>
-
-                         <div className="d-flex justify-content-between mb-3">
-                             <div>
-                                 <div className="Avatar mr-3">
-                                     <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek" />
-                                 </div>
-                                 <span>Roman Fausek</span>
-                             </div>
-                             <div>
-                                 <Link to="/" className="Button">
-                                     <span className="Button-text">Pozvat</span>
-                                 </Link>
-                             </div>
-                         </div>
-                         <div className="d-flex justify-content-between mb-3">
-                             <div>
-                                 <div className="Avatar mr-3">
-                                     <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek" />
-                                 </div>
-                                 <span>Roman Fausek</span>
-                             </div>
-                             <div>
-                                 <Link to="/" className="Button">
-                                     <span className="Button-text">Pozvat</span>
-                                 </Link>
-                             </div>
-                         </div>
-                         <div className="d-flex justify-content-between mb-3">
-                             <div>
-                                 <div className="Avatar mr-3">
-                                     <img src="https://graph.facebook.com/1702981537/picture" alt="Roman Fausek" />
-                                 </div>
-                                 <span>Roman Fausek</span>
-                             </div>
-                             <div>
-                                 <Link to="/" className="Button">
-                                     <span className="Button-text">Pozvat</span>
-                                 </Link>
-                             </div>
-                         </div>
                     </div>
 
                     <div className="my-4 text-center">
@@ -185,20 +131,18 @@ export class Step3Raw extends Component {
 }
 
 const mapStateToProps = (state) => {
+    const { event } = state;
+
     return {
-        eventRestaurant: state.event.restaurant,
-        eventName: state.event.name,
-        eventDescription: state.event.description,
-        eventType: state.event.type,
+        restaurant: event.restaurant,
+        name: event.name,
+        desc: event.description
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onHandleTypeChange: (event) => dispatch(storeNewEventType(event)),
-    onSubmitClear: () => dispatch(clearNewEvent())
-});
 
-export const Step3 = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(Step3Raw));
+const mapDispatchToProps = {
+    changeInputValue
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Step3);
