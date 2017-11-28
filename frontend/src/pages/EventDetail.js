@@ -46,7 +46,7 @@ class EventDetailRaw extends Component {
                 guests: []
             },
             participationBar: false,
-            signedIn: false
+            signedIn: {}
         };
     }
 
@@ -77,7 +77,7 @@ class EventDetailRaw extends Component {
                 });
             } else {
                 this.setState({
-                    signedIn: true
+                    signedIn: this.props.user
                 });
             }
         }, timeout);
@@ -95,7 +95,7 @@ class EventDetailRaw extends Component {
         axios.put(`${API_URL}/events/${eventId}/guests/rel/${id}?access_token=${accessToken}`)
             .then(() => {
                 this.setState({
-                    signedIn: true,
+                    signedIn: {},
                     participationBar: false
                 });
             })
@@ -167,7 +167,7 @@ class EventDetailRaw extends Component {
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kdo přijde?</h6>
-                                            <EventParticipants signedIn={this.state.signedIn ? this.props.user : null} guests={eventInfo.guests} />
+                                            <EventParticipants signedIn={this.state.signedIn ? this.props.user : {}} guests={eventInfo.guests} />
                                         </div>
                                     </div>
                                     <div className="Separator" />

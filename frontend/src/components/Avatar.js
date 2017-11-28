@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import noPhoto from '../img/icons/no-photo.svg';
 
-const Avatar = props => (
-    <div className={`Avatar${props.animated ? ' Avatar--animated' : ''}`} key={props.user.id}>
-        <div className="Avatar-imageContainer">
-            {props.user.photo
-                ? <img src={props.user.photo} alt={props.user.username} className="Avatar-photo" />
+import { URL } from '../constants';
+
+const Avatar = ({ animated, user }) => (
+    <Link to={`/uzivatel/${user.id}`} className={`Avatar${animated ? ' Avatar--animated' : ''}`} key={user.id}>
+        <span className="Avatar-imageContainer">
+            {user.photo
+                ? <img src={`${URL}${user.photo}`} alt={user.username} className="Avatar-photo" />
                 : <ReactSVG path={noPhoto} className="Avatar-noPhoto" />
             }
-        </div>
-        <span className="Avatar-name">{props.user.username}</span>
-    </div>
+        </span>
+        <span className="Avatar-name">{user.username}</span>
+    </Link>
 );
 
 Avatar.propTypes = {

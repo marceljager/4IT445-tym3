@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import { AddToFriendsButton } from '../components/AddToFriendsButton';
+import AddToFriendsButton from '../components/AddToFriendsButton';
 
 import { API_URL } from '../constants';
 
-class UserProfile extends Component {
+class UserProfileRaw extends Component {
     constructor(props) {
         super(props);
 
@@ -17,12 +19,13 @@ class UserProfile extends Component {
 
     componentDidMount() {
         const { userId } = this.props.match.params;
+        const { accessToken } = this.props.user;
         // TODO IMPLEMENTOVAT API
-        axios.post(`${API_URL}/profile.php`, {
+        axios.get(`${API_URL}/customers/${userId}?access_token=${accessToken}`, {
             userId
         })
             .then((response) => {
-                const { user } = response.data;
+                const user = response.data;
                 this.setState({
                     user
                 });
@@ -42,7 +45,10 @@ class UserProfile extends Component {
             <div>
                 <h1>User profile -
                     {user
-                        ? <div>{user.name}<AddToFriendsButton id={user.id} /></div>
+                        ? <div>
+                            {user.username}
+                            {user.id !== this.props.user.id && <AddToFriendsButton id={user.id} onAddFriend={this.addToFriends} />}
+                        </div>
                         : <div>user not found</div>
                     }
                 </h1>
@@ -51,7 +57,7 @@ class UserProfile extends Component {
     }
 }
 
-UserProfile.propTypes = {
+UserProfileRaw.propTypes = {
     match: propTypes.shape({
         params: propTypes.shape({
             userId: propTypes.string
@@ -59,7 +65,7 @@ UserProfile.propTypes = {
     }),
 };
 
-UserProfile.defaultProps = {
+UserProfileRaw.defaultProps = {
     match: {
         params: {
             userId: 0
@@ -67,4 +73,13 @@ UserProfile.defaultProps = {
     }
 };
 
+const mapStateToProps = (state) => {
+    const { userData } = state;
+
+    return {
+        user: userData.user,
+    };
+};
+
+const UserProfile = connect(mapStateToProps)(withRouter(UserProfileRaw));
 export default UserProfile;

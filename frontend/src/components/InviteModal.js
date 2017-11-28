@@ -21,7 +21,7 @@ class InviteModalRaw extends Component {
     }
 
     componentDidMount() {
-        this.loadUsers();
+        this.loadFriends();
     }
 
     openModal = () => {
@@ -36,11 +36,11 @@ class InviteModalRaw extends Component {
         });
     };
 
-    loadUsers = () => {
-        // TODO CHANGE TO FRIENDS ONLY
-        axios.get(`${API_URL}/customers?access_token=${this.props.user.accessToken}`)
+    loadFriends = () => {
+        const { id, accessToken } = this.props.user;
+        axios.get(`${API_URL}/friendships/getFriends?custId=${id}&access_token=${accessToken}`)
             .then((response) => {
-                const friends = response.data;
+                const friends = response.data.data;
                 this.setState({
                     friends
                 });
@@ -68,38 +68,41 @@ class InviteModalRaw extends Component {
     };
 
     render() {
-        const friends = this.state.friends.map((friend, index) => {
-            if (friend.id !== this.props.user.id) {
-                return (
-                    <div className="InviteModal-friend" key={friend.id}>
-                        <div className="InviteModal-friendLeft">
-                            <Avatar user={friend} />
-                            <div className="InviteModal-friendName">
-                                {friend.username}
+        let friends = [];
+        if (this.state.friends.length > 0) {
+            friends = this.state.friends.map((friend, index) => {
+                if (friend.id !== this.props.user.id) {
+                    return (
+                        <div className="InviteModal-friend" key={friend.id}>
+                            <div className="InviteModal-friendLeft">
+                                <Avatar user={friend} />
+                                <div className="InviteModal-friendName">
+                                    {friend.friendName}
+                                </div>
+                            </div>
+                            <div className="InviteModal-buttonContainer">
+                                {this.props.guests && isInObject(friend, this.props.guests)
+                                    ? 'Přijde'
+                                    : <div>
+                                        {friend.invited
+                                            ? 'Pozvánka odeslána'
+                                            : <button
+                                                className="Button Button--small Button--secondary"
+                                                onClick={() => this.inviteUser(friend.id, index)}
+                                            >
+                                                Pozvat
+                                            </button>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
-                        <div className="InviteModal-buttonContainer">
-                            {this.props.guests && isInObject(friend, this.props.guests)
-                                ? 'Přijde'
-                                : <div>
-                                    {friend.invited
-                                        ? 'Pozvánka odeslána'
-                                        : <button
-                                            className="Button Button--small Button--secondary"
-                                            onClick={() => this.inviteUser(friend.id, index)}
-                                        >
-                                            Pozvat
-                                        </button>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                );
-            }
+                    );
+                }
 
-            return null;
-        });
+                return null;
+            });
+        }
 
         return (
             <div>
@@ -138,7 +141,7 @@ InviteModalRaw.propTypes = {
         id: propTypes.number,
         accessToken: propTypes.string
     }),
-    eventId: propTypes.number.isRequired,
+    eventId: propTypes.string.isRequired,
     guests: propTypes.arrayOf(
         propTypes.shape({})
     )

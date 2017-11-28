@@ -45,13 +45,13 @@ EventParticipantsRaw.propTypes = {
             id: propTypes.number,
         })
     ),
-    signedIn: propTypes.bool
+    signedIn: propTypes.shape({})
 };
 
 EventParticipantsRaw.defaultProps = {
     guests: [],
     user: {},
-    signedIn: false
+    signedIn: {}
 };
 
 const mapStateToProps = (state) => {
