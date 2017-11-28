@@ -40,6 +40,7 @@ export class LoginRaw extends Component {
     handleSubmit = (e) => {
         axios.post(`${API_URL}/customers/login`, {
             username: this.state.loginEmail,
+            email: this.state.loginEmail,
             password: this.state.loginPassword
         })
             .then((response) => {
