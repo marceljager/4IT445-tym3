@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Geosuggest from 'react-geosuggest';
 
 import Rating from '../../components/Rating';
 import Input from '../../components/Input';
+import {MAPS_KEY} from "../../constants";
 
 export class Step1 extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.history.push('/nova-udalost/krok-2');
+    };
+
+    onSuggestSelect = (suggest) => {
+        console.log(suggest);
+        console.log(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${suggest.placeId}&key=${MAPS_KEY}`);
+
+        axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${suggest.placeId}&key=${MAPS_KEY}`, {
+
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
     };
 
     render() {
@@ -35,10 +53,9 @@ export class Step1 extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <Input
-                                id="restaurant"
-                                label="Restaurant"
-                                type="text"
+                            <Geosuggest
+                                inputClassName="Input-input"
+                                onSuggestSelect={this.onSuggestSelect}
                             />
                         </div>
 
