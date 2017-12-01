@@ -1,11 +1,44 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import Geosuggest from 'react-geosuggest';
+// import { PlaceSearch, PlaceDetailsRequest } from 'googleplaces';
 
 import Rating from '../../components/Rating';
 import Input from '../../components/Input';
-import {MAPS_KEY} from "../../constants";
+import { MAPS_KEY } from '../../constants';
+
+const PlaceSearch = require('googleplaces/lib/PlaceSearch.js');
+const PlaceDetailsRequest = require('googleplaces/lib/PlaceDetailsRequest.js');
+
+let map;
+let service;
+const { google } = window;
+
+function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i += 1) {
+            const place = results[i];
+            console.log(place);
+        }
+    }
+}
+
+function initialize() {
+    const pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15
+    });
+
+    const request = {
+        location: pyrmont,
+        query: 'restaurant'
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+}
 
 export class Step1 extends Component {
     handleSubmit = (e) => {
@@ -13,24 +46,36 @@ export class Step1 extends Component {
         this.props.history.push('/nova-udalost/krok-2');
     };
 
-    onSuggestSelect = (suggest) => {
-        console.log(suggest);
-        console.log(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${suggest.placeId}&key=${MAPS_KEY}`);
+    getPlaceInfo = (placeId) => {
+        console.log(placeId);
 
-        axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${suggest.placeId}&key=${MAPS_KEY}`, {
+        const placeSearch = new PlaceSearch(MAPS_KEY, 'json');
+        const placeDetailsRequest = new PlaceDetailsRequest(MAPS_KEY, 'json');
 
-        })
-            .then((response) => {
+        const parameters = {
+            location: [-33.8670522, 151.1957362],
+            types: 'doctor'
+        };
+
+        placeSearch(parameters, (error, response) => {
+            console.log(response);
+            if (error) throw error;
+            placeDetailsRequest({ reference: response.results[0].reference }, (error, response) => {
+                if (error) throw error;
                 console.log(response);
-            })
-            .catch((error) => {
-                console.error('zapni si internet', error);
             });
+        });
+    };
+
+    onSuggestSelect = (suggest) => {
+        initialize();
+        this.getPlaceInfo(suggest.placeId);
     };
 
     render() {
         return (
             <section>
+                <div id="map" />
                 <div className="SubHead">
                     <div className="SubHead-head">
                         <div className="SubHead-overlay"></div>
