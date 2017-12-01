@@ -18,86 +18,118 @@ function callback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (let i = 0; i < results.length; i += 1) {
             const place = results[i];
-            console.log(place);
+            // console.log(place);
         }
     }
 }
 
 function initialize() {
-    const pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
-
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: pyrmont,
-        zoom: 15
+    const autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+    google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        console.log(autocomplete.getPlace());
     });
-
-    const request = {
-        location: pyrmont,
-        query: 'restaurant'
-    };
-
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
+    // const pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+    //
+    // map = new google.maps.Map(document.getElementById('map'), {
+    //     center: pyrmont,
+    //     zoom: 15
+    // });
+    //
+    // const request = {
+    //     location: pyrmont,
+    //     query: 'restaurant'
+    // };
+    //
+    // service = new google.maps.places.PlacesService(map);
+    // service.textSearch(request, callback);
 }
-
-function getLocation() {
-    const promise = new Promise(function(resolve, reject) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    resolve(position.coords.latitude + ',' + position.coords.longitude);
-                }
-            );
-        } else {
-            reject('Unknown');
-        }
-    });
-
-    return promise;
-}
-
-const locationPromise = getLocation();
-locationPromise
-    .then((loc) => { console.log(loc); })
-    .catch((err) => { console.log('No location', err); });
 
 export class Step1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            lat: '',
+            lng: ''
+        };
+    }
+
+    getLocation = () => {
+        const promise = new Promise(function(resolve, reject) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve(position.coords.latitude + ',' + position.coords.longitude);
+                    }
+                );
+            } else {
+                reject('Unknown');
+            }
+        });
+
+        return promise;
+    };
+    componentDidMount() {
+        initialize();
+
+        const locationPromise = this.getLocation();
+
+        locationPromise
+            .then((loc) => {
+                const geo = loc.split(',');
+                this.setState({
+                    lat: geo[0],
+                    lng: geo[1]
+                });
+            })
+            .catch((err) => { console.log('No location', err); });
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.history.push('/nova-udalost/krok-2');
     };
 
     getPlaceInfo = (placeId) => {
-        console.log(placeId);
+        // console.log(placeId);
 
         const placeSearch = new PlaceSearch(MAPS_KEY, 'json');
         const placeDetailsRequest = new PlaceDetailsRequest(MAPS_KEY, 'json');
 
+        let center;
+        if (this.state.lat === '') {
+            center = '-33.8670522, 151.1957362';
+        } else {
+            center = `${this.state.lat}, ${this.state.lng}`;
+        }
+
         const parameters = {
-            location: [-33.8670522, 151.1957362],
+            location: [center],
             types: 'restaurant'
         };
 
         placeSearch(parameters, (error, response) => {
-            console.log(response);
+            // console.log(response);
             if (error) throw error;
             placeDetailsRequest({ reference: response.results[0].reference }, (error, response) => {
                 if (error) throw error;
-                console.log(response);
+                // console.log(response);
             });
         });
     };
 
     onSuggestSelect = (suggest) => {
-        initialize();
+        // initialize();
         this.getPlaceInfo(suggest.placeId);
     };
 
     onPlaceSearch = () => {
-
+        // initialize();
+        // this.getPlaceInfo(suggest.placeId);
     };
 
     render() {
+        const geo = this.state;
+
         return (
             <section>
                 <div id="map" />
@@ -123,12 +155,22 @@ export class Step1 extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <input type="text" onChange={this.onPlaceSearch} />
+
+                            <input
+                                type="text"
+                                id="place"
+                                className="Input-input"
+                                onChange={this.onPlaceSearch}
+                                disabled={geo.lat === ''}
+                            />
                             {/*<Geosuggest*/}
                                 {/*inputClassName="Input-input"*/}
                                 {/*onSuggestSelect={this.onSuggestSelect}*/}
+                                {/*disabled={geo.lat === ''}*/}
                             {/*/>*/}
                         </div>
+
+                        <div id="autocomplete"></div>
 
                         <div className="Separator">
                             <span className="Separator-text">Doporučené restaurace v okolí</span>
