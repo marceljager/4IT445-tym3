@@ -24,7 +24,7 @@ function callback(results, status) {
 }
 
 function initialize() {
-    const pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+    const pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: pyrmont,
@@ -40,6 +40,27 @@ function initialize() {
     service.textSearch(request, callback);
 }
 
+function getLocation() {
+    const promise = new Promise(function(resolve, reject) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    resolve(position.coords.latitude + ',' + position.coords.longitude);
+                }
+            );
+        } else {
+            reject('Unknown');
+        }
+    });
+
+    return promise;
+}
+
+const locationPromise = getLocation();
+locationPromise
+    .then((loc) => { console.log(loc); })
+    .catch((err) => { console.log('No location', err); });
+
 export class Step1 extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +75,7 @@ export class Step1 extends Component {
 
         const parameters = {
             location: [-33.8670522, 151.1957362],
-            types: 'doctor'
+            types: 'restaurant'
         };
 
         placeSearch(parameters, (error, response) => {
@@ -70,6 +91,10 @@ export class Step1 extends Component {
     onSuggestSelect = (suggest) => {
         initialize();
         this.getPlaceInfo(suggest.placeId);
+    };
+
+    onPlaceSearch = () => {
+
     };
 
     render() {
@@ -98,10 +123,11 @@ export class Step1 extends Component {
 
                         <div className="Input mb-5">
                             <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <Geosuggest
-                                inputClassName="Input-input"
-                                onSuggestSelect={this.onSuggestSelect}
-                            />
+                            <input type="text" onChange={this.onPlaceSearch} />
+                            {/*<Geosuggest*/}
+                                {/*inputClassName="Input-input"*/}
+                                {/*onSuggestSelect={this.onSuggestSelect}*/}
+                            {/*/>*/}
                         </div>
 
                         <div className="Separator">
