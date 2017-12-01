@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { IntlProvider, addLocaleData } from 'react-intl';
 
-import { Menu } from './components/Menu';
+import cs from 'react-intl/locale-data/cs';
+
+import Menu from './components/Menu';
 import PageContent from './pages/PageContent';
 import configureStore from './store/configureStore';
 
 import './App.css';
+
+addLocaleData([...cs]);
 
 class App extends Component {
     render() {
@@ -14,14 +19,16 @@ class App extends Component {
         const MenuComponent = withRouter(props => <Menu {...props} />);
 
         return (
-            <Provider store={store}>
-                <Router>
-                    <div>
-                        <MenuComponent />
-                        <PageContent />
-                    </div>
-                </Router>
-            </Provider>
+            <IntlProvider locale="cs">
+                <Provider store={store}>
+                    <Router>
+                        <div>
+                            <MenuComponent />
+                            <PageContent />
+                        </div>
+                    </Router>
+                </Provider>
+            </IntlProvider>
         );
     }
 }

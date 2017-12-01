@@ -47,15 +47,20 @@
 }
 
 .Button--big {
+    display: inline-flex;
+    flex-grow: 0;
+
     .Button-text {
         font-size: 1.125rem;
-        text-transform: uppercase;
     }
+}
+
+.Button--small {
+    padding: 5px 10px;
 }
 
 .Button--secondary {
     background: #3475f2;
-    box-shadow: 0 3px 10px rgba($secondary-color, 0.5);
     box-shadow: none;
 
     &:hover,
@@ -69,8 +74,9 @@
     background: #3b5998;
     box-shadow: 0 3px 10px rgba(#3b5998, 0.5);
     display: flex;
-    padding: 0;
     overflow: hidden;
+    padding: 10px 20px 10px 47px;
+    position: relative;
 
     &:hover,
     &:focus {
@@ -84,6 +90,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
 
     .Button-icon {
@@ -92,8 +101,21 @@
         height: 12px;
         display: block;
     }
+}
 
-    .Button-text {
-        padding: 10px 20px;
+.Button--wide {
+    min-width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.Button--red {
+    background: #D0021B;
+    box-shadow: 0 3px 10px rgba(#D0021B, 0.5);
+    color: #fff !important;
+
+    &:hover,
+    &:focus {
+        background: darken(#D0021B, 10%);
     }
 }

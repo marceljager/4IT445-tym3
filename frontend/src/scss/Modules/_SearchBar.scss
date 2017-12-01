@@ -2,6 +2,13 @@
     position: relative;
     max-width: 300px;
     width: 100%;
+    z-index: 11;
+
+    &-inputContainer {
+        width: 100%;
+        position: relative;
+        z-index: 5;
+    }
 
     &-button {
         position: absolute;
@@ -51,5 +58,43 @@
             border: 1px solid #3475f2;
             color: $secondary-color;
         }
+    }
+
+    &-whisperer {
+        position: absolute;
+        margin-top: 5px;
+        background: #fff;
+        box-shadow: 0 0 10px 0 rgba(#000, 0.3);
+        border-radius: 4px;
+        width: 100%;
+        transition: all 300ms;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(0, -50px) scale(0.95);
+        z-index: 100;
+    }
+
+    &-whisperer.isVisible {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, 0) scale(1);
+    }
+
+    &-whispererItem {
+        padding: 10px 16px;
+        display: inline-flex;
+        color: $headings-color;
+        width: 100%;
+        align-items: center;
+
+        &:hover,
+        &:focus {
+            color: $headings-color;
+            background: rgba($primary-color, 0.2);
+        }
+    }
+
+    &-whispererItemName {
+        margin-left: 10px;
     }
 }

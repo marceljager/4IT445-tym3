@@ -19,10 +19,6 @@
         &:first-of-type {
             padding-left: 50px;
         }
-
-        &:last-of-type {
-            padding-right: 30px;
-        }
     }
 
     &-link {
@@ -76,10 +72,20 @@
         display: block;
     }
 
+    &-userPhoto {
+        display: inline-block;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
     &-user {
+        display: inline-block;
         color: #fff;
         font-size: 0.875rem;
         font-weight: bold;
+        margin-left: 5px;
     }
 
     &-fixed {
@@ -99,7 +105,31 @@
     }
 
     &.isHidden {
-        margin-top: -$menu-height;
+        position: fixed;
+        width: 100%;
+        opacity: 0;
+
+        .Menu-fixed {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .Menu-logo {
+            display: none;
+        }
+
+        .SearchBar {
+            display: none;
+        }
+    }
+}
+
+.Menu--transparent {
+    position: fixed;
+
+    .Menu-fixed {
+        background: transparent;
+        box-shadow: none;
     }
 }
 

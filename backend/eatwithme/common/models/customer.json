@@ -1,0 +1,62 @@
+{
+  "name": "customer",
+  "plural": "customers",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "picture": {
+      "type": "string",
+      "default": "path"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Attends": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "attendance",
+      "keyThrough": "eventID"
+    },
+    "InvitedTo": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      },
+      "through": "invitations",
+      "keyThrough": "eventID"
+    },
+    "Invited": {
+      "type": "hasMany",
+      "model": "invitations",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+    "accessType": "*",
+    "principalType": "ROLE",
+    "principalId": "$authenticated",
+    "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+
+}

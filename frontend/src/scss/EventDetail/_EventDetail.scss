@@ -2,6 +2,8 @@
 @import './Modules/RestaurantInfo';
 
 .EventDetail {
+    background: #fff;
+
     &-title {
         color: $headings-color;
         font-weight: bold;
@@ -23,5 +25,20 @@
         background: #fff;
         min-height: calc(100vh - #{$menu-height});
         box-shadow: -10px 0 10px rgba(#000, 0.1);
+    }
+
+    &-calendar {
+        position: fixed;
+        z-index: 5;
+        margin-top: 40px;
+    }
+
+    &-about {
+        font-size: 0.875rem;
+    }
+
+    &-avatarsContainer {
+        display: flex;
+        align-items: center;
     }
 }

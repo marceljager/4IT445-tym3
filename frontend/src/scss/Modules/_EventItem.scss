@@ -1,69 +1,110 @@
 .EventItem {
     width: 100%;
-    box-shadow: 0 10px 10px rgba(#000, 0.1);
     display: flex;
-    border-radius: 5px;
     overflow: hidden;
     position: relative;
-    margin-bottom: 10px;
+    color: $text-color;
+    transition: all 300ms;
+    padding: 10px 20px;
+    align-items: center;
+    border-bottom: 1px solid #EEEFF1;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        background: #EEEFF1;
+    }
+
+    &:last-of-type {
+        border: none;
+    }
 
     &-image {
-        width: 180px;
+        width: 150px;
+        height: 100px;
         background-color: darken($secondary-color, 30%);
         background-position: center;
         background-size: cover;
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
+        border-radius: 4px;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
     }
 
     &-textSide {
         width: 100%;
-        padding: 10px 20px;
-        margin-left: 100px;
-        background: #fff;
-        border-radius: 0 0 0 20px;
         position: relative;
         z-index: 2;
+        margin: 0 20px;
     }
 
     &-title {
         font-weight: bold;
-        font-size: 1.125rem;
+        font-size: 1rem;
         color: $headings-color;
         display: block;
     }
 
     &-place {
-        display: block;
-    }
-
-    &-time {
-        display: block;
+        display: flex;
         font-size: 0.875rem;
+        align-items: center;
+        justify-content: space-between;
     }
 
     &-date {
+        display: block;
         font-size: 0.875rem;
     }
 
     &-badge {
-        background: $secondary-color;
+        background: $primary-color;
         color: #fff;
+        font-size: 0.733rem;
+        font-weight: bold;
         padding: 5px 10px;
         position: absolute;
-        right: 0;
+        left: 0;
         bottom: 0;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border-radius: 5px 0 0 0;
-        font-size: 0.875rem;
+        border-radius: 0 5px 0 0;
+    }
+
+    &:hover,
+    &:focus {
+        color: $text-color;
+        box-shadow: 0 0 10px rgba(#000, 0.1);
     }
 }
 
 .EventItem--compact {
     max-width: calc(33% - 10px);
     margin: 0;
+    align-items: flex-start;
+    flex-flow: column;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        background: transparent;
+        transform: translateY(-2px);
+    }
+
+    .EventItem-image {
+        width: 100%;
+        height: 150px;
+    }
+
+    .EventItem-textSide {
+        margin: 10px 0 0;
+    }
+
+    .EventItem-title {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 }

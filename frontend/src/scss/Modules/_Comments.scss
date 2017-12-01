@@ -1,0 +1,46 @@
+.Comments {
+    font-size: 0.75rem;
+    color: $text-color;
+    width: 100%;
+
+    &-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-item {
+        display: flex;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    &-text {
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    &-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-name {
+        font-weight: bold;
+        color: $headings-color;
+    }
+
+    &-comment {
+        font-size: 0.875rem;
+        font-style: italic;
+    }
+
+    &-addContainer {
+        display: flex;
+    }
+
+    &-avatarContainer {
+        margin-right: 10px;
+    }
+}

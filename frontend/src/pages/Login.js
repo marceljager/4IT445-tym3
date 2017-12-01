@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
 
 import { API_URL } from '../constants';
 import { logIn } from '../actions/user';
@@ -38,9 +39,10 @@ export class LoginRaw extends Component {
             loginPassword: this.state.loginPassword
         })
             .then((response) => {
-                console.log(response);
                 const { user } = response.data;
+                console.log(user);
                 this.props.logIn(user);
+                this.props.history.push('/timeline');
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
@@ -49,10 +51,18 @@ export class LoginRaw extends Component {
         e.preventDefault();
     };
 
+    handleFbSubmit = (response) => {
+        const user = response;
+        user.picture = user.userID;
+        console.log(user);
+        this.props.logIn(user);
+        this.props.history.push('/timeline');
+    };
+
     render() {
         return (
             <div className="Login">
-                <Link to="/timeline" className="Login-logo">
+                <Link to="/landing" className="Login-logo">
                     <ReactSVG path={Logo} className="Login-logoImage" />
                 </Link>
                 <div className="Login-box">
@@ -74,12 +84,15 @@ export class LoginRaw extends Component {
                         <span className="Separator-text">Nebo se</span>
                     </div>
                     <div className="Login-facebookContainer">
-                        <button className="Button Button--facebook">
-                            <div className="Button-iconContainer">
-                                <ReactSVG path={FacebookIcon} className="Button-icon" />
-                            </div>
-                            <span className="Button-text">Přihlašte přes Facebook</span>
-                        </button>
+                        <FacebookLogin
+                            appId="816743241749139"
+                            autoLoad={false}
+                            fields="name, email, picture"
+                            callback={this.handleFbSubmit}
+                            cssClass="Button Button--facebook"
+                            textButton="Přihlašte přes facebook"
+                            icon={<div className="Button-iconContainer"><ReactSVG path={FacebookIcon} className="Button-icon" /></div>}
+                        />
                     </div>
                 </div>
             </div>
@@ -96,4 +109,4 @@ const mapDispatchToProps = {
 export const Login = connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginRaw);
+)(withRouter(LoginRaw));
