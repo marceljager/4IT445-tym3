@@ -1,1 +1,133 @@
 [2017-11-03 18:43:09.885] [INFO] console - Server started on http://localhost:3000!
+[2017-11-06 22:04:24.418] [ERROR] console - SequelizeAccessDeniedError: Access denied for user 'user'@'localhost' (using password: YES)
+    at Utils.Promise.tap.then.catch.err (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/mysql/connection-manager.js:141:19)
+From previous event:
+    at ConnectionManager.connect (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/mysql/connection-manager.js:136:13)
+    at sequelize.runHooks.then (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:324:50)
+From previous event:
+    at ConnectionManager._connect (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:324:8)
+    at ConnectionManager.getConnection (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:254:46)
+    at Promise.try (/home/team03/code/project/backend/node_modules/sequelize/lib/sequelize.js:538:92)
+From previous event:
+    at Sequelize.query (/home/team03/code/project/backend/node_modules/sequelize/lib/sequelize.js:445:23)
+    at QueryInterface.select (/home/team03/code/project/backend/node_modules/sequelize/lib/query-interface.js:1013:27)
+    at Promise.try.then.then.then (/home/team03/code/project/backend/node_modules/sequelize/lib/model.js:1556:34)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)
+From previous event:
+    at Function.findAll (/home/team03/code/project/backend/node_modules/sequelize/lib/model.js:1553:8)
+    at Object._callee$ (/home/team03/code/project/backend/build/webpack:/src/modules/products/productController.js:4:37)
+    at tryCatch (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:65:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:299:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as next] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:117:21)
+    at step (/home/team03/code/project/backend/build/main.js:454:191)
+    at /home/team03/code/project/backend/build/main.js:454:437
+    at /home/team03/code/project/backend/build/main.js:454:99
+    at productsController (/home/team03/code/project/backend/build/webpack:/src/modules/products/productController.js:3:14)
+    at /home/team03/code/project/backend/node_modules/express-async-await/index.js:2:26
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+    at router (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:317:13)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+[2017-11-14 00:21:02.881] [ERROR] console - SequelizeAccessDeniedError: Access denied for user 'user'@'localhost' (using password: YES)
+    at Utils.Promise.tap.then.catch.err (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/mysql/connection-manager.js:141:19)
+From previous event:
+    at ConnectionManager.connect (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/mysql/connection-manager.js:136:13)
+    at sequelize.runHooks.then (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:324:50)
+From previous event:
+    at ConnectionManager._connect (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:324:8)
+    at ConnectionManager.getConnection (/home/team03/code/project/backend/node_modules/sequelize/lib/dialects/abstract/connection-manager.js:254:46)
+    at Promise.try (/home/team03/code/project/backend/node_modules/sequelize/lib/sequelize.js:538:92)
+From previous event:
+    at Sequelize.query (/home/team03/code/project/backend/node_modules/sequelize/lib/sequelize.js:445:23)
+    at QueryInterface.select (/home/team03/code/project/backend/node_modules/sequelize/lib/query-interface.js:1013:27)
+    at Promise.try.then.then.then (/home/team03/code/project/backend/node_modules/sequelize/lib/model.js:1556:34)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)
+From previous event:
+    at Function.findAll (/home/team03/code/project/backend/node_modules/sequelize/lib/model.js:1553:8)
+    at Object._callee$ (/home/team03/code/project/backend/build/webpack:/src/modules/products/productController.js:4:37)
+    at tryCatch (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:65:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:299:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as next] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:117:21)
+    at step (/home/team03/code/project/backend/build/main.js:454:191)
+    at /home/team03/code/project/backend/build/main.js:454:437
+    at /home/team03/code/project/backend/build/main.js:454:99
+    at productsController (/home/team03/code/project/backend/build/webpack:/src/modules/products/productController.js:3:14)
+    at /home/team03/code/project/backend/node_modules/express-async-await/index.js:2:26
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+    at router (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:317:13)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+[2017-11-14 01:18:45.259] [INFO] console - Server started on http://localhost:3000!
+[2017-11-14 01:18:45.339] [ERROR] console - TypeError: Cannot read property 'findAll' of undefined
+    at Object._callee$ (/home/team03/code/project/backend/build/webpack:/src/modules/events/eventController.js:29:24)
+    at tryCatch (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:65:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:299:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as next] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:117:21)
+    at step (/home/team03/code/project/backend/build/main.js:357:191)
+    at /home/team03/code/project/backend/build/main.js:357:437
+    at /home/team03/code/project/backend/build/main.js:357:99
+    at eventController (/home/team03/code/project/backend/build/webpack:/src/modules/events/eventController.js:28:14)
+    at /home/team03/code/project/backend/node_modules/express-async-await/index.js:2:26
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+    at router (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:317:13)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+[2017-11-14 01:21:28.748] [INFO] console - Server started on http://localhost:3000!
+[2017-11-14 02:03:54.545] [ERROR] console - TypeError: Cannot read property 'findAll' of undefined
+    at Object._callee$ (/home/team03/code/project/backend/build/webpack:/src/modules/events/eventController.js:29:24)
+    at tryCatch (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:65:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:299:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as next] (/home/team03/code/project/backend/node_modules/regenerator-runtime/runtime.js:117:21)
+    at step (/home/team03/code/project/backend/build/main.js:357:191)
+    at /home/team03/code/project/backend/build/main.js:357:437
+    at /home/team03/code/project/backend/build/main.js:357:99
+    at eventController (/home/team03/code/project/backend/build/webpack:/src/modules/events/eventController.js:28:14)
+    at /home/team03/code/project/backend/node_modules/express-async-await/index.js:2:26
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/team03/code/project/backend/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:275:10)
+    at Function.handle (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:174:3)
+    at router (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:47:12)
+    at Layer.handle [as handle_request] (/home/team03/code/project/backend/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:317:13)
+    at /home/team03/code/project/backend/node_modules/express/lib/router/index.js:284:7
+    at Function.process_params (/home/team03/code/project/backend/node_modules/express/lib/router/index.js:335:12)

@@ -1,0 +1,54 @@
+{
+  "name": "friendship",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "customer1ID": {
+      "type": "number",
+      "required": true
+    },
+    "customer2ID": {
+      "type": "number",
+      "required": true
+    },
+    "friendsSince": {
+      "type": "date",
+      "default": "2017-11-18T22:22:13.367Z",
+      "required": false
+    },
+    "notificationType": {
+      "type": "string",
+      "default": "friendRequest",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "default": "Request",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "friend1": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customer1ID",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "friend2": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customer2ID",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
