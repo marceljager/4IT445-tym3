@@ -120,6 +120,17 @@
     }
 }
 
+.Button--gray {
+    background: rgba($text-color, 0.2);
+    box-shadow: none;
+    color: $text-color !important;
+
+    &:hover,
+    &:focus {
+        background: rgba($text-color, 0.3);
+    }
+}
+
 .Button--accept {
     background: $primary-color;
     box-shadow: none;

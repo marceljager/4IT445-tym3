@@ -1,0 +1,29 @@
+.Requests {
+    padding-bottom: 10px;
+
+    &-item {
+        padding: 10px 16px 10px 11px;
+        display: inline-flex;
+        color: $headings-color;
+        width: 100%;
+        align-items: center;
+    }
+
+    &-username {
+        margin-left: 10px;
+        min-width: 100px;
+    }
+
+    &-buttonsContainer {
+        display: flex;
+    }
+
+    &-title {
+        font-weight: bold;
+        font-size: 0.75rem;
+        padding: 18px 18px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

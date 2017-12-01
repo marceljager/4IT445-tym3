@@ -3,17 +3,35 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import axios from 'axios';
 
-import SearchBar from '../components/SearchBar';
+import SearchBar from './SearchBar';
+import Avatar from './Avatar';
 
 import LogoImg from '../img/logo.svg';
-import Avatar from './Avatar';
+import FriendRequestsImg from '../img/icons/friend-requests.svg';
 
 import { logIn, logOut } from '../actions/user';
 
+import { API_URL } from '../constants';
+
 class MenuRaw extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            friendRequests: []
+        };
+    }
+
     componentDidMount() {
         this.autoLogin();
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.user.realm) {
+            this.fetchFriendRequests(props.user.accessToken, props.user.id);
+        }
     }
 
     autoLogin = () => {
@@ -22,6 +40,18 @@ class MenuRaw extends Component {
             const userData = JSON.parse(user);
             this.props.logIn(userData);
         }
+    };
+
+    fetchFriendRequests = (accessToken, id) => {
+        axios.get(`${API_URL}/customers/getReqsMine?custId=${id}&access_token=${accessToken}`)
+            .then((response) => {
+                this.setState({
+                    friendRequests: response.data.data
+                })
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
     };
 
     logout = () => {
@@ -33,6 +63,17 @@ class MenuRaw extends Component {
     render() {
         const { user, location } = this.props;
         const MenuClass = `Menu ${location.pathname === '/' || location.pathname === '/registrace' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
+
+        const requestList = this.state.friendRequests.map(item => (
+            <div className="Requests-item">
+                <Avatar user={user} />
+                <span className="Requests-username">{item.username}</span>
+                <div className="Requests-buttonsContainer">
+                    <button className="Button Button--small Button--secondary mr-2">Přijmout</button>
+                    <button className="Button Button--small Button--gray">Odmítnout</button>
+                </div>
+            </div>
+        ));
 
         return (
             <div className={MenuClass}>
@@ -61,6 +102,17 @@ class MenuRaw extends Component {
 
                                         {user.email &&
                                         <ul className="Menu-navigationItemsContainer d-flex">
+                                            <li className="Menu-navigationItem">
+                                                <ReactSVG path={FriendRequestsImg} className="Menu-friendRequests" />
+                                                <div className="Menu-dropdown">
+                                                    <div className="Requests">
+                                                        <div className="Requests-title">
+                                                            Žádosti o přátelství
+                                                        </div>
+                                                        {requestList}
+                                                    </div>
+                                                </div>
+                                            </li>
                                             <li className="Menu-navigationItem">
                                                 <Link
                                                     to="/nova-udalost/krok-1"
