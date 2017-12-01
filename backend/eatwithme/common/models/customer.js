@@ -1,16 +1,30 @@
 'use strict';
 
+var crypto = require('crypto');
 var app = require('../../server/server');
+const formidable = require('formidable');
+
+const BUCKET = 'avatars';
 
 module.exports = function(customer) {
-/*
-  customer.afterRemote('login', function (ctx, unused, next) {
-        var cust = customer.findOne {where: {id: 1}} ;
-        ctx.result.userName  = cust.name;
-        ctx.result.picture = new Date();
+
+
+  customer.afterRemote('**', function (ctx, unused, next) {
+        var asset = customer.app.models.Asset;
+        asset.findOne({id:ctx.req.picture})
+            .then(function(result) {
+              ctx.result.picture = result.filename;
+        });
+        var hash = crypto.createHash('md5').update("img").digest('hex');
+        console.log(hash);
+        // console.log(ctx.req);
         next();
+        // var cust = customer.findOne {where: {id: 1}} ;
+        // ctx.result.userName  = cust.name;
+        // ctx.result.picture = new Date();
+        // next();
     });
-*/
+
 
   customer.feed = function(custId, cb) {
    var ds = customer.dataSource;
@@ -27,6 +41,6 @@ module.exports = function(customer) {
         accepts: {arg: 'custId', type: 'string'},
         returns: {arg: 'data', type: '[]'}
       }
-    );
+  );
 
 };

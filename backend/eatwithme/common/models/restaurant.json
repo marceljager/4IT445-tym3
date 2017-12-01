@@ -1,0 +1,61 @@
+{
+  "name": "restaurant",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "adress": {
+      "type": "string",
+      "required": true
+    },
+    "rating": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "numberOfRatings": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "website": {
+      "type": "string",
+      "required": false
+    },
+    "openHours": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "picture": {
+      "type": "string",
+      "required": false
+    },
+    "GPS": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "hostsEvents": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": "place",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

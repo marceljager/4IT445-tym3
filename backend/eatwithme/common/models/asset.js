@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const formidable = require('formidable');
+var crypto = require('crypto');
 
 const BUCKET = 'assets';
 
@@ -32,15 +33,15 @@ module.exports = function(Asset) {
         if (error) {
           return reject(error);
         }
-
+        fileObj.files.file[0].name = crypto.createHash('md5').update(fileObj.files.file[0].name + new Date().toISOString()).digest('hex');
         const fileInfo = fileObj.files.file[0];
-
         resolve(fileInfo);
       });
     });
 
     const fieldsPromise = new Promise((resolve, reject) => {
       form.parse(req, function(error, fields, files) {
+        console.log(form);
         if (error) return reject(error);
 
         resolve(fields);
@@ -52,7 +53,7 @@ module.exports = function(Asset) {
         // S3 file url
         const url = (fileInfo.providerResponse && fileInfo.providerResponse.location);
         Asset.create(Object.assign({
-          filename: fileInfo.name,
+          filename:fileInfo.name,
           url,
           type: fileInfo.type,
           size: fileInfo.size
