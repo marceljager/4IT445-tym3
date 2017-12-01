@@ -1,0 +1,31 @@
+.DragDrop {
+    border: 2px dashed #EEEFF1;
+    border-radius: 3px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    position: relative;
+    height: 120px;
+
+    &-icon {
+        width: 32px;
+        height: 32px;
+        fill: $text-color;
+    }
+
+    &-text {
+        color: $text-color;
+        font-weight: bold;
+    }
+
+    &-input {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+}

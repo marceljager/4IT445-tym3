@@ -4,7 +4,7 @@
     &-imageContainer {
         width: 30px;
         height: 30px;
-        border-radius: 100%;
+        border-radius: 50%;
         overflow: hidden;
         display: inline-flex;
         margin: 0 5px;
@@ -66,6 +66,13 @@
     animation-name: bounceIn;
     animation-fill-mode: both;
     animation-duration: .75s;
+}
+
+.Avatar--large {
+    .Avatar-imageContainer {
+        width: 60px;
+        height: 60px;
+    }
 }
 
 .Avatar--you {

@@ -1,0 +1,29 @@
+.Tabs {
+    width: 100%;
+    border-bottom: 1px solid #EEEFF1;
+    margin-bottom: 20px;
+
+    &-tab {
+        font-size: 1rem;
+        color: $text-color;
+        height: 40px;
+        apperance: none;
+        border: none;
+        cursor: pointer;
+        transform: translateY(1px);
+        background: transparent;
+        padding: 0;
+        margin-right: 30px;
+
+        &:hover,
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &-tab.isActive {
+        color: $secondary-color;
+        font-weight: bold;
+        border-bottom: 2px solid $secondary-color;
+    }
+}

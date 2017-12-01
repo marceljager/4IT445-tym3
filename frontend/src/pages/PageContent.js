@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import { Login } from './Login';
-import { Register } from './Register';
 import { Home } from './Home';
 import SearchPage from './SearchPage';
 import UserProfile from './UserProfile';
@@ -15,7 +14,7 @@ import Timeline from './Timeline';
 const PageContent = () => (
     <div className="PageContent">
         <Route exact path="/" component={Login} />
-        <Route exact path="/registrace" component={Register} />
+        <Route exact path="/registrace" component={Login} />
         <Route path="/landing" component={Home} />
         <Route path="/detail-akce/:eventId" component={EventDetail} />
         <Route path="/hledat/:searchText" component={SearchPage} />

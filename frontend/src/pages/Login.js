@@ -10,15 +10,22 @@ import { API_URL } from '../constants';
 import { logIn } from '../actions/user';
 
 import FacebookIcon from '../img/icons/facebook.svg';
+import UploadIcon from '../img/icons/upload.svg';
 import Logo from '../img/logo.svg';
+import noPhoto from '../img/icons/no-photo.svg';
 
 export class LoginRaw extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            page: this.props.match.path === '/registrace' ? 'register' : 'login',
             loginEmail: '',
-            loginPassword: ''
+            loginPassword: '',
+            registerEmail: '',
+            registerPassword: '',
+            file: '',
+            imagePreviewUrl: ''
         };
     }
 
@@ -37,7 +44,7 @@ export class LoginRaw extends Component {
             });
     };
 
-    handleSubmit = (e) => {
+    handleLogin = (e) => {
         axios.post(`${API_URL}/customers/login`, {
             username: this.state.loginEmail,
             email: this.state.loginEmail,
@@ -46,6 +53,28 @@ export class LoginRaw extends Component {
             .then((response) => {
                 const { userId, id } = response.data;
                 this.getUser(userId, id);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+
+        e.preventDefault();
+    };
+
+    handleRegister = (e) => {
+        console.log('handle uploading-', this.state.file);
+
+        axios.post(`${API_URL}/Users`, {
+            email: this.state.registerEmail,
+            password: this.state.registerPassword
+        })
+            .then((response) => {
+                this.setState({
+                    loginEmail: this.state.registerEmail,
+                    loginPassword: this.state.registerPassword
+                });
+                this.switchCard('login');
+                console.log(response);
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
@@ -66,6 +95,34 @@ export class LoginRaw extends Component {
         });
     };
 
+    handleRegisterPasswordChange = (e) => {
+        this.setState({
+            registerPassword: e.target.value
+        });
+    };
+
+    handleEmailChange = (e) => {
+        this.setState({
+            registerEmail: e.target.value
+        });
+    };
+
+    handleImageChange = (e) => {
+        e.preventDefault();
+
+        const reader = new FileReader();
+        const file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                file,
+                imagePreviewUrl: reader.result
+            });
+        };
+
+        reader.readAsDataURL(file);
+    };
+
     handleFbSubmit = (response) => {
         const user = response;
         user.picture = user.userID;
@@ -73,43 +130,106 @@ export class LoginRaw extends Component {
         this.props.history.push('/timeline');
     };
 
+    switchCard = (card) => {
+        const { history } = window;
+        this.setState({ page: card });
+        const pageUrl = card === 'login' ? '/' : '/registrace';
+        history.replaceState({ page: 'register' }, 'Přihlašte se', pageUrl);
+    };
+
+    removeAvatar = () => {
+        this.setState({
+            imagePreviewUrl: null
+        });
+    };
+
     render() {
+        const { imagePreviewUrl } = this.state;
+        console.log(imagePreviewUrl);
+
         return (
-            <div className="Login">
+            <div className={`Login Login--${this.state.page}`}>
                 <Link to="/landing" className="Login-logo">
                     <ReactSVG path={Logo} className="Login-logoImage" />
                 </Link>
                 <div className="Login-box">
-                    <h3 className="Login-title">Přihlášení</h3>
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="Input mb-3">
-                            <label htmlFor="login" className="Input-label">Váš email</label>
-                            <input type="text" id="login" value={this.state.loginEmail} onChange={this.handleLoginChange} className="Input-input" />
+                    <div className="Login-loginSide">
+                        <div className="Tabs">
+                            <button className={`Tabs-tab ${this.state.page === 'login' ? 'isActive' : ''}`} onClick={() => this.switchCard('login')}>
+                                Přihlášení
+                            </button>
+                            <button className={`Tabs-tab ${this.state.page === 'register' ? 'isActive' : ''}`} onClick={() => this.switchCard('register')}>
+                                Registrace
+                            </button>
                         </div>
-                        <div className="Input mb-3">
-                            <label htmlFor="password" className="Input-label">Vaše heslo</label>
-                            <input type="password" id="password" value={this.state.loginPassword} onChange={this.handlePasswordChange} className="Input-input" />
+                        <form onSubmit={this.handleLogin}>
+                            <div className="Input mb-3">
+                                <label htmlFor="login" className="Input-label">Váš email</label>
+                                <input type="text" id="login" value={this.state.loginEmail} onChange={this.handleLoginChange} className="Input-input" />
+                            </div>
+                            <div className="Input mb-3">
+                                <label htmlFor="password" className="Input-label">Vaše heslo</label>
+                                <input type="password" id="password" value={this.state.loginPassword} onChange={this.handlePasswordChange} className="Input-input" />
+                            </div>
+                            <div className="Login-buttonContainer">
+                                <input type="submit" value="Přihlásit se" className="Button Button--secondary mt-2" />
+                            </div>
+                        </form>
+                        <div className="Separator">
+                            <span className="Separator-text">Nebo se</span>
                         </div>
-                        <div className="Login-buttonContainer">
-                            <input type="submit" value="Přihlásit se" className="Button Button--secondary mt-2" />
+                        <div className="Login-facebookContainer">
+                            <FacebookLogin
+                                appId="816743241749139"
+                                autoLoad={false}
+                                fields="name, email, picture"
+                                callback={this.handleFbSubmit}
+                                cssClass="Button Button--facebook"
+                                textButton="Přihlašte přes facebook"
+                                icon={<div className="Button-iconContainer"><ReactSVG path={FacebookIcon} className="Button-icon" /></div>}
+                            />
                         </div>
-                    </form>
-                    <div className="Separator">
-                        <span className="Separator-text">Nebo se</span>
                     </div>
-                    <div className="Login-facebookContainer">
-                        <FacebookLogin
-                            appId="816743241749139"
-                            autoLoad={false}
-                            fields="name, email, picture"
-                            callback={this.handleFbSubmit}
-                            cssClass="Button Button--facebook"
-                            textButton="Přihlašte přes facebook"
-                            icon={<div className="Button-iconContainer"><ReactSVG path={FacebookIcon} className="Button-icon" /></div>}
-                        />
-                    </div>
-                    <div className="mt-3 text-center">
-                        <Link to="/registrace">Založit účet</Link>
+                    <div className="Login-registerSide">
+                        <div className="Tabs">
+                            <button className={`Tabs-tab ${this.state.page === 'login' ? 'isActive' : ''}`} onClick={() => this.switchCard('login')}>
+                                Přihlášení
+                            </button>
+                            <button className={`Tabs-tab ${this.state.page === 'register' ? 'isActive' : ''}`} onClick={() => this.switchCard('register')}>
+                                Registrace
+                            </button>
+                        </div>
+                        <form onSubmit={this.handleRegister}>
+                            <div className="Input mb-3">
+                                <label htmlFor="registerEmail" className="Input-label">Váš email</label>
+                                <input type="text" id="registerEmail" value={this.state.registerEmail} onChange={this.handleEmailChange} className="Input-input" />
+                            </div>
+                            <div className="Input mb-3">
+                                <label htmlFor="registerPassword" className="Input-label">Vaše heslo</label>
+                                <input type="password" id="registerPassword" value={this.state.registerPassword} onChange={this.handleRegisterPasswordChange} className="Input-input" />
+                            </div>
+                            {!imagePreviewUrl
+                                ? <div className="DragDrop my-3">
+                                    <ReactSVG path={UploadIcon} className="DragDrop-icon"/>
+                                    <span className="DragDrop-text">Nahrajte profilový obrázek</span>
+                                    <input className="DragDrop-input" type="file" onChange={this.handleImageChange}/>
+                                </div>
+                                : <div className="Login-userPhoto">
+                                    <div className="Avatar Avatar--large mr-2">
+                                        <div className="Avatar-imageContainer">
+                                            <img src={imagePreviewUrl} alt="Nahraný obrázek" className="Avatar-photo"/>
+                                        </div>
+                                    </div>
+                                    <button className="Button Button--red Button--small" onClick={this.removeAvatar}>
+                                        Odebrat
+                                    </button>
+                                </div>
+                            }
+
+                            <div className="Login-buttonContainer">
+                                <input type="submit" value="Registrovat se" className="Button Button--secondary mt-2" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

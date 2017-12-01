@@ -32,7 +32,7 @@ class MenuRaw extends Component {
 
     render() {
         const { user, location } = this.props;
-        const MenuClass = `Menu ${location.pathname === '/' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
+        const MenuClass = `Menu ${location.pathname === '/' || location.pathname === '/registrace' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
 
         return (
             <div className={MenuClass}>
