@@ -82,7 +82,7 @@ class Step1 extends Component {
                 console.log(error);
             });
 
-        //this.props.history.push('/nova-udalost/krok-2');
+        this.props.history.push('/nova-udalost/krok-2');
     };
 
     render() {
