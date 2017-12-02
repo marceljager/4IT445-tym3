@@ -13,6 +13,11 @@ const { google } = window;
 let place = {};
 
 class Step1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { restaurant: '' };
+    }
+
     componentDidMount() {
         this.initialize();
     }
@@ -25,12 +30,12 @@ class Step1 extends Component {
             console.log(place);
             const { changeInputValue } = this.props;
             changeInputValue('restaurant', autocomplete.getPlace().name);
+            this.setState({ restaurant: autocomplete.getPlace().name });
         });
     };
 
     handleRestaurantChange = (e) => {
-        const { changeInputValue } = this.props;
-        changeInputValue('restaurant', e.target.value);
+        this.setState({ restaurant: e.target.value });
     };
 
     handleSubmit = (e) => {
@@ -40,7 +45,10 @@ class Step1 extends Component {
             id: place.place_id,
             name: place.name,
             adress: place.formatted_address,
-            GPS: `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`
+            GPS: `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`,
+            description: place.name,
+            rating: 0,
+            numberOfRatings: 0
         };
 
         const possibleStats = {
@@ -74,12 +82,10 @@ class Step1 extends Component {
                 console.log(error);
             });
 
-        this.props.history.push('/nova-udalost/krok-2');
+        //this.props.history.push('/nova-udalost/krok-2');
     };
 
     render() {
-        const { restaurant } = this.props;
-
         return (
             <section>
                 <div id="map" />
@@ -110,7 +116,7 @@ class Step1 extends Component {
                                 type="text"
                                 id="restaurant"
                                 className="Input-input"
-                                value={restaurant}
+                                value={this.state.restaurant}
                                 onChange={this.handleRestaurantChange}
                             />
                         </div>
