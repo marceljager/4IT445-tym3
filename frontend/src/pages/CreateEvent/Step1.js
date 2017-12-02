@@ -1,18 +1,94 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+
+import { changeInputValue } from '../../actions/event';
+
+import { API_URL } from '../../constants';
 
 import Rating from '../../components/Rating';
-import Input from '../../components/Input';
 
-export class Step1 extends Component {
+const { google } = window;
+let place = {};
+
+class Step1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { restaurant: '' };
+    }
+
+    componentDidMount() {
+        this.initialize();
+    }
+
+    initialize = () => {
+        const autocomplete = new google.maps.places.Autocomplete(document.getElementById('restaurant'));
+
+        google.maps.event.addListener(autocomplete, 'place_changed', () => {
+            place = autocomplete.getPlace();
+            console.log(place);
+            const { changeInputValue } = this.props;
+            changeInputValue('restaurant', autocomplete.getPlace().name);
+        });
+    };
+
+    handleRestaurantChange = (e) => {
+        const { changeInputValue } = this.props;
+        changeInputValue('restaurant', e.target.value);
+    };
+
     handleSubmit = (e) => {
         e.preventDefault();
+
+        let placeObj = {
+            id: place.place_id,
+            name: place.name,
+            adress: place.formatted_address,
+            GPS: `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`,
+            description: place.name,
+            rating: 0,
+            numberOfRatings: 0
+        };
+
+        const possibleStats = {
+            rating: 'rating',
+            numberOfRatings: 'reviews',
+            website: 'website',
+            openHours: 'opening_hours',
+            description: 'formatted_phone_number',
+            picture: 'icon'
+        };
+
+        for (const key in possibleStats) {
+            if (place[possibleStats[key]] !== undefined) {
+                placeObj[key] = place[possibleStats[key]];
+
+                if (key === 'numberOfRatings') {
+                    placeObj[key] = place[possibleStats[key]].length;
+                } else if (key === 'openHours') {
+                    console.log(JSON.stringify(place[possibleStats[key]].weekday_text));
+                    placeObj[key] = JSON.stringify(place[possibleStats[key]].weekday_text);
+                }
+            }
+        }
+
+        console.log(placeObj);
+
+        axios.put(`${API_URL}/restaurants`, placeObj)
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });
+
         this.props.history.push('/nova-udalost/krok-2');
     };
 
     render() {
         return (
             <section>
+                <div id="map" />
                 <div className="SubHead">
                     <div className="SubHead-head">
                         <div className="SubHead-overlay"></div>
@@ -34,11 +110,14 @@ export class Step1 extends Component {
                         </div>
 
                         <div className="Input mb-5">
-                            <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
-                            <Input
-                                id="restaurant"
-                                label="Restaurant"
+                            <label htmlFor="restaurant" className="Input-label--big">Kam půjdeme?</label>
+
+                            <input
                                 type="text"
+                                id="restaurant"
+                                className="Input-input"
+                                value={this.props.restaurant}
+                                onChange={this.handleRestaurantChange}
                             />
                         </div>
 
@@ -100,3 +179,18 @@ export class Step1 extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    const { event } = state;
+
+    return {
+        restaurant: event.restaurant,
+    };
+};
+
+
+const mapDispatchToProps = {
+    changeInputValue
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Step1);

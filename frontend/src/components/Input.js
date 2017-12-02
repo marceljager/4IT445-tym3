@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
+import InputMask from 'react-input-mask';
 
 import { changeInputValue } from '../actions/event';
 
@@ -12,7 +13,7 @@ class InputRaw extends Component {
     };
 
     render() {
-        const { value, id, label, type, name, inpValue, checkedValue } = this.props;
+        const { value, id, label, type, name, inpValue, checkedValue, mask } = this.props;
 
         if (type === 'text') {
             return (
@@ -33,12 +34,17 @@ class InputRaw extends Component {
 
         if (type === 'textarea') {
             return (
-                <textarea
-                    value={value[id]}
-                    id={id}
-                    className="Input-input Input-input--textarea"
-                    onChange={this.onInputChange}
-                />
+                <div className="Input mb-3">
+                    {label &&
+                        <label htmlFor={id}>{label}</label>
+                    }
+                    <textarea
+                        value={value[id]}
+                        id={id}
+                        className="Input-input Input-input--textarea"
+                        onChange={this.onInputChange}
+                    />
+                </div>
             );
         }
 
@@ -62,6 +68,24 @@ class InputRaw extends Component {
                 </label>
             );
         }
+
+        if (type === 'mask') {
+            return (
+                <div className="Input mb-3">
+                    {label &&
+                        <label htmlFor={id}>{label}</label>
+                    }
+                    <InputMask
+                        type="text"
+                        id={id}
+                        className="Input-input"
+                        mask={mask}
+                        value={value[id]}
+                        onChange={this.onInputChange}
+                    />
+                </div>
+            );
+        }
     }
 }
 
@@ -73,14 +97,16 @@ InputRaw.propTypes = {
     type: propTypes.string.isRequired,
     name: propTypes.string,
     checkedValue: propTypes.string,
-    inpValue: propTypes.bool
+    inpValue: propTypes.string,
+    mask: propTypes.string
 };
 
 InputRaw.defaultProps = {
     label: '',
     name: '',
     checkedValue: '',
-    inpValue: false
+    inpValue: false,
+    mask: ''
 };
 
 const mapStateToProps = state => ({

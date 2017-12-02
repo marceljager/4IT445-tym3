@@ -67,6 +67,20 @@ class Step2 extends Component {
                             label="Popis akce"
                             type="textarea"
                         />
+
+                        <Input
+                            type="mask"
+                            mask="99-99-9999 99:99"
+                            label="Začátek akce"
+                            id="actionStart"
+                        />
+
+                        <Input
+                            type="mask"
+                            mask="99-99-9999 99:99"
+                            label="Konec akce"
+                            id="actionEnd"
+                        />
                     </div>
 
                     <div className="my-4 text-center">

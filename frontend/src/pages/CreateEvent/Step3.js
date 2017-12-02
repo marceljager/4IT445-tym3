@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { API_URL } from '../../constants';
 
 import Input from '../../components/Input';
 
-import { changeInputValue } from '../../actions/event';
+import { changeInputValue, clearEventValues } from '../../actions/event';
 
 class Step3 extends Component {
     componentDidMount = () => {
@@ -22,13 +22,44 @@ class Step3 extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        let dates = {
+            actionStart: 0,
+            actionEnd: 0
+        };
+
+        for (const key in dates) {
+            const date = this.props[key];
+            const day = date.substring(0, 2);
+            const month = date.substring(3, 5);
+            const year = date.substring(6, 10);
+            const hours = date.substring(11, 13);
+            const minutes = date.substring(14, 16);
+
+            dates[key] = `${year}-${month}-${day}T${hours}:${minutes}:00.000Z`;
+            // 2017-12-01T20:57:48.537Z
+        }
+
         axios.post(`${API_URL}/events`, {
             name: this.props.name,
             private: this.props.private,
-            dateFrom: this.props.dateFrom,
-            dateTo: this.props.dateTo
+            dateFrom: dates.actionStart,
+            dateTo: dates.actionEnd,
+            dateText: this.props.desc,
+            place: this.props.restaurant
         }).then((response) => {
             console.log(response);
+            const eventId = response.data.id;
+            axios.post(`${API_URL}/attendances`, {
+                eventID: eventId,
+                customerID: this.props.user.id
+            }).then((response) => {
+                console.log(response);
+                this.props.clearEventValues();
+                this.props.history.push(`/detail-akce/${eventId}`);
+            }).catch((error) => {
+                console.log(error);
+            });
         }).catch((error) => {
             console.log(error);
         });
@@ -87,6 +118,22 @@ class Step3 extends Component {
                             {this.props.desc}
                         </p>
 
+                        <label className="NewEvent-label">
+                            Začátek
+                        </label>
+
+                        <p>
+                            {this.props.actionStart}
+                        </p>
+
+                        <label className="NewEvent-label">
+                            Konec
+                        </label>
+
+                        <p>
+                            {this.props.actionEnd}
+                        </p>
+
                         <hr className="my-4" />
 
                         <div className="NewEvent-step">
@@ -132,17 +179,23 @@ class Step3 extends Component {
 
 const mapStateToProps = (state) => {
     const { event } = state;
+    const { userData } = state;
 
     return {
         restaurant: event.restaurant,
         name: event.name,
-        desc: event.description
+        desc: event.description,
+        actionStart: event.actionStart,
+        actionEnd: event.actionEnd,
+        private: event.private,
+        user: userData.user,
     };
 };
 
 
 const mapDispatchToProps = {
-    changeInputValue
+    changeInputValue,
+    clearEventValues
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Step3);

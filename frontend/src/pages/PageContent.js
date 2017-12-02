@@ -5,7 +5,7 @@ import { Login } from './Login';
 import { Home } from './Home';
 import SearchPage from './SearchPage';
 import UserProfile from './UserProfile';
-import { Step1 } from './CreateEvent/Step1';
+import Step1 from './CreateEvent/Step1';
 import Step2 from './CreateEvent/Step2';
 import Step3 from './CreateEvent/Step3';
 import EventDetail from './EventDetail';
