@@ -63,9 +63,10 @@ export class LoginRaw extends Component {
     handleRegister = (e) => {
         console.log('handle uploading-', this.state.file);
 
-        axios.post(`${API_URL}/Users`, {
+        axios.post(`${API_URL}/customers`, {
             email: this.state.registerEmail,
-            password: this.state.registerPassword
+            password: this.state.registerPassword,
+            username: this.state.registerName
         })
             .then((response) => {
                 this.setState({
@@ -103,6 +104,12 @@ export class LoginRaw extends Component {
     handleEmailChange = (e) => {
         this.setState({
             registerEmail: e.target.value
+        });
+    };
+
+    handleNameChange = (e) => {
+        this.setState({
+            registerName: e.target.value
         });
     };
 
@@ -199,6 +206,10 @@ export class LoginRaw extends Component {
                             </button>
                         </div>
                         <form onSubmit={this.handleRegister}>
+                            <div className="Input mb-3">
+                                <label htmlFor="registerName" className="Input-label">Vaše jméno</label>
+                                <input type="text" id="registerName" value={this.state.registerName} onChange={this.handleNameChange} className="Input-input" />
+                            </div>
                             <div className="Input mb-3">
                                 <label htmlFor="registerEmail" className="Input-label">Váš email</label>
                                 <input type="text" id="registerEmail" value={this.state.registerEmail} onChange={this.handleEmailChange} className="Input-input" />
