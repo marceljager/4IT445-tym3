@@ -1,134 +1,84 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Geosuggest from 'react-geosuggest';
-// import { PlaceSearch, PlaceDetailsRequest } from 'googleplaces';
+import { connect } from 'react-redux';
+import axios from 'axios';
+
+import { changeInputValue } from '../../actions/event';
+
+import { API_URL } from '../../constants';
 
 import Rating from '../../components/Rating';
-import Input from '../../components/Input';
-import { MAPS_KEY } from '../../constants';
 
-const PlaceSearch = require('googleplaces/lib/PlaceSearch.js');
-const PlaceDetailsRequest = require('googleplaces/lib/PlaceDetailsRequest.js');
-
-let map;
-let service;
 const { google } = window;
+let place = {};
 
-function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 0; i < results.length; i += 1) {
-            const place = results[i];
-            // console.log(place);
-        }
-    }
-}
-
-function initialize() {
-    const autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
-    google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        console.log(autocomplete.getPlace());
-    });
-    // const pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
-    //
-    // map = new google.maps.Map(document.getElementById('map'), {
-    //     center: pyrmont,
-    //     zoom: 15
-    // });
-    //
-    // const request = {
-    //     location: pyrmont,
-    //     query: 'restaurant'
-    // };
-    //
-    // service = new google.maps.places.PlacesService(map);
-    // service.textSearch(request, callback);
-}
-
-export class Step1 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            lat: '',
-            lng: ''
-        };
-    }
-
-    getLocation = () => {
-        const promise = new Promise(function(resolve, reject) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        resolve(position.coords.latitude + ',' + position.coords.longitude);
-                    }
-                );
-            } else {
-                reject('Unknown');
-            }
-        });
-
-        return promise;
-    };
+class Step1 extends Component {
     componentDidMount() {
-        initialize();
-
-        const locationPromise = this.getLocation();
-
-        locationPromise
-            .then((loc) => {
-                const geo = loc.split(',');
-                this.setState({
-                    lat: geo[0],
-                    lng: geo[1]
-                });
-            })
-            .catch((err) => { console.log('No location', err); });
+        this.initialize();
     }
+
+    initialize = () => {
+        const autocomplete = new google.maps.places.Autocomplete(document.getElementById('restaurant'));
+
+        google.maps.event.addListener(autocomplete, 'place_changed', () => {
+            place = autocomplete.getPlace();
+            console.log(place);
+            const { changeInputValue } = this.props;
+            changeInputValue('restaurant', autocomplete.getPlace().name);
+        });
+    };
+
+    handleRestaurantChange = (e) => {
+        const { changeInputValue } = this.props;
+        changeInputValue('restaurant', e.target.value);
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        let placeObj = {
+            id: place.place_id,
+            name: place.name,
+            adress: place.formatted_address,
+            GPS: `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`
+        };
+
+        const possibleStats = {
+            rating: 'rating',
+            numberOfRatings: 'reviews',
+            website: 'website',
+            openHours: 'opening_hours',
+            description: 'formatted_phone_number',
+            picture: 'icon'
+        };
+
+        for (const key in possibleStats) {
+            if (place[possibleStats[key]] !== undefined) {
+                placeObj[key] = place[possibleStats[key]];
+
+                if (key === 'numberOfRatings') {
+                    placeObj[key] = place[possibleStats[key]].length;
+                } else if (key === 'openHours') {
+                    console.log(JSON.stringify(place[possibleStats[key]].weekday_text));
+                    placeObj[key] = JSON.stringify(place[possibleStats[key]].weekday_text);
+                }
+            }
+        }
+
+        console.log(placeObj);
+
+        axios.put(`${API_URL}/restaurants`, placeObj)
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });
+
         this.props.history.push('/nova-udalost/krok-2');
     };
 
-    getPlaceInfo = (placeId) => {
-        // console.log(placeId);
-
-        const placeSearch = new PlaceSearch(MAPS_KEY, 'json');
-        const placeDetailsRequest = new PlaceDetailsRequest(MAPS_KEY, 'json');
-
-        let center;
-        if (this.state.lat === '') {
-            center = '-33.8670522, 151.1957362';
-        } else {
-            center = `${this.state.lat}, ${this.state.lng}`;
-        }
-
-        const parameters = {
-            location: [center],
-            types: 'restaurant'
-        };
-
-        placeSearch(parameters, (error, response) => {
-            // console.log(response);
-            if (error) throw error;
-            placeDetailsRequest({ reference: response.results[0].reference }, (error, response) => {
-                if (error) throw error;
-                // console.log(response);
-            });
-        });
-    };
-
-    onSuggestSelect = (suggest) => {
-        // initialize();
-        this.getPlaceInfo(suggest.placeId);
-    };
-
-    onPlaceSearch = () => {
-        // initialize();
-        // this.getPlaceInfo(suggest.placeId);
-    };
-
     render() {
-        const geo = this.state;
+        const { restaurant } = this.props;
 
         return (
             <section>
@@ -154,23 +104,16 @@ export class Step1 extends Component {
                         </div>
 
                         <div className="Input mb-5">
-                            <label htmlFor="place" className="Input-label--big">Kam půjdeme?</label>
+                            <label htmlFor="restaurant" className="Input-label--big">Kam půjdeme?</label>
 
                             <input
                                 type="text"
-                                id="place"
+                                id="restaurant"
                                 className="Input-input"
-                                onChange={this.onPlaceSearch}
-                                disabled={geo.lat === ''}
+                                value={restaurant}
+                                onChange={this.handleRestaurantChange}
                             />
-                            {/*<Geosuggest*/}
-                                {/*inputClassName="Input-input"*/}
-                                {/*onSuggestSelect={this.onSuggestSelect}*/}
-                                {/*disabled={geo.lat === ''}*/}
-                            {/*/>*/}
                         </div>
-
-                        <div id="autocomplete"></div>
 
                         <div className="Separator">
                             <span className="Separator-text">Doporučené restaurace v okolí</span>
@@ -230,3 +173,18 @@ export class Step1 extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    const { event } = state;
+
+    return {
+        restaurant: event.restaurant,
+    };
+};
+
+
+const mapDispatchToProps = {
+    changeInputValue
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Step1);
