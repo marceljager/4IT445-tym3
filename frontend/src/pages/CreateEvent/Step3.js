@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { API_URL } from '../../constants';
 
 import Input from '../../components/Input';
 
-import { changeInputValue } from '../../actions/event';
+import { changeInputValue, clearEventValues } from '../../actions/event';
 
 class Step3 extends Component {
     componentDidMount = () => {
@@ -55,6 +55,7 @@ class Step3 extends Component {
                 customerID: this.props.user.id
             }).then((response) => {
                 console.log(response);
+                this.props.clearEventValues();
                 this.props.history.push(`/detail-akce/${eventId}`);
             }).catch((error) => {
                 console.log(error);
@@ -193,7 +194,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = {
-    changeInputValue
+    changeInputValue,
+    clearEventValues
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Step3);

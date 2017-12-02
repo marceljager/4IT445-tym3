@@ -30,12 +30,12 @@ class Step1 extends Component {
             console.log(place);
             const { changeInputValue } = this.props;
             changeInputValue('restaurant', autocomplete.getPlace().name);
-            this.setState({ restaurant: autocomplete.getPlace().name });
         });
     };
 
     handleRestaurantChange = (e) => {
-        this.setState({ restaurant: e.target.value });
+        const { changeInputValue } = this.props;
+        changeInputValue('restaurant', e.target.value);
     };
 
     handleSubmit = (e) => {
@@ -116,7 +116,7 @@ class Step1 extends Component {
                                 type="text"
                                 id="restaurant"
                                 className="Input-input"
-                                value={this.state.restaurant}
+                                value={this.props.restaurant}
                                 onChange={this.handleRestaurantChange}
                             />
                         </div>

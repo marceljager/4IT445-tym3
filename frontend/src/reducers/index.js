@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { ADD_TO_FRIENDS, LOG_IN, LOG_OUT } from '../actions/user';
-import { CHANGE_INPUT_VALUE } from "../actions/event";
+import { CHANGE_INPUT_VALUE, CLEAR_EVENT_VALUES } from "../actions/event";
 
 // TEMPORARY TEST DATA
 const userInitialState = {
@@ -55,6 +55,10 @@ const eventReducer = (state = initialEvent, action) => {
             [id]: value
         };
     }
+    case 'CLEAR_EVENT_VALUES':
+        return {
+            ...initialEvent
+        };
     default:
         return state;
     }
