@@ -7,7 +7,7 @@ import Rating from './Rating';
 
 const EventItem = (props) => {
     const { itemType, eventInfo, date } = props;
-
+    console.log(eventInfo);
     const itemStyle = {
         backgroundImage: `url(../upload/eventImages/${eventInfo.picture})`
     };

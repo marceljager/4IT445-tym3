@@ -70,7 +70,7 @@ class Step1 extends Component {
                     console.log(JSON.stringify(place[possibleStats[key]].weekday_text));
                     placeObj[key] = JSON.stringify(place[possibleStats[key]].weekday_text);
                 } else if (key === 'picture') {
-                    placeObj[key] = place[possibleStats[key]][0].getUrl({'maxWidth': 150, 'maxHeight': 100});
+                    placeObj[key] = place[possibleStats[key]][0].getUrl({ maxWidth: 150, maxHeight: 100 });
                 }
             }
         }
@@ -93,7 +93,6 @@ class Step1 extends Component {
     render() {
         return (
             <section>
-                <div id="map" />
                 <div className="SubHead">
                     <div className="SubHead-head">
                         <div className="SubHead-overlay"></div>

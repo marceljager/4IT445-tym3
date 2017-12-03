@@ -107,7 +107,6 @@ class EventDetailRaw extends Component {
 
     render() {
         const { eventInfo } = this.state;
-        console.log(eventInfo);
 
         let calendarEvent = null;
         let coordinates = null;
@@ -160,7 +159,7 @@ class EventDetailRaw extends Component {
                                 <div className="col-9 EventDetail-textSide p-5">
                                     <h2 className="EventDetail-title mb-2">{eventInfo.name}</h2>
                                     <div className="EventDetail-about">
-                                        {eventInfo.description}
+                                        {eventInfo.dateText}
                                     </div>
                                     {this.props.user.id &&
                                         <div className={`${this.state.participationBar ? 'isVisible ' : ''}ParticipationBar d-flex align-items-center`}>
@@ -190,9 +189,11 @@ class EventDetailRaw extends Component {
                                             <div className="col">
                                                 <h6 className="mb-3">Kde to bude?</h6>
                                                 <Link to="/" className="RestaurantInfo">
-                                                    <span className="RestaurantInfo-imageContainer">
-                                                        <img src={eventInfo.hostedIn.picture} alt="Restaurace Marjánka" className="RestaurantInfo-image" />
-                                                    </span>
+                                                    {eventInfo.hostedIn.picture &&
+                                                        <span className="RestaurantInfo-imageContainer">
+                                                            <img src={eventInfo.hostedIn.picture} alt="Restaurace Marjánka" className="RestaurantInfo-image" />
+                                                        </span>
+                                                    }
                                                     <span className="RestaurantInfo-text">
                                                         <span className="RestaurantInfo-name">{eventInfo.hostedIn.name}</span>
                                                         <span className="RestaurantInfo-address">{address}</span>
