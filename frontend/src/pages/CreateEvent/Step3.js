@@ -46,7 +46,7 @@ class Step3 extends Component {
             dateFrom: dates.actionStart,
             dateTo: dates.actionEnd,
             dateText: this.props.desc,
-            place: this.props.restaurant
+            place: this.props.restaurantId
         }).then((response) => {
             console.log(response);
             const eventId = response.data.id;
@@ -183,6 +183,7 @@ const mapStateToProps = (state) => {
 
     return {
         restaurant: event.restaurant,
+        restaurantId: event.restaurantId,
         name: event.name,
         desc: event.description,
         actionStart: event.actionStart,

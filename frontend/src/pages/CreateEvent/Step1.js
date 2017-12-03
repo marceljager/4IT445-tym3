@@ -75,6 +75,9 @@ class Step1 extends Component {
 
         console.log(placeObj);
 
+        const { changeInputValue } = this.props;
+        changeInputValue('restaurantId', placeObj.id);
+
         axios.put(`${API_URL}/restaurants`, placeObj)
             .then((response) => {
                 console.log(response);
