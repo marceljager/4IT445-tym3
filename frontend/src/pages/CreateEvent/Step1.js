@@ -57,7 +57,7 @@ class Step1 extends Component {
             website: 'website',
             openHours: 'opening_hours',
             description: 'formatted_phone_number',
-            picture: 'icon'
+            picture: 'photos'
         };
 
         for (const key in possibleStats) {
@@ -69,6 +69,8 @@ class Step1 extends Component {
                 } else if (key === 'openHours') {
                     console.log(JSON.stringify(place[possibleStats[key]].weekday_text));
                     placeObj[key] = JSON.stringify(place[possibleStats[key]].weekday_text);
+                } else if (key === 'picture') {
+                    placeObj[key] = place[possibleStats[key]][0].getUrl({'maxWidth': 150, 'maxHeight': 100});
                 }
             }
         }
