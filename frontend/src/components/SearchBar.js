@@ -44,7 +44,7 @@ class SearchBar extends Component {
             });
     }
 
-    toggleSearch = (e) => {
+    toggleSearch = () => {
         this.setState(prevState => ({
             searchVisible: !prevState.searchVisible
         }));
@@ -52,7 +52,7 @@ class SearchBar extends Component {
 
     render() {
         let items = [];
-        console.log(this.state.searchData);
+
         if (this.state.searchData.length > 0) {
             items = this.state.searchData.map((item, index) => {
                 let url = 'detail-akce';

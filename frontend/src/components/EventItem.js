@@ -8,9 +8,6 @@ import Rating from './Rating';
 const EventItem = (props) => {
     const { itemType, eventInfo, date } = props;
     console.log(eventInfo);
-    const itemStyle = {
-        backgroundImage: `url(../upload/eventImages/${eventInfo.picture})`
-    };
 
     const isEventAtDate = new Date(eventInfo.dateFrom).toDateString() === new Date(date).toDateString();
 
@@ -18,7 +15,8 @@ const EventItem = (props) => {
         if (itemType === 'compact') {
             return (
                 <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--compact">
-                    <span className="EventItem-image" style={itemStyle}>
+                    <span className="EventItem-image">
+                        <img src={eventInfo.rPicture} alt={eventInfo.rName} />
                         <span className="EventItem-badge">
                             {eventInfo.private
                                 ? 'Soukromá'
@@ -29,7 +27,7 @@ const EventItem = (props) => {
                     <span className="EventItem-textSide">
                         <span className="EventItem-title">{eventInfo.name}</span>
                         <span className="EventItem-place">
-                            {eventInfo.place}
+                            {eventInfo.rName}
                             <span className="EventItem-rating">
                                 <Rating rating={eventInfo.rating} />
                             </span>
@@ -47,7 +45,8 @@ const EventItem = (props) => {
 
         return (
             <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem">
-                <span className="EventItem-image" style={itemStyle}>
+                <span className="EventItem-image">
+                    <img src={eventInfo.rPicture} alt={eventInfo.rName} />
                     <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
                         {eventInfo.private
                             ? 'Soukromá'
@@ -58,10 +57,10 @@ const EventItem = (props) => {
                 <span className="EventItem-textSide">
                     <span className="EventItem-title">{eventInfo.name}</span>
                     <span className="EventItem-place">
-                        {eventInfo.place}
+                        {eventInfo.rName}
                     </span>
                     <span className="EventItem-rating">
-                        <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
+                        <Rating rating={eventInfo.rRating} number={eventInfo.rNumberOfRatings} />
                     </span>
                     <span className="EventItem-date">
                         <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
