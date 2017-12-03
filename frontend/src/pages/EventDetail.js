@@ -107,14 +107,25 @@ class EventDetailRaw extends Component {
 
     render() {
         const { eventInfo } = this.state;
+        console.log(eventInfo);
 
-        const calendarEvent = {
-            title: eventInfo.name,
-            description: eventInfo.description,
-            location: eventInfo.place,
-            startTime: eventInfo.dateFrom,
-            endTime: eventInfo.dateTo
-        };
+        let calendarEvent = null;
+        let coordinates = null;
+        let address = null;
+        if (eventInfo && eventInfo.hostedIn) {
+            calendarEvent = {
+                title: eventInfo.name,
+                description: eventInfo.description,
+                location: eventInfo.hostedIn.adress,
+                startTime: eventInfo.dateFrom,
+                endTime: eventInfo.dateTo
+            };
+
+            const coordinate = eventInfo.hostedIn.GPS.split(', ');
+            coordinates = { lat: parseFloat(coordinate[0]), lng: parseFloat(coordinate[1]) };
+            address = eventInfo.hostedIn.adress.split(', ');
+            address = `${address[0]}, ${address[1]}`;
+        }
 
         return (
             <div className="EventDetail">
@@ -131,18 +142,20 @@ class EventDetailRaw extends Component {
                                     <div className="EventDetail-calendar">
                                         <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
                                     </div>
-                                    <div className="EventDetail-mainImageContainer">
-                                        <Map
-                                            lat={50.0842787}
-                                            lng={14.3748887}
-                                            zoom={15}
-                                            googleMapURL={MAPS_URL}
-                                            containerElement={<div style={{ height: '100%', width: '100%' }} />}
-                                            mapElement={<div style={{ height: '100%', width: '100%' }} />}
-                                            loadingElement={<div style={{ height: '100%', width: '100%' }} />}
-                                            marker
-                                        />
-                                    </div>
+                                    {coordinates &&
+                                        <div className="EventDetail-mainImageContainer">
+                                            <Map
+                                                lat={coordinates.lat}
+                                                lng={coordinates.lng}
+                                                zoom={15}
+                                                googleMapURL={MAPS_URL}
+                                                containerElement={<div style={{height: '100%', width: '100%'}}/>}
+                                                mapElement={<div style={{height: '100%', width: '100%'}}/>}
+                                                loadingElement={<div style={{height: '100%', width: '100%'}}/>}
+                                                marker
+                                            />
+                                        </div>
+                                    }
                                 </div>
                                 <div className="col-9 EventDetail-textSide p-5">
                                     <h2 className="EventDetail-title mb-2">{eventInfo.name}</h2>
@@ -171,22 +184,24 @@ class EventDetailRaw extends Component {
                                             <EventParticipants signedIn={this.state.signedIn} guests={eventInfo.guests} />
                                         </div>
                                     </div>
-                                    <div className="Separator" />
-                                    <div className="row">
-                                        <div className="col">
-                                            <h6 className="mb-3">Kde to bude?</h6>
-                                            <Link to="/" className="RestaurantInfo">
-                                                <span className="RestaurantInfo-imageContainer">
-                                                    <img src="./upload/userUpload/na-marjance.jpg" alt="Restaurace Marjánka" className="RestaurantInfo-image" />
-                                                </span>
-                                                <span className="RestaurantInfo-text">
-                                                    <span className="RestaurantInfo-name">Restaurace Marjánka</span>
-                                                    <span className="RestaurantInfo-address">Plážová 33, Praha 5</span>
-                                                    <Rating rating={eventInfo.rating} number={eventInfo.numberOfRatings} />
-                                                </span>
-                                            </Link>
+                                    {eventInfo && eventInfo.hostedIn &&
+                                        <div className="row">
+                                            <div className="Separator" />
+                                            <div className="col">
+                                                <h6 className="mb-3">Kde to bude?</h6>
+                                                <Link to="/" className="RestaurantInfo">
+                                                    <span className="RestaurantInfo-imageContainer">
+                                                        <img src={eventInfo.hostedIn.picture} alt="Restaurace Marjánka" className="RestaurantInfo-image" />
+                                                    </span>
+                                                    <span className="RestaurantInfo-text">
+                                                        <span className="RestaurantInfo-name">{eventInfo.hostedIn.name}</span>
+                                                        <span className="RestaurantInfo-address">{address}</span>
+                                                        <Rating rating={eventInfo.hostedIn.rating} number={eventInfo.hostedIn.numberOfRatings} />
+                                                    </span>
+                                                </Link>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                     <div className="Separator" />
                                     <div className="row">
                                         <div className="col">
