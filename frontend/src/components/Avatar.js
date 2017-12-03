@@ -7,11 +7,11 @@ import noPhoto from '../img/icons/no-photo.svg';
 
 import { URL } from '../constants';
 
-const Avatar = ({ animated, user }) => (
-    <Link to={`/uzivatel/${user.id}`} className={`Avatar${animated ? ' Avatar--animated' : ''}`} key={user.id}>
+const Avatar = ({ animated, user, large }) => (
+    <Link to={`/uzivatel/${user.id}`} className={`Avatar${animated ? ' Avatar--animated' : ''}${large ? ' Avatar--large' : ''}`} key={user.id}>
         <span className="Avatar-imageContainer">
-            {user.photo
-                ? <img src={`${URL}${user.photo}`} alt={user.username} className="Avatar-photo" />
+            {user.photo || user.picture
+                ? <img src={`/upload/avatars/${user.photo ? user.photo : user.picture}`} alt={user.username} className="Avatar-photo" />
                 : <ReactSVG path={noPhoto} className="Avatar-noPhoto" />
             }
         </span>
@@ -25,7 +25,8 @@ Avatar.propTypes = {
         photo: propTypes.string,
         username: propTypes.string
     }),
-    animated: propTypes.bool
+    animated: propTypes.bool,
+    large: propTypes.bool
 };
 
 Avatar.defaultProps = {
@@ -34,7 +35,8 @@ Avatar.defaultProps = {
         photo: '',
         username: ''
     },
-    animated: false
+    animated: false,
+    large: false
 };
 
 export default Avatar;

@@ -18,13 +18,13 @@ class NotificationsRaw extends Component {
 
     componentDidMount() {
         if (this.props.user.id) {
-            this.loadNotifications();
+            this.loadNotifications(this.props);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.user.id) {
-            this.loadNotifications();
+        if (nextProps.user.id && this.state.data.length === 0) {
+            this.loadNotifications(nextProps);
         }
     }
 
@@ -35,8 +35,8 @@ class NotificationsRaw extends Component {
         this.setState({ data });
     };
 
-    loadNotifications = () => {
-        const { id, accessToken } = this.props.user;
+    loadNotifications = (props) => {
+        const { id, accessToken } = props.user;
         axios.get(`${API_URL}/invitations/getInfo?invId=${id}&access_token=${accessToken}`)
             .then((response) => {
                 this.setState({

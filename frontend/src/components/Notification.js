@@ -8,7 +8,9 @@ import Avatar from './Avatar';
 
 const Notification = (props) => {
     const { item } = props;
+
     const user = {
+        id: item.from,
         photo: item.fromPic !== 'string' ? item.fromPic : null,
         username: item.fromName
     };

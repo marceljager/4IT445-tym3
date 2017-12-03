@@ -1,0 +1,16 @@
+.Profile {
+	background: white;
+	border-radius: 3px;
+	padding: 20px;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+
+	&-name {
+		display: block;
+		font-weight: bold;
+		margin: 5px 0 10px;
+		color: $headings-color;
+	}
+}

@@ -60,16 +60,35 @@ class MenuRaw extends Component {
         this.props.history.push('/landing');
     };
 
+    acceptFriendRequest = (item) => {
+        const { relationID } = item;
+        const { accessToken } = this.props.user;
+        axios.post(`${API_URL}/customers/accept?reqId=${relationID}&access_token=${accessToken}`)
+            .then(() => {
+                const { friendRequests } = this.state;
+                const newArray = friendRequests.filter(el => (
+                    el.relationID !== relationID
+                ));
+
+                this.setState({
+                    friendRequests: newArray
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
+
     render() {
         const { user, location } = this.props;
         const MenuClass = `Menu ${location.pathname === '/' || location.pathname === '/registrace' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
 
-        const requestList = this.state.friendRequests.map(item => (
-            <div className="Requests-item">
-                <Avatar user={user} />
+        const requestList = this.state.friendRequests.map((item, index) => (
+            <div className="Requests-item" key={index}>
+                <Avatar user={item} />
                 <span className="Requests-username">{item.username}</span>
                 <div className="Requests-buttonsContainer">
-                    <button className="Button Button--small Button--secondary mr-2">Přijmout</button>
+                    <button className="Button Button--small Button--secondary mr-2" onClick={() => this.acceptFriendRequest(item)}>Přijmout</button>
                     <button className="Button Button--small Button--gray">Odmítnout</button>
                 </div>
             </div>
@@ -102,17 +121,19 @@ class MenuRaw extends Component {
 
                                         {user.email &&
                                         <ul className="Menu-navigationItemsContainer d-flex">
-                                            <li className="Menu-navigationItem">
-                                                <ReactSVG path={FriendRequestsImg} className="Menu-friendRequests" />
-                                                <div className="Menu-dropdown">
-                                                    <div className="Requests">
-                                                        <div className="Requests-title">
-                                                            Žádosti o přátelství
+                                            {requestList.length > 0 &&
+                                                <li className="Menu-navigationItem">
+                                                    <ReactSVG path={FriendRequestsImg} className="Menu-friendRequests"/>
+                                                    <div className="Menu-dropdown">
+                                                        <div className="Requests">
+                                                            <div className="Requests-title">
+                                                                Žádosti o přátelství
+                                                            </div>
+                                                            {requestList}
                                                         </div>
-                                                        {requestList}
                                                     </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            }
                                             <li className="Menu-navigationItem">
                                                 <Link
                                                     to="/nova-udalost/krok-1"

@@ -72,16 +72,21 @@ class InviteModalRaw extends Component {
         if (this.state.friends.length > 0) {
             friends = this.state.friends.map((friend, index) => {
                 if (friend.id !== this.props.user.id) {
+                    const friendInfo = {
+                        username: friend.friendName,
+                        photo: friend.friendPic
+                    };
+
                     return (
                         <div className="InviteModal-friend" key={friend.id}>
                             <div className="InviteModal-friendLeft">
-                                <Avatar user={friend} />
+                                <Avatar user={friendInfo} />
                                 <div className="InviteModal-friendName">
                                     {friend.friendName}
                                 </div>
                             </div>
                             <div className="InviteModal-buttonContainer">
-                                {this.props.guests && isInObject(friend, this.props.guests)
+                                {this.props.guests && isInObject(friend, this.props.guests, 'friendID')
                                     ? 'Přijde'
                                     : <div>
                                         {friend.invited
