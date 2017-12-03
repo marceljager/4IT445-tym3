@@ -3,11 +3,11 @@ import propTypes from 'prop-types';
 
 import EventItem from './EventItem';
 
-const RecomendedEvents = (props) => {
+const EventsFeed = (props) => {
     let feed = [];
     if (props.events) {
         feed = props.events.map((event, index) => (
-            <EventItem key={index.toString()} eventInfo={event} />
+            <EventItem key={index.toString()} eventInfo={event} date={props.date} />
         ));
     }
 
@@ -18,14 +18,16 @@ const RecomendedEvents = (props) => {
     );
 };
 
-RecomendedEvents.propTypes = {
+EventsFeed.propTypes = {
     events: propTypes.arrayOf(
-        propTypes.shape({})
-    )
+        propTypes.shape({}),
+    ),
+    date: propTypes.number
 };
 
-RecomendedEvents.defaultProps = {
-    events: []
+EventsFeed.defaultProps = {
+    events: [],
+    date: null
 };
 
-export default RecomendedEvents;
+export default EventsFeed;

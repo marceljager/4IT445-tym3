@@ -23,6 +23,10 @@
         font-weight: bold;
         color: $headings-color;
     }
+
+    &-content {
+        width: 100%;
+    }
 }
 
 .EventsContainer--new {

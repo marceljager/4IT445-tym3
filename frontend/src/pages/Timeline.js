@@ -80,7 +80,7 @@ class TimelineRaw extends Component {
         return (
             <div className="container mb-5">
                 <div className="row d-flex justify-content-center">
-                    <div className="col-9">
+                    <div className="col-12 col-xl-9">
                         <div className="row mt-5">
                             <div className="col-8">
                                 <div className="EventsContainer">
@@ -98,8 +98,7 @@ class TimelineRaw extends Component {
                                 </div>
                                 <div className="EventsContainer">
                                     <div className="EventsContainer-top">
-                                        <span><strong>Zítřejší</strong> akce</span>
-                                        <span><FormattedDate value={tommorow} day="numeric" month="long" /></span>
+                                        <span><strong>Ostatní</strong> akce</span>
                                     </div>
                                     <div className="EventsContainer-content">
                                         <EventsFeed events={this.state.events} />

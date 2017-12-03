@@ -22,8 +22,8 @@ class AddToFriendsButtonRaw extends Component {
 
     render() {
         return (
-            <button onClick={() => this.addToFriends(this.props.id)} className="Button">
-                Add to friends
+            <button onClick={() => this.addToFriends(this.props.id)} className="Button Button--secondary Button--small">
+                Přidat do přátel
             </button>
         );
     }

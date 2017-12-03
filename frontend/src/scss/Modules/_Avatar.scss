@@ -1,5 +1,6 @@
 .Avatar {
     position: relative;
+    height: 30px;
 
     &-imageContainer {
         width: 30px;
@@ -69,15 +70,21 @@
 }
 
 .Avatar--large {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+
     .Avatar-imageContainer {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
+        margin: 0;
     }
 }
 
 .Avatar--you {
     background: $secondary-color;
 }
+
 
 @keyframes bounceIn {
     from, 20%, 40%, 60%, 80%, to {

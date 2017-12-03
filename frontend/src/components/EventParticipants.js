@@ -6,10 +6,11 @@ import propTypes from 'prop-types';
 import InviteModal from './InviteModal';
 import Avatar from './Avatar';
 
+import { isInObject } from '../functions';
+
 const EventParticipantsRaw = (props) => {
     let participants = [];
     const { eventId } = props.match.params;
-
     if (props.guests.length > 0) {
         participants = props.guests.map((guest) => {
             if (props.user.id !== guest.id) {
@@ -22,7 +23,7 @@ const EventParticipantsRaw = (props) => {
 
     return (
         <div className="EventDetail-avatarsContainer">
-            {props.signedIn && <Avatar animated user={props.signedIn} />}
+            {props.signedIn && <Avatar animated user={props.user} />}
             {participants}
             {participants.length > 5 &&
                 <div className="Avatar">
@@ -45,13 +46,13 @@ EventParticipantsRaw.propTypes = {
             id: propTypes.number,
         })
     ),
-    signedIn: propTypes.shape({})
+    signedIn: propTypes.bool
 };
 
 EventParticipantsRaw.defaultProps = {
     guests: [],
     user: {},
-    signedIn: {}
+    signedIn: false
 };
 
 const mapStateToProps = (state) => {

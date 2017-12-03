@@ -26,7 +26,7 @@ class SearchBar extends Component {
     };
 
     handleKeyDown = (e) => {
-        if (e.target.value.length > 0) {
+        if (e.target.value.length > 2) {
             this.loadData(this.state.searchValue);
         }
     };
@@ -44,7 +44,8 @@ class SearchBar extends Component {
             });
     }
 
-    toggleSearch = () => {
+    toggleSearch = (e) => {
+        console.log(e.target);
         this.setState(prevState => ({
             searchVisible: !prevState.searchVisible
         }));
@@ -77,7 +78,6 @@ class SearchBar extends Component {
                         onChange={this.handleSearchValueChange}
                         onKeyUp={this.handleKeyDown}
                         onFocus={this.toggleSearch}
-                        onBlur={this.toggleSearch}
                         className="SearchBar-input"
                         placeholder="Hledat"
                     />

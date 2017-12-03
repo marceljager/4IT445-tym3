@@ -46,7 +46,7 @@ class EventDetailRaw extends Component {
                 guests: []
             },
             participationBar: false,
-            signedIn: {}
+            signedIn: false
         };
     }
 
@@ -56,8 +56,9 @@ class EventDetailRaw extends Component {
     }
 
     loadData(eventId) {
-        axios.get(`${API_URL}/events/${eventId}?filter[include]=guests`)
+        axios.get(`${API_URL}/events/${eventId}?filter[include]=guests&filter[include]=hostedIn`)
             .then((response) => {
+                console.log('-->', response);
                 this.setState({
                     eventInfo: response.data
                 });
@@ -77,7 +78,7 @@ class EventDetailRaw extends Component {
                 });
             } else {
                 this.setState({
-                    signedIn: this.props.user
+                    signedIn: true
                 });
             }
         }, timeout);
@@ -95,7 +96,7 @@ class EventDetailRaw extends Component {
         axios.put(`${API_URL}/events/${eventId}/guests/rel/${id}?access_token=${accessToken}`)
             .then(() => {
                 this.setState({
-                    signedIn: {},
+                    signedIn: true,
                     participationBar: false
                 });
             })
@@ -167,7 +168,7 @@ class EventDetailRaw extends Component {
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Kdo přijde?</h6>
-                                            <EventParticipants signedIn={this.state.signedIn ? this.props.user : {}} guests={eventInfo.guests} />
+                                            <EventParticipants signedIn={this.state.signedIn} guests={eventInfo.guests} />
                                         </div>
                                     </div>
                                     <div className="Separator" />
