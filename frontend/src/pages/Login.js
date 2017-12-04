@@ -66,7 +66,8 @@ export class LoginRaw extends Component {
         axios.post(`${API_URL}/customers`, {
             email: this.state.registerEmail,
             password: this.state.registerPassword,
-            username: this.state.registerName
+            username: this.state.registerName,
+            picture: null
         })
             .then((response) => {
                 this.setState({
