@@ -58,5 +58,13 @@
   "friendship": {
     "dataSource": "DBsource",
     "public": true
+  },
+  "container": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "asset": {
+    "dataSource": "db",
+    "public": true
   }
 }
