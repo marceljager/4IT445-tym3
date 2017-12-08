@@ -14,7 +14,7 @@ module.exports = function(customer) {
 
   customer.feed = function(custId, cb) {
    var ds = customer.dataSource;
-   var sql = "SELECT * FROM Event WHERE private = false UNION SELECT Event.* FROM invitations INNER JOIN Event ON invitations.eventID = Event.id WHERE Event.private = true AND invitations.customerID = ? UNION SELECT Event.* FROM attendance INNER JOIN Event ON attendance.eventID = Event.id WHERE Event.private = true AND attendance.customerID = ? ORDER BY dateFrom";
+   var sql = "SELECT Event.*, restaurant.name AS rName, restaurant.rating AS rRating, restaurant.numberOfRatings AS rNumberOfRatings, restaurant.picture AS rPicture FROM Event INNER JOIN restaurant ON restaurant.id = Event.place WHERE Event.private = false UNION SELECT Event.*, restaurant.name AS rName, restaurant.rating AS rRating, restaurant.numberOfRatings AS rNumberOfRatings, restaurant.picture AS rPicture FROM invitations INNER JOIN Event ON invitations.eventID = Event.id INNER JOIN restaurant ON Event.place = restaurant.id WHERE Event.private = true AND invitations.customerID = ? UNION SELECT Event.*, restaurant.name AS rName, restaurant.rating AS rRating, restaurant.numberOfRatings AS rNumberOfRatings, restaurant.picture AS rPicture FROM attendance INNER JOIN Event ON attendance.eventID = Event.id INNER JOIN restaurant ON Event.place = restaurant.id WHERE Event.private = true AND attendance.customerID = ? ORDER BY dateFrom";
    ds.connector.query(sql, [custId, custId], function (err, events) {
    if (err) console.error(err);
   cb(err, events);
