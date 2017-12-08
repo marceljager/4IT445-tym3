@@ -4,8 +4,7 @@ const fs = require('fs');
 const formidable = require('formidable');
 var crypto = require('crypto');
 
-const BUCKET = 'assets';
-
+const BUCKET = 'avatars';
 module.exports = function(Asset) {
 
   Asset.upload = function(req, res, body, cb) {
@@ -13,8 +12,7 @@ module.exports = function(Asset) {
       const {name: storageName, root: storageRoot} = Asset.app.dataSources.storage.settings;
 
       if (storageName === 'storage') {
-        const path = `${storageRoot}${BUCKET}/`;
-
+        const path = `${storageRoot}/${BUCKET}/`;
         if (!fs.existsSync(path)) {
           fs.mkdirSync(path);
         }
@@ -25,23 +23,23 @@ module.exports = function(Asset) {
 
     const Container = Asset.app.models.Container;
     const form = new formidable.IncomingForm();
-
     const filePromise = new Promise((resolve, reject) => {
       Container.upload(req, res, {
-        container: BUCKET
+        container: BUCKET,
       }, (error, fileObj) => {
         if (error) {
           return reject(error);
         }
-        fileObj.files.file[0].name = crypto.createHash('md5').update(fileObj.files.file[0].name + new Date().toISOString()).digest('hex');
+
+        // fileObj.files.file[0].name = crypto.createHash('md5').update(fileObj.files.file[0].name + new Date().toISOString()).digest('hex');
         const fileInfo = fileObj.files.file[0];
+
         resolve(fileInfo);
       });
     });
 
     const fieldsPromise = new Promise((resolve, reject) => {
       form.parse(req, function(error, fields, files) {
-        console.log(form);
         if (error) return reject(error);
 
         resolve(fields);

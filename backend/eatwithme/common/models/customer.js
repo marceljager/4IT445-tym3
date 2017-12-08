@@ -9,21 +9,40 @@ const BUCKET = 'avatars';
 module.exports = function(customer) {
 
 
-  customer.afterRemote('**', function (ctx, unused, next) {
-        var asset = customer.app.models.Asset;
-        asset.findOne({id:ctx.req.picture})
-            .then(function(result) {
-              ctx.result.picture = result.filename;
-        });
-        var hash = crypto.createHash('md5').update("img").digest('hex');
-        console.log(hash);
-        // console.log(ctx.req);
-        next();
-        // var cust = customer.findOne {where: {id: 1}} ;
-        // ctx.result.userName  = cust.name;
-        // ctx.result.picture = new Date();
+  // customer.beforeRemote('**', function (ctx, unused, next) {
+  //       var asset = customer.app.models.Asset;
+        // asset.findOne({id:ctx.req.picture})
+        //     .then(function(result) {
+        //       ctx.result.picture = result.filename;
+        //       console.log(result.filename);
+        // });
+
+        // const Asset = customer.app.models.Asset;
+        // const Container = customer.app.models.Container;
+        // console.log(ctx);
+        // const filePromise = new Promise((resolve, reject) => {
+        // Asset.upload(ctx.req, ctx.res, {}, (error, fileObj) => {
+        //       console.log(error);
+        //     console.log(fileObj);
+        //     resolve(fileObj);
+        //   });
+        // });
+        // const filePromise = new Promise((resolve, reject) => {
+        //   Container.upload(ctx.req, ctx.res, {
+        //     container: BUCKET,
+        //   }, (error, fileObj) => {
+        //     if (error) {
+        //       return reject(error);
+        //     }
+
+            // fileObj.files.file[0].name = crypto.createHash('md5').update(fileObj.files.file[0].name + new Date().toISOString()).digest('hex');
+        //     const fileInfo = fileObj.files.file[0];
+        //       console.log(fileInfo);
+        //     resolve(fileInfo);
+        //   });
+        // });
         // next();
-    });
+    // });
 
 
   customer.feed = function(custId, cb) {
