@@ -59,6 +59,10 @@
     "dataSource": "DBsource",
     "public": true
   },
+  "eventComment": {
+    "dataSource": "DBsource",
+    "public": true
+  },
   "container": {
     "dataSource": "storage",
     "public": true

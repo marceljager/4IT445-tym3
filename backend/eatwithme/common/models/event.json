@@ -74,10 +74,10 @@
       "through": "invitations",
       "keyThrough": "customerID"
     },
-    "hostedIn": {
-      "type": "belongsTo",
-      "model": "restaurant",
-      "foreignKey": "place",
+    "comments": {
+      "type": "hasMany",
+      "model": "eventComment",
+      "foreignKey": "eventID",
       "options": {
         "nestRemoting": true
       }
