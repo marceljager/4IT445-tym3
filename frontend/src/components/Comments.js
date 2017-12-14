@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import axios from 'axios';
+
+import { API_URL } from '../constants';
 
 import Avatar from './Avatar';
 
@@ -21,6 +25,23 @@ class CommentsRaw extends Component {
         });
     };
 
+    uploadComment = () => {
+        const { id, accessToken } = this.props.user;
+
+        console.log(this.props.match);
+        axios.post(`${API_URL}/eventComments?access_token=${accessToken}`, {
+            text: this.state.commentText,
+            eventID: this.props.match.params.eventId,
+            customerID: id
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
+
     handleSendComment = (e) => {
         if (e.key === 'Enter') {
             e.target.value = '';
@@ -30,6 +51,7 @@ class CommentsRaw extends Component {
                 text: this.state.commentText
             };
 
+            this.uploadComment();
             this.setState(prevState => ({
                 comments: [newComment, ...prevState.comments],
                 commentText: ''
@@ -99,6 +121,11 @@ CommentsRaw.propTypes = {
     user: propTypes.shape({
         email: propTypes.string
     }),
+    match: propTypes.shape({
+        params: propTypes.shape({
+            eventId: propTypes.string
+        })
+    }),
     data: propTypes.arrayOf(
         propTypes.shape({
             photo: propTypes.string,
@@ -113,6 +140,11 @@ CommentsRaw.defaultProps = {
     user: {
         email: ''
     },
+    match: {
+        params: {
+            eventId: 0
+        }
+    },
     data: []
 };
 
@@ -124,5 +156,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-const Comments = connect(mapStateToProps)(CommentsRaw);
+const Comments = connect(mapStateToProps)(withRouter(CommentsRaw));
 export default Comments;

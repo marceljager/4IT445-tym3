@@ -13,7 +13,7 @@
         transform: translateY(1px);
         background: transparent;
         padding: 0;
-        margin-right: 30px;
+        width: 50%;
 
         &:hover,
         &:focus {
@@ -25,5 +25,18 @@
         color: $secondary-color;
         font-weight: bold;
         border-bottom: 2px solid $secondary-color;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .Tabs {
+        &-tab {
+            width: auto;
+            margin-right: 30px;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
     }
 }

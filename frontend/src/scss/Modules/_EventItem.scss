@@ -1,6 +1,7 @@
 .EventItem {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     overflow: hidden;
     position: relative;
     color: $text-color;
@@ -20,8 +21,9 @@
     }
 
     &-image {
-        width: 150px;
-        height: 100px;
+        width: 100%;
+        height: auto;
+        max-height: 150px;
         background-color: darken($secondary-color, 30%);
         background-position: center;
         background-size: cover;
@@ -32,7 +34,7 @@
 
         img {
             width: 100%;
-            min-height: 100%;
+
         }
     }
 
@@ -40,7 +42,7 @@
         width: 100%;
         position: relative;
         z-index: 2;
-        margin: 0 20px;
+        margin: 20px 0;
     }
 
     &-title {
@@ -115,5 +117,20 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .EventItem {
+        flex-wrap: nowrap;
+
+        .EventItem-image {
+            width: 150px;
+            height: 100px;
+        }
+
+        &-textSide {
+            margin: 0 20px;
+        }
     }
 }

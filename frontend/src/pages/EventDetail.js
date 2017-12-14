@@ -56,7 +56,7 @@ class EventDetailRaw extends Component {
     }
 
     loadData(eventId) {
-        axios.get(`${API_URL}/events/${eventId}?filter[include]=guests&filter[include]=hostedIn`)
+        axios.get(`${API_URL}/events/${eventId}?filter[include]=guests&filter[include]=hostedIn&filter[include]=comments`)
             .then((response) => {
                 console.log('-->', response);
                 this.setState({
@@ -135,9 +135,9 @@ class EventDetailRaw extends Component {
                 }
                 <div className={`container ${!eventInfo.name ? ' Loading-content' : ''}`}>
                     <div className="row justify-content-center">
-                        <div className="col-9">
+                        <div className="col-12 col-xl-9">
                             <div className="row">
-                                <div className="col-3 position-static">
+                                <div className="col-12 position-static px-0 px-md-3">
                                     <div className="EventDetail-calendar">
                                         <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
                                     </div>
@@ -156,7 +156,7 @@ class EventDetailRaw extends Component {
                                         </div>
                                     }
                                 </div>
-                                <div className="col-9 EventDetail-textSide p-5">
+                                <div className="col-12 col-xl-9 EventDetail-textSide pb-5 p-md-5 mt-5 mt-md-0">
                                     <h2 className="EventDetail-title mb-2">{eventInfo.name}</h2>
                                     <div className="EventDetail-about">
                                         {eventInfo.dateText}
