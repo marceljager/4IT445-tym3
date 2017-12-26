@@ -133,14 +133,16 @@ class EventDetailRaw extends Component {
                         <ReactSVG path={Loading} className="Loading-spinner" />
                     </div>
                 }
-                <div className={`container ${!eventInfo.name ? ' Loading-content' : ''}`}>
+                <div className={`container position-relative ${!eventInfo.name ? ' Loading-content' : ''}`}>
                     <div className="row justify-content-center">
+                        <div className="col-12 col-xl-3">
+                            <div className="EventDetail-calendar">
+                                <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
+                            </div>
+                        </div>
                         <div className="col-12 col-xl-9">
                             <div className="row">
                                 <div className="col-12 position-static px-0 px-md-3">
-                                    <div className="EventDetail-calendar">
-                                        <Calendar dateFrom={eventInfo.dateFrom} dateTo={eventInfo.dateTo} addToCalendar={calendarEvent} />
-                                    </div>
                                     {coordinates &&
                                         <div className="EventDetail-mainImageContainer">
                                             <Map
@@ -148,9 +150,9 @@ class EventDetailRaw extends Component {
                                                 lng={coordinates.lng}
                                                 zoom={15}
                                                 googleMapURL={MAPS_URL}
-                                                containerElement={<div style={{height: '100%', width: '100%'}}/>}
-                                                mapElement={<div style={{height: '100%', width: '100%'}}/>}
-                                                loadingElement={<div style={{height: '100%', width: '100%'}}/>}
+                                                containerElement={<div style={{ height: '100%', width: '100%' }} />}
+                                                mapElement={<div style={{ height: '100%', width: '100%' }} />}
+                                                loadingElement={<div style={{ height: '100%', width: '100%' }} />}
                                                 marker
                                             />
                                         </div>
@@ -188,7 +190,7 @@ class EventDetailRaw extends Component {
                                             <div className="Separator" />
                                             <div className="col">
                                                 <h6 className="mb-3">Kde to bude?</h6>
-                                                <Link to="/" className="RestaurantInfo">
+                                                <Link to={`/misto/${eventInfo.hostedIn.id}`} className="RestaurantInfo">
                                                     {eventInfo.hostedIn.picture &&
                                                         <span className="RestaurantInfo-imageContainer">
                                                             <img src={eventInfo.hostedIn.picture} alt="Restaurace Marjánka" className="RestaurantInfo-image" />

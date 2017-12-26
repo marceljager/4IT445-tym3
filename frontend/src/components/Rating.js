@@ -29,7 +29,7 @@ const Rating = (props) => {
             {ratingStars}
             {(props.number || props.number === 0) &&
                 <div className="Rating-number">
-                    <span className="Link">{props.number} hodnocení</span>
+                    <span>{props.number} hodnocení</span>
                 </div>
             }
         </div>
