@@ -1,5 +1,6 @@
 .Avatar {
     position: relative;
+    display: inline-block;
     height: 30px;
 
     &-imageContainer {
@@ -30,6 +31,7 @@
 
     &-photo {
         width: 100%;
+        display: block;
         transition: filter 300ms;
     }
 

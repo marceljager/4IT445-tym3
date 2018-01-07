@@ -1,0 +1,159 @@
+.FriendsModal {
+	overflow: hidden;
+	max-height: 0;
+
+	&-overlay {
+		background: rgba($headings-color, 0.6);
+		position: fixed;
+		z-index: 5;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 0;
+		opacity: 0;
+		transition: opacity 300ms;
+		overflow: hidden;
+		-webkit-backdrop-filter: blur(10px);
+	}
+
+	&-content {
+		position: fixed;
+		z-index: 6;
+		width: 400px;
+		height: auto;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+		max-height: 0;
+		transition: opacity 300ms;
+		background: white;
+		overflow: hidden;
+		border-radius: 4px;
+	}
+
+	&-body {
+		max-height: calc(100% - 50px);
+		overflow: auto;
+	}
+
+	&-header {
+		height: 50px;
+		padding: 18px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid #EEEFF1;
+		font-size: 0.75rem;
+	}
+
+	&-friendsContainer {
+		padding: 18px 20px;
+		max-height: 100%;
+	}
+
+	&-friendsContainer--requests {
+		padding: 0;
+		border-bottom: 1px solid #EEEFF1;
+		margin-bottom: 10px;
+	}
+
+	&-friend {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 10px;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+
+	&-friendLeft {
+		display: flex;
+		align-items: center;
+	}
+
+	&-friendName {
+		margin: 0 10px;
+		color: $headings-color;
+		text-transform: capitalize;
+	}
+
+	&-close {
+		width: 50px;
+		height: 50px;
+		margin-right: -20px;
+		border: none;
+		appearance: none;
+		position: relative;
+		background: transparent;
+		cursor: pointer;
+
+		&:before,
+		&:after {
+			content: '';
+			display: block;
+			width: 1px;
+			height: 40%;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) rotate(45deg);
+			background: darken(#EEEFF1, 20%);
+			transition: background 300ms;
+		}
+
+		&:after {
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+
+		&:hover:after,
+		&:hover:before,
+		&:focus:after,
+		&:focus:before {
+			background: $headings-color;
+		}
+
+		&:hover,
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&-buttonContainer {
+		font-size: 0.75rem;
+		color: $headings-color;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+
+	&-noFriends {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $headings-color;
+		font-size: 0.75rem;
+		font-weight: bold;
+		flex-flow: column;
+		padding: 20px;
+	}
+
+	&-noFriendsImage {
+		margin-bottom: 10px;
+	}
+
+	&.isVisible {
+		max-height: 100vh;
+
+		.FriendsModal-overlay {
+			height: 100%;
+			opacity: 1;
+		}
+
+		.FriendsModal-content {
+			opacity: 1;
+			max-height: 400px;
+		}
+	}
+}
