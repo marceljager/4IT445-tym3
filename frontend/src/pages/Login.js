@@ -63,6 +63,9 @@ export class LoginRaw extends Component {
     handleRegister = (e) => {
         console.log('handle uploading-', this.state.file);
 
+        this.handleImageUpload();
+
+        /*
         axios.post(`${API_URL}/customers`, {
             email: this.state.registerEmail,
             password: this.state.registerPassword,
@@ -74,15 +77,28 @@ export class LoginRaw extends Component {
                     loginEmail: this.state.registerEmail,
                     loginPassword: this.state.registerPassword
                 });
+
                 this.switchCard('login');
                 console.log(response);
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
             });
-
+            */
         e.preventDefault();
     };
+
+    handleImageUpload = () => {
+        axios.post(`${API_URL}/assets/upload`, {
+            file: this.state.file
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('upload', error);
+            })
+    }
 
     handlePasswordChange = (e) => {
         this.setState({
