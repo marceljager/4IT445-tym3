@@ -16,3 +16,10 @@
         font-size: 0.875rem;
     }
 }
+
+@media screen and (max-width: 520px) {
+    .RestOverview {
+        width: 100%;
+        justify-content: center;
+    }
+}
