@@ -2,35 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
-import InputMask from 'react-input-mask';
+import Datetime from 'react-datetime';
+import moment from 'moment';
 
 import { changeInputValue } from '../actions/event';
 
 class InputRaw extends Component {
     onInputChange = (event) => {
         const { id, changeInputValue } = this.props;
-        changeInputValue(id, event.target.value);
+        // console.log('event:', event);
+
+        let datetime = moment(event).toDate();
+        datetime = moment(datetime).format();
+
+        if (event.target) {
+            changeInputValue(id, event.target.value);
+        } else {
+            changeInputValue(id, datetime);
+        }
     };
 
     render() {
-        const { value, id, label, type, name, inpValue, checkedValue, mask } = this.props;
-
-        if (type === 'text') {
-            return (
-                <div className="Input mb-3">
-                    {label &&
-                        <label htmlFor={id}>{label}</label>
-                    }
-                    <input
-                        type="text"
-                        id={id}
-                        className="Input-input"
-                        value={value[id]}
-                        onChange={this.onInputChange}
-                    />
-                </div>
-            );
-        }
+        const { value, id, label, type, name, inpValue, checkedValue } = this.props;
 
         if (type === 'textarea') {
             return (
@@ -69,23 +62,37 @@ class InputRaw extends Component {
             );
         }
 
-        if (type === 'mask') {
+        if (type === 'datetime') {
             return (
                 <div className="Input mb-3">
                     {label &&
                         <label htmlFor={id}>{label}</label>
                     }
-                    <InputMask
-                        type="text"
+                    <Datetime
+                        dateFormat="DD.MM.YYYY"
+                        timeFormat="HH:mm"
+                        inputProps={{ className: 'Input-input' }}
                         id={id}
-                        className="Input-input"
-                        mask={mask}
-                        value={value[id]}
                         onChange={this.onInputChange}
                     />
                 </div>
             );
         }
+
+        return (
+            <div className="Input mb-3">
+                {label &&
+                    <label htmlFor={id}>{label}</label>
+                }
+                <input
+                    type="text"
+                    id={id}
+                    className="Input-input"
+                    value={value[id]}
+                    onChange={this.onInputChange}
+                />
+            </div>
+        );
     }
 }
 
@@ -97,16 +104,14 @@ InputRaw.propTypes = {
     type: propTypes.string.isRequired,
     name: propTypes.string,
     checkedValue: propTypes.string,
-    inpValue: propTypes.string,
-    mask: propTypes.string
+    inpValue: propTypes.string
 };
 
 InputRaw.defaultProps = {
     label: '',
     name: '',
     checkedValue: '',
-    inpValue: false,
-    mask: ''
+    inpValue: false
 };
 
 const mapStateToProps = state => ({

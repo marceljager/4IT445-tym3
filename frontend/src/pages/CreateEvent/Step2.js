@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Datetime from 'react-datetime';
 
 import Input from '../../components/Input';
 
@@ -69,17 +70,15 @@ class Step2 extends Component {
                         />
 
                         <Input
-                            type="mask"
-                            mask="99-99-9999 99:99"
-                            label="Začátek akce"
+                            type="datetime"
                             id="actionStart"
+                            label="Začátek akce"
                         />
 
                         <Input
-                            type="mask"
-                            mask="99-99-9999 99:99"
-                            label="Konec akce"
+                            type="datetime"
                             id="actionEnd"
+                            label="Konec akce"
                         />
                     </div>
 
