@@ -23,28 +23,28 @@ class Step3 extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let dates = {
-            actionStart: 0,
-            actionEnd: 0
-        };
-
-        for (const key in dates) {
-            const date = this.props[key];
-            const day = date.substring(0, 2);
-            const month = date.substring(3, 5);
-            const year = date.substring(6, 10);
-            const hours = date.substring(11, 13);
-            const minutes = date.substring(14, 16);
-
-            dates[key] = `${year}-${month}-${day}T${hours}:${minutes}:00.000Z`;
-            // 2017-12-01T20:57:48.537Z
-        }
+        // let dates = {
+        //     actionStart: 0,
+        //     actionEnd: 0
+        // };
+        //
+        // for (const key in dates) {
+        //     const date = this.props[key];
+        //     const day = date.substring(0, 2);
+        //     const month = date.substring(3, 5);
+        //     const year = date.substring(6, 10);
+        //     const hours = date.substring(11, 13);
+        //     const minutes = date.substring(14, 16);
+        //
+        //     dates[key] = `${year}-${month}-${day}T${hours}:${minutes}:00.000Z`;
+        //     // 2017-12-01T20:57:48.537Z
+        // }
 
         axios.post(`${API_URL}/events`, {
             name: this.props.name,
             private: this.props.private,
-            dateFrom: dates.actionStart,
-            dateTo: dates.actionEnd,
+            // dateFrom: dates.actionStart,
+            // dateTo: dates.actionEnd,
             dateText: this.props.desc,
             place: this.props.restaurantId
         }).then((response) => {
