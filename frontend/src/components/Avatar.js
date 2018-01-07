@@ -3,15 +3,15 @@ import ReactSVG from 'react-svg';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import noPhoto from '../img/icons/no-photo.svg';
+import { FRONTEND_URL as URL } from '../constants';
 
-import { URL } from '../constants';
+import noPhoto from '../img/icons/no-photo.svg';
 
 const Avatar = ({ animated, user, large }) => (
     <Link to={`/uzivatel/${user.id}`} className={`Avatar${animated ? ' Avatar--animated' : ''}${large ? ' Avatar--large' : ''}`} key={user.id}>
         <span className="Avatar-imageContainer">
             {user.photo || user.picture
-                ? <img src={`/upload/avatars/${user.photo ? user.photo : user.picture}`} alt={user.username} className="Avatar-photo" />
+                ? <img src={`${URL}/upload/avatars/${user.photo ? user.photo : user.picture}`} alt={user.username} className="Avatar-photo" />
                 : <ReactSVG path={noPhoto} className="Avatar-noPhoto" />
             }
         </span>

@@ -61,16 +61,18 @@ export class LoginRaw extends Component {
     };
 
     handleRegister = (e) => {
-        console.log('handle uploading-', this.state.file);
-
         this.handleImageUpload();
+        e.preventDefault();
+    };
 
-        /*
+    handlePutUserIntoDb = (imageName) => {
+        const picture = imageName || null;
+
         axios.post(`${API_URL}/customers`, {
             email: this.state.registerEmail,
             password: this.state.registerPassword,
             username: this.state.registerName,
-            picture: null
+            picture
         })
             .then((response) => {
                 this.setState({
@@ -84,16 +86,25 @@ export class LoginRaw extends Component {
             .catch((error) => {
                 console.error('zapni si internet', error);
             });
-            */
-        e.preventDefault();
-    };
+    }
 
     handleImageUpload = () => {
-        axios.post(`${API_URL}/assets/upload`, {
-            file: this.state.file
-        })
+        let data = new FormData();
+        const { file } = this.state;
+
+        data.append('file', file, file.name);
+        for (var pair of data.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]);
+        }
+
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        };
+
+        axios.post(`${API_URL}/assets/upload`, data, config)
             .then((response) => {
                 console.log(response);
+                this.handlePutUserIntoDb(response.data.filename);
             })
             .catch((error) => {
                 console.error('upload', error);
@@ -168,7 +179,7 @@ export class LoginRaw extends Component {
 
     render() {
         const { imagePreviewUrl } = this.state;
-        console.log(imagePreviewUrl);
+        // console.log(imagePreviewUrl);
 
         return (
             <div className={`Login Login--${this.state.page}`}>
