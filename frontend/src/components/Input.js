@@ -10,10 +10,16 @@ import { changeInputValue } from '../actions/event';
 class InputRaw extends Component {
     onInputChange = (event) => {
         const { id, changeInputValue } = this.props;
-        console.log('event:', event);
+        // console.log('event:', event);
 
+        let datetime = moment(event).toDate();
+        datetime = moment(datetime).format();
 
-        changeInputValue(id, event.target.value);
+        if (event.target) {
+            changeInputValue(id, event.target.value);
+        } else {
+            changeInputValue(id, datetime);
+        }
     };
 
     render() {
@@ -66,7 +72,6 @@ class InputRaw extends Component {
                         dateFormat="DD.MM.YYYY"
                         timeFormat="HH:mm"
                         inputProps={{ className: 'Input-input' }}
-                        value={value[id]}
                         id={id}
                         onChange={this.onInputChange}
                     />
