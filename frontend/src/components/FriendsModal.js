@@ -57,7 +57,7 @@ class FriendsModalRaw extends Component {
             .then((response) => {
                 this.setState({
                     friendRequests: response.data.data
-                })
+                });
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
@@ -66,7 +66,7 @@ class FriendsModalRaw extends Component {
 
     removeFriend = (friendshipId, index) => {
         const { friends } = this.state;
-        const { id, accessToken } = this.props.user;
+        const { accessToken } = this.props.user;
 
         const newFriendsArray = friends;
         newFriendsArray.splice(index, 1);
@@ -96,6 +96,8 @@ class FriendsModalRaw extends Component {
                 this.setState({
                     friendRequests: newArray
                 });
+
+                this.loadFriends();
             })
             .catch((error) => {
                 console.error('zapni si internet', error);
