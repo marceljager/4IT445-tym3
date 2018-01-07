@@ -58,18 +58,6 @@ class Step2 extends Component {
                         </div>
 
                         <Input
-                            id="name"
-                            label="Název akce"
-                            type="text"
-                        />
-
-                        <Input
-                            id="description"
-                            label="Popis akce"
-                            type="textarea"
-                        />
-
-                        <Input
                             type="datetime"
                             id="actionStart"
                             label="Začátek akce"
@@ -79,6 +67,18 @@ class Step2 extends Component {
                             type="datetime"
                             id="actionEnd"
                             label="Konec akce"
+                        />
+
+                        <Input
+                            id="name"
+                            label="Název akce"
+                            type="text"
+                        />
+
+                        <Input
+                            id="description"
+                            label="Popis akce"
+                            type="textarea"
                         />
                     </div>
 
