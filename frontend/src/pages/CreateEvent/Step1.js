@@ -15,12 +15,26 @@ let place = {};
 class Step1 extends Component {
     constructor(props) {
         super(props);
-        this.state = { restaurant: '' };
+        this.state = {
+            restaurant: '',
+            recRests: []
+        };
     }
 
     componentDidMount() {
         this.initialize();
+        this.loadData();
     }
+
+    loadData = () => {
+        axios.get(`${API_URL}/restaurants/recommended?count=4`)
+            .then((recommended) => {
+                console.log('response: ', recommended.data.data);
+                this.setState({
+                    recRests: recommended.data.data
+                });
+            });
+    };
 
     initialize = () => {
         const autocomplete = new google.maps.places.Autocomplete(document.getElementById('restaurant'));
@@ -38,6 +52,16 @@ class Step1 extends Component {
         changeInputValue('restaurant', e.target.value);
     };
 
+    handlePreferedRestaurant = (restaurant) => {
+        const { changeInputValue } = this.props;
+        const placeObj = restaurant;
+
+        changeInputValue('restaurant', placeObj.name);
+        changeInputValue('restaurantId', placeObj.id);
+
+        this.props.history.push('/nova-udalost/krok-2');
+    };
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -48,7 +72,8 @@ class Step1 extends Component {
             GPS: `${place.geometry.location.lat()}, ${place.geometry.location.lng()}`,
             description: place.name,
             rating: 0,
-            numberOfRatings: 0
+            numberOfRatings: 0,
+            recommended: 0
         };
 
         const possibleStats = {
@@ -130,46 +155,23 @@ class Step1 extends Component {
                         </div>
 
                         <div className="NewEvent-restaurants">
-                            <div className="RestOverview">
-                                <div>
-                                    <div className="RestOverview-img"></div>
+                            {this.state.recRests.map(recRest => (
+                                <div className="RestOverview">
+                                    <div>
+                                        <div className="RestOverview-img">
+                                            <img src={recRest.picture} alt={recRest.name} />
+                                        </div>
+                                    </div>
+                                    <div className="pr-3">
+                                        {recRest.rating !== 0
+                                            ? <Rating rating={recRest.rating} />
+                                            : ''
+                                        }
+                                        <div className="RestOverview-name">{recRest.name}</div>
+                                        <span className="Link" onClick={() => this.handlePreferedRestaurant(recRest)}>Vybrat</span>
+                                    </div>
                                 </div>
-                                <div className="pr-3">
-                                    <Rating rating={5} />
-                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
-                                    <Link to="/" className="Link">Vybrat</Link>
-                                </div>
-                            </div>
-                            <div className="RestOverview">
-                                <div>
-                                    <div className="RestOverview-img"></div>
-                                </div>
-                                <div className="pr-3">
-                                    <Rating rating={5} />
-                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
-                                    <Link to="/" className="Link">Vybrat</Link>
-                                </div>
-                            </div>
-                            <div className="RestOverview">
-                                <div>
-                                    <div className="RestOverview-img"></div>
-                                </div>
-                                <div className="pr-3">
-                                    <Rating rating={5} />
-                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
-                                    <Link to="/" className="Link">Vybrat</Link>
-                                </div>
-                            </div>
-                            <div className="RestOverview">
-                                <div>
-                                    <div className="RestOverview-img"></div>
-                                </div>
-                                <div className="pr-3">
-                                    <Rating rating={5} />
-                                    <div className="RestOverview-name">Restaurace na Kobylisích</div>
-                                    <Link to="/" className="Link">Vybrat</Link>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
 

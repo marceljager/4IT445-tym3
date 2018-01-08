@@ -23,7 +23,6 @@ class Step3 extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-
         axios.post(`${API_URL}/events`, {
             name: this.props.name,
             private: this.props.private,
@@ -131,7 +130,7 @@ class Step3 extends Component {
                                 <Input
                                     id="public"
                                     inpValue="false"
-                                    name="type"
+                                    name="private"
                                     type="radio"
                                     label="Veřejná akce"
                                     checkedValue="public"
@@ -142,7 +141,7 @@ class Step3 extends Component {
                                 <Input
                                     id="private"
                                     inpValue="true"
-                                    name="type"
+                                    name="private"
                                     type="radio"
                                     label="Akce s přáteli"
                                 />

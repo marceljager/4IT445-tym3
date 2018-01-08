@@ -7,9 +7,15 @@
     &-img {
         width: 80px;
         height: 80px;
+        overflow: hidden;
         border-radius: 5px;
         background: red;
         margin-right: 10px;
+
+        img {
+            min-width: 100%;
+            min-height: 100%;
+        }
     }
 
     &-name {

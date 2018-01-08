@@ -22,6 +22,11 @@ class InputRaw extends Component {
         }
     };
 
+    onRadioChange = (event) => {
+        const { name, changeInputValue } = this.props;
+        changeInputValue(name, event.target.value);
+    };
+
     render() {
         const { value, id, label, type, name, inpValue, checkedValue } = this.props;
 
@@ -51,7 +56,7 @@ class InputRaw extends Component {
                         type="radio"
                         value={inpValue}
                         defaultChecked={id === checkedValue}
-                        onChange={this.onInputChange}
+                        onChange={this.onRadioChange}
                     />
                     <div className="Radio-content">
                         <div className="Radio-radioBox">
