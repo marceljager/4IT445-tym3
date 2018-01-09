@@ -156,7 +156,7 @@ class Step1 extends Component {
 
                         <div className="NewEvent-restaurants">
                             {this.state.recRests.map(recRest => (
-                                <div className="RestOverview">
+                                <div className="RestOverview" key={recRest.name}>
                                     <div>
                                         <div className="RestOverview-img">
                                             <img src={recRest.picture} alt={recRest.name} />
