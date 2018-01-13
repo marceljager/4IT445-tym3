@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
@@ -18,7 +18,7 @@ import { isInObject } from '../functions';
 import Loading from '../img/loading.svg';
 import EventParticipants from '../components/EventParticipants';
 
-class EventDetailRaw extends Component {
+class EventDetailRaw extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -112,6 +112,8 @@ class EventDetailRaw extends Component {
             address = `${address[0]}, ${address[1]}`;
         }
 
+        const creator = this.state.eventInfo && this.state.eventInfo.guests.length > 0 ? this.state.eventInfo.guests[0].id : 0;
+
         return (
             <div className="EventDetail">
                 {!eventInfo.name &&
@@ -195,7 +197,7 @@ class EventDetailRaw extends Component {
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Komentáře</h6>
-                                            <Comments />
+                                            <Comments creator={creator} />
                                         </div>
                                     </div>
                                 </div>

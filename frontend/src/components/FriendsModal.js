@@ -107,7 +107,6 @@ class FriendsModalRaw extends Component {
     render() {
         let friends = [];
         if (this.state.friends.length > 0) {
-            console.log(this.state.friends);
             friends = this.state.friends.map((friend, index) => {
                 const id = friend.customer1ID === this.props.user.id ? friend.customer2ID : friend.customer1ID;
                 const friendInfo = {

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ import Emoji from './Emoji';
 import CameraIcon from '../img/icons/camera.svg';
 import SendIcon from '../img/icons/send.svg';
 
-class CommentsRaw extends PureComponent {
+class CommentsRaw extends Component {
     constructor(props) {
         super(props);
 
@@ -66,6 +66,24 @@ class CommentsRaw extends PureComponent {
         }));
 
         axios.put(`${API_URL}/eventComments?access_token=${accessToken}`, newComment)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
+
+    deleteComment = (id, index) => {
+        const { accessToken } = this.props.user;
+        const updatedComments = this.state.comments;
+        updatedComments.splice(index, 1);
+
+        this.setState({
+            comments: updatedComments
+        });
+
+        axios.delete(`${API_URL}/eventComments/${id}?access_token=${accessToken}`)
             .then((response) => {
                 console.log(response);
             })
@@ -135,10 +153,10 @@ class CommentsRaw extends PureComponent {
     };
 
     render() {
-        const { user } = this.props;
+        const { user, creator } = this.props;
 
         const yourComments = this.state.newComments.map((comment, index) => (
-            <div key={index.toString()} className="Comments-item">
+            <div key={index} className="Comments-item">
                 <Avatar user={user} />
                 <div className="Comments-text">
                     <div className="Comments-top">
@@ -165,7 +183,7 @@ class CommentsRaw extends PureComponent {
             };
 
             return (
-                <div key={index.toString()} className="Comments-item">
+                <div key={index} className="Comments-item">
                     <Avatar user={author} />
                     <div className="Comments-text">
                         <div className="Comments-top">
@@ -180,16 +198,18 @@ class CommentsRaw extends PureComponent {
                             }
                             <span><Emoji comment={comment} /></span>
                         </div>
+                        {user.id === creator &&
+                            <button className="Button Button--deny Button--small mt-1" onClick={() => this.deleteComment(comment.id, index)}>Smazat</button>
+                        }
                     </div>
                 </div>
             );
         });
 
         const { imagePreviewUrl } = this.state;
-
         return (
             <div className="Comments">
-                {this.props.user.email &&
+                {user.email &&
                     <form onSubmit={e => e.preventDefault()} className="Comments-addContainer mb-3">
                         <div className="Comments-avatarContainer">
                             <Avatar user={user} />
