@@ -1,19 +1,25 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import ReactSVG from 'react-svg';
 
-import { API_URL } from '../constants';
+import { API_URL, FRONTEND_URL as URL } from '../constants';
 
 import Avatar from './Avatar';
 
-class CommentsRaw extends Component {
+import CameraIcon from '../img/icons/camera.svg';
+import SendIcon from '../img/icons/send.svg';
+
+class CommentsRaw extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
+            file: null,
+            imagePreviewUrl: null,
             comments: [],
             newComments: [],
             commentText: ''
@@ -44,17 +50,53 @@ class CommentsRaw extends Component {
         });
     };
 
-    uploadComment = () => {
-        const { id, accessToken } = this.props.user;
+    uploadComment = (newComment) => {
+        const { accessToken } = this.props.user;
 
-        const { eventId } = this.props.match.params;
-        const newComment = {
-            text: this.state.commentText,
-            eventID: eventId,
-            customerID: parseInt(id, 10),
-            date: Date.now()
+        const localComment = {
+            ...newComment,
+            photo: this.state.imagePreviewUrl
         };
-        console.log(newComment);
+
+        this.setState(prevState => ({
+            newComments: [localComment, ...prevState.newComments],
+            commentText: '',
+            file: null,
+            imagePreviewUrl: null
+        }));
+
+        axios.put(`${API_URL}/eventComments?access_token=${accessToken}`, newComment)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
+
+    uploadCommentWithImage = (newComment) => {
+        const { accessToken } = this.props.user;
+
+        const data = new FormData();
+        const { file } = this.state;
+        data.append('file', file);
+
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        };
+
+        axios.post(`${API_URL}/assets/upload`, data, config)
+            .then((response) => {
+                const commentWithImage = {
+                    ...newComment,
+                    photo: response.data.filename
+                };
+
+                this.uploadComment(commentWithImage);
+            })
+            .catch((error) => {
+                console.error('upload', error);
+            });
 
         axios.put(`${API_URL}/eventComments?access_token=${accessToken}`, newComment)
             .then((response) => {
@@ -69,17 +111,38 @@ class CommentsRaw extends Component {
         if (e.key === 'Enter') {
             e.target.value = '';
 
+            const { id } = this.props.user;
+            const { eventId } = this.props.match.params;
+
             const newComment = {
-                date: Date.now(),
-                text: this.state.commentText
+                text: this.state.commentText,
+                eventID: eventId,
+                customerID: parseInt(id, 10),
+                date: Date.now()
             };
 
-            this.uploadComment();
-            this.setState(prevState => ({
-                newComments: [newComment, ...prevState.newComments],
-                commentText: ''
-            }));
+            if (this.state.file) {
+                this.uploadCommentWithImage(newComment);
+            } else {
+                this.uploadComment(newComment);
+            }
         }
+    };
+
+    handleImageChange = (e) => {
+        e.preventDefault();
+
+        const reader = new FileReader();
+        const file = e.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                file,
+                imagePreviewUrl: reader.result
+            });
+        };
+
+        reader.readAsDataURL(file);
     };
 
     render() {
@@ -96,7 +159,10 @@ class CommentsRaw extends Component {
                         </span>
                     </div>
                     <div className="Comments-comment">
-                        {comment.text}
+                        {comment.photo &&
+                            <div className="Comments-photoContainer" style={{backgroundImage: `url(${comment.photo})`}} />
+                        }
+                        <span>{comment.text}</span>
                     </div>
                 </div>
             </div>
@@ -120,12 +186,17 @@ class CommentsRaw extends Component {
                             </span>
                         </div>
                         <div className="Comments-comment">
-                            {comment.text}
+                            {comment.photo &&
+                                <div className="Comments-photoContainer" style={{backgroundImage: `url(${`${URL}/upload/avatars/${comment.photo}`})`}} />
+                            }
+                            <span>{comment.text}</span>
                         </div>
                     </div>
                 </div>
             );
         });
+
+        const { imagePreviewUrl } = this.state;
 
         return (
             <div className="Comments">
@@ -134,8 +205,24 @@ class CommentsRaw extends Component {
                         <div className="Comments-avatarContainer">
                             <Avatar user={user} />
                         </div>
-                        <div className="Input">
-                            <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..." />
+                        <div className="Comments-inputContainer">
+                            <div className="Input">
+                                <div className="Comments-inputControls">
+                                    <div className="Comments-uploadPhotoContainer">
+                                        <ReactSVG path={CameraIcon} className="Comments-uploadIcon" />
+                                        <input type="file" onChange={this.handleImageChange} className="Comments-uploadInput" />
+                                    </div>
+                                    <button className="Comments-send">
+                                        <ReactSVG path={SendIcon} className="Comments-sendIcon" />
+                                    </button>
+                                </div>
+                                <div className="Comments-input">
+                                    {imagePreviewUrl &&
+                                        <img src={imagePreviewUrl} alt="Nahraný obrázek" className="Comments-photoPreview" />
+                                    }
+                                    <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..." />
+                                </div>
+                            </div>
                         </div>
                     </form>
                 }

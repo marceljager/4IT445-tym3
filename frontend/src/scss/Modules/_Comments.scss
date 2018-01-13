@@ -33,6 +33,7 @@
     }
 
     &-comment {
+        display: flex;
         font-size: 0.875rem;
         font-style: italic;
     }
@@ -46,5 +47,120 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    &-photoContainer {
+        height: 100px;
+        width: 100px;
+        overflow: hidden;
+        border-radius: 3px;
+        background-position: center;
+        background-size: cover;
+        margin-right: 20px;
+    }
+
+    &-inputContainer {
+        width: 100%;
+        position: relative;
+    }
+
+    &-uploadPhotoContainer {
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        position: relative;
+        fill: #dcdfe7;
+        cursor: pointer;
+        overflow: hidden;
+
+        div {
+            display: block;
+            width: 24px;
+            height: 24px;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            transition: all 300ms;
+        }
+
+        &:hover {
+            fill: $secondary-color
+        }
+
+    }
+
+    &-uploadInput {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 24px;
+        opacity: 0;
+    }
+
+    &-inputControls {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+        height: 100%;
+    }
+
+    &-send {
+        display: flex;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        background: none;
+        border: none;
+        fill: #dcdfe7;
+        cursor: pointer;
+
+        div {
+            display: block;
+            width: 24px;
+            height: 24px;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            transition: all 300ms;
+        }
+
+        &:hover {
+            fill: $secondary-color
+        }
+    }
+
+    &-input {
+        display: flex;
+    }
+
+    &-photoPreview {
+        width: 44px;
+        height: 44px;
+        margin-right: 10px;
+        border-radius: 3px;
+        animation: popIn 300ms;
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(0);
+        }
+
+        80% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
     }
 }

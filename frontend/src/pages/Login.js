@@ -245,7 +245,7 @@ export class LoginRaw extends Component {
                             </div>
                             {!imagePreviewUrl
                                 ? <div className="DragDrop my-3">
-                                    <ReactSVG path={UploadIcon} className="DragDrop-icon"/>
+                                    <ReactSVG path={UploadIcon} className="DragDrop-icon" />
                                     <span className="DragDrop-text">Nahrajte profilový obrázek</span>
                                     <input className="DragDrop-input" type="file" onChange={this.handleImageChange}/>
                                 </div>
