@@ -18,20 +18,6 @@ import { isInObject } from '../functions';
 import Loading from '../img/loading.svg';
 import EventParticipants from '../components/EventParticipants';
 
-const comments = [
-    {
-        author: 'Roman F.',
-        avatar: '1702981537',
-        text: 'Registrace je na Roman Fausek. Přijďte prosím včas',
-        date: new Date('2017-11-06T12:45:06+01:00')
-    }, {
-        author: 'Mirek H.',
-        avatar: '1422340757',
-        text: 'Bere někdo trumpetu?',
-        date: new Date('2017-11-06T11:36:45+01:00')
-    },
-];
-
 class EventDetailRaw extends Component {
     constructor(props) {
         super(props);
@@ -209,7 +195,7 @@ class EventDetailRaw extends Component {
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Komentáře</h6>
-                                            <Comments data={comments} />
+                                            <Comments />
                                         </div>
                                     </div>
                                 </div>

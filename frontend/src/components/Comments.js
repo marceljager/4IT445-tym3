@@ -9,6 +9,7 @@ import ReactSVG from 'react-svg';
 import { API_URL, FRONTEND_URL as URL } from '../constants';
 
 import Avatar from './Avatar';
+import Emoji from './Emoji';
 
 import CameraIcon from '../img/icons/camera.svg';
 import SendIcon from '../img/icons/send.svg';
@@ -32,9 +33,8 @@ class CommentsRaw extends PureComponent {
 
     getCommentsData = () => {
         const { eventId } = this.props.match.params;
-        axios.get(`${API_URL}/eventComments?filter[where][eventID]=${eventId}`)
+        axios.get(`${API_URL}/eventComments?filter[where][eventID]=${eventId}&filter[order]=date%20DESC`)
             .then((response) => {
-                console.log('comments', response);
                 this.setState({
                     comments: response.data
                 });
@@ -108,7 +108,7 @@ class CommentsRaw extends PureComponent {
     };
 
     handleSendComment = (e) => {
-        if (e.key === 'Enter') {
+        if (this.state.commentText.trim().length > 2 && (e.key === 'Enter' || e.type === 'click')) {
             e.target.value = '';
 
             const { id } = this.props.user;
@@ -160,9 +160,9 @@ class CommentsRaw extends PureComponent {
                     </div>
                     <div className="Comments-comment">
                         {comment.photo &&
-                            <div className="Comments-photoContainer" style={{backgroundImage: `url(${comment.photo})`}} />
+                        <div className="Comments-photoContainer" style={{ backgroundImage: `url(${comment.photo})` }} />
                         }
-                        <span>{comment.text}</span>
+                        <span><Emoji comment={comment} /></span>
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@ class CommentsRaw extends PureComponent {
                             {comment.photo &&
                                 <div className="Comments-photoContainer" style={{backgroundImage: `url(${`${URL}/upload/avatars/${comment.photo}`})`}} />
                             }
-                            <span>{comment.text}</span>
+                            <span><Emoji comment={comment} /></span>
                         </div>
                     </div>
                 </div>
@@ -212,7 +212,7 @@ class CommentsRaw extends PureComponent {
                                         <ReactSVG path={CameraIcon} className="Comments-uploadIcon" />
                                         <input type="file" onChange={this.handleImageChange} className="Comments-uploadInput" />
                                     </div>
-                                    <button className="Comments-send">
+                                    <button className="Comments-send" onClick={this.handleSendComment}>
                                         <ReactSVG path={SendIcon} className="Comments-sendIcon" />
                                     </button>
                                 </div>
