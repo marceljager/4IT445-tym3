@@ -7,7 +7,6 @@ import Rating from './Rating';
 
 const EventItem = (props) => {
     const { itemType, eventInfo, date } = props;
-    console.log(eventInfo);
 
     const isEventAtDate = new Date(eventInfo.dateFrom).toDateString() === new Date(date).toDateString();
 
@@ -16,8 +15,8 @@ const EventItem = (props) => {
             return (
                 <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--compact">
                     <span className="EventItem-image">
-                        <img src={eventInfo.rPicture} alt={eventInfo.rName} />
-                        <span className="EventItem-badge">
+                        <img src={eventInfo.rPicture} alt={eventInfo.rName}/>
+                        <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
                             {eventInfo.private
                                 ? 'Soukromá'
                                 : 'Veřejná'
@@ -29,13 +28,41 @@ const EventItem = (props) => {
                         <span className="EventItem-place">
                             {eventInfo.rName}
                             <span className="EventItem-rating">
-                                <Rating rating={eventInfo.rating} />
+                                <Rating rating={eventInfo.rating}/>
                             </span>
+                        </span>
+                        <span className="EventItem-date">
+                            <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric"/>
+                            {eventInfo.dateTo && ' - '}
+                            {eventInfo.dateTo &&
+                            <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric"/>}
+                            , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long"/>
+                        </span>
+                    </span>
+                </Link>
+            );
+        } else if (itemType === 'simple') {
+            return (
+                <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--simple">
+                    <span className="EventItem-image">
+                        <img src={eventInfo.rPicture} alt={eventInfo.rName} />
+                        <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
+                            {eventInfo.private
+                                ? 'Soukromá'
+                                : 'Veřejná'
+                            }
+                        </span>
+                    </span>
+                    <span className="EventItem-textSide">
+                        <span className="EventItem-title">{eventInfo.name}</span>
+                        <span className="EventItem-place">
+                            {eventInfo.rName}
                         </span>
                         <span className="EventItem-date">
                             <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
                             {eventInfo.dateTo && ' - '}
-                            {eventInfo.dateTo && <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
+                            {eventInfo.dateTo &&
+                            <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
                             , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
                         </span>
                     </span>
@@ -43,38 +70,37 @@ const EventItem = (props) => {
             );
         }
 
-        return (
-            <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem">
-                <span className="EventItem-image">
-                    <img src={eventInfo.rPicture} alt={eventInfo.rName} />
-                    <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
-                        {eventInfo.private
-                            ? 'Soukromá'
-                            : 'Veřejná'
-                        }
-                    </span>
-                </span>
-                <span className="EventItem-textSide">
-                    <span className="EventItem-title">{eventInfo.name}</span>
-                    <span className="EventItem-place">
-                        {eventInfo.rName}
-                    </span>
-                    <span className="EventItem-rating">
-                        <Rating rating={eventInfo.rRating} number={eventInfo.rNumberOfRatings} />
-                    </span>
-                    <span className="EventItem-date">
-                        <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
-                        {eventInfo.dateTo && ' - '}
-                        {eventInfo.dateTo && <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
-                        , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
-                    </span>
-                </span>
-            </Link>
-        );
     }
 
-    return [];
-};
+    return (
+        <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem">
+            <span className="EventItem-image">
+                <img src={eventInfo.rPicture} alt={eventInfo.rName} />
+                <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
+                    {eventInfo.private
+                        ? 'Soukromá'
+                        : 'Veřejná'
+                    }
+                </span>
+            </span>
+            <span className="EventItem-textSide">
+                <span className="EventItem-title">{eventInfo.name}</span>
+                <span className="EventItem-place">
+                    {eventInfo.rName}
+                </span>
+                <span className="EventItem-rating">
+                    <Rating rating={eventInfo.rRating} number={eventInfo.rNumberOfRatings} />
+                </span>
+                <span className="EventItem-date">
+                    <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
+                    {eventInfo.dateTo && ' - '}
+                    {eventInfo.dateTo && <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
+                    , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
+                </span>
+            </span>
+        </Link>
+    );
+}
 
 EventItem.propTypes = {
     eventInfo: propTypes.shape({

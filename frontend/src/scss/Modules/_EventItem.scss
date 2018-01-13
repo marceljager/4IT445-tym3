@@ -120,6 +120,25 @@
     }
 }
 
+.EventItem--simple {
+    .EventItem-textSide {
+        margin-right: 0;
+    }
+
+    .EventItem-date {
+        font-size: 0.75rem;
+    }
+
+    .EventItem-title {
+        font-size: 0.825rem;
+    }
+
+    .EventItem-image {
+        width: 90px;
+        height: 60px;
+    }
+}
+
 @include media-breakpoint-up(sm) {
     .EventItem {
         flex-wrap: nowrap;
@@ -131,6 +150,17 @@
 
         &-textSide {
             margin: 0 20px;
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .EventItem--simple {
+        align-items: flex-start;
+
+        .EventItem-image {
+            width: 90px;
+            height: 60px;
         }
     }
 }

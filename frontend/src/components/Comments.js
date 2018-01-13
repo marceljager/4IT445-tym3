@@ -15,9 +15,28 @@ class CommentsRaw extends Component {
 
         this.state = {
             comments: [],
+            newComments: [],
             commentText: ''
         };
     }
+
+    componentDidMount() {
+        this.getCommentsData();
+    }
+
+    getCommentsData = () => {
+        const { eventId } = this.props.match.params;
+        axios.get(`${API_URL}/eventComments?filter[where][eventID]=${eventId}`)
+            .then((response) => {
+                console.log('comments', response);
+                this.setState({
+                    comments: response.data
+                });
+            })
+            .catch((error) => {
+                console.error('zapni si internet', error);
+            });
+    };
 
     handleTextChange = (e) => {
         this.setState({
@@ -28,12 +47,16 @@ class CommentsRaw extends Component {
     uploadComment = () => {
         const { id, accessToken } = this.props.user;
 
-        console.log(this.props.match);
-        axios.post(`${API_URL}/eventComments?access_token=${accessToken}`, {
+        const { eventId } = this.props.match.params;
+        const newComment = {
             text: this.state.commentText,
-            eventID: this.props.match.params.eventId,
-            customerID: id
-        })
+            eventID: eventId,
+            customerID: parseInt(id, 10),
+            date: Date.now()
+        };
+        console.log(newComment);
+
+        axios.put(`${API_URL}/eventComments?access_token=${accessToken}`, newComment)
             .then((response) => {
                 console.log(response);
             })
@@ -53,7 +76,7 @@ class CommentsRaw extends Component {
 
             this.uploadComment();
             this.setState(prevState => ({
-                comments: [newComment, ...prevState.comments],
+                newComments: [newComment, ...prevState.newComments],
                 commentText: ''
             }));
         }
@@ -62,7 +85,7 @@ class CommentsRaw extends Component {
     render() {
         const { user } = this.props;
 
-        const yourComments = this.state.comments.map((comment, index) => (
+        const yourComments = this.state.newComments.map((comment, index) => (
             <div key={index.toString()} className="Comments-item">
                 <Avatar user={user} />
                 <div className="Comments-text">
@@ -79,22 +102,30 @@ class CommentsRaw extends Component {
             </div>
         ));
 
-        const comments = this.props.data.map((comment, index) => (
-            <div key={index.toString()} className="Comments-item">
-                <Avatar user={user} />
-                <div className="Comments-text">
-                    <div className="Comments-top">
-                        <span className="Comments-name">{comment.author}</span>
-                        <span className="Comments-time">
-                            <FormattedRelative value={comment.date} />
-                        </span>
-                    </div>
-                    <div className="Comments-comment">
-                        {comment.text}
+        const comments = this.state.comments.map((comment, index) => {
+            const author = {
+                id: comment.customerID,
+                username: comment.customerName,
+                picture: comment.photo
+            };
+
+            return (
+                <div key={index.toString()} className="Comments-item">
+                    <Avatar user={author} />
+                    <div className="Comments-text">
+                        <div className="Comments-top">
+                            <span className="Comments-name">{comment.customerName}</span>
+                            <span className="Comments-time">
+                                <FormattedRelative value={comment.date} />
+                            </span>
+                        </div>
+                        <div className="Comments-comment">
+                            {comment.text}
+                        </div>
                     </div>
                 </div>
-            </div>
-        ));
+            );
+        });
 
         return (
             <div className="Comments">

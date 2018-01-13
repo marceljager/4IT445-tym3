@@ -89,13 +89,10 @@ export class LoginRaw extends Component {
     }
 
     handleImageUpload = () => {
-        let data = new FormData();
+        const data = new FormData();
         const { file } = this.state;
 
-        data.append('file', file, file.name);
-        for (var pair of data.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]);
-        }
+        data.append('file', file);
 
         const config = {
             headers: { 'content-type': 'multipart/form-data' }

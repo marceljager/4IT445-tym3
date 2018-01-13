@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import EventsFeed from '../components/EventsFeed';
 import Notifications from '../components/Notifications';
+import UpcomingEvents from '../components/UpcomingEvents';
 
 import { API_URL } from '../constants';
 import { isInObject } from '../functions';
@@ -106,6 +107,7 @@ class TimelineRaw extends Component {
                                 </div>
                             </div>
                             <div className="col-12 col-md-4">
+                                <UpcomingEvents />
                                 <Notifications />
                             </div>
                         </div>
