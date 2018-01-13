@@ -75,8 +75,6 @@ class CommentsRaw extends PureComponent {
     };
 
     uploadCommentWithImage = (newComment) => {
-        const { accessToken } = this.props.user;
-
         const data = new FormData();
         const { file } = this.state;
         data.append('file', file);
@@ -97,20 +95,10 @@ class CommentsRaw extends PureComponent {
             .catch((error) => {
                 console.error('upload', error);
             });
-
-        axios.put(`${API_URL}/eventComments?access_token=${accessToken}`, newComment)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.error('zapni si internet', error);
-            });
     };
 
     handleSendComment = (e) => {
         if (this.state.commentText.trim().length > 2 && (e.key === 'Enter' || e.type === 'click')) {
-            e.target.value = '';
-
             const { id } = this.props.user;
             const { eventId } = this.props.match.params;
 
@@ -120,7 +108,6 @@ class CommentsRaw extends PureComponent {
                 customerID: parseInt(id, 10),
                 date: Date.now()
             };
-
             if (this.state.file) {
                 this.uploadCommentWithImage(newComment);
             } else {
@@ -142,7 +129,9 @@ class CommentsRaw extends PureComponent {
             });
         };
 
-        reader.readAsDataURL(file);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     };
 
     render() {
@@ -212,7 +201,7 @@ class CommentsRaw extends PureComponent {
                                         <ReactSVG path={CameraIcon} className="Comments-uploadIcon" />
                                         <input type="file" onChange={this.handleImageChange} className="Comments-uploadInput" />
                                     </div>
-                                    <button className="Comments-send" onClick={this.handleSendComment}>
+                                    <button type="button" className="Comments-send" onClick={this.handleSendComment}>
                                         <ReactSVG path={SendIcon} className="Comments-sendIcon" />
                                     </button>
                                 </div>
@@ -220,7 +209,7 @@ class CommentsRaw extends PureComponent {
                                     {imagePreviewUrl &&
                                         <img src={imagePreviewUrl} alt="Nahraný obrázek" className="Comments-photoPreview" />
                                     }
-                                    <input type="text" className="Input-input" onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..." />
+                                    <input type="text" className="Input-input" value={this.state.commentText} onChange={this.handleTextChange} onKeyPress={this.handleSendComment} placeholder="Přidat komentář..." />
                                 </div>
                             </div>
                         </div>
