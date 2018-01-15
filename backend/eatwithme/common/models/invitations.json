@@ -1,0 +1,61 @@
+{
+  "name": "invitations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "customerID": {
+      "type": "number",
+      "required": true
+    },
+    "eventID": {
+      "type": "number",
+      "required": true
+    },
+    "from": {
+      "type": "number",
+      "required": true
+    },
+    "invSendDate": {
+      "type": "date",
+      "default": "2017-11-18T22:22:13.367Z",
+      "required": false
+    },
+    "notificationType": {
+      "type": "string",
+      "default": "invitation",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "customerID",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventID",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "fromWho": {
+      "type": "belongsTo",
+      "model": "customer",
+      "foreignKey": "from",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
