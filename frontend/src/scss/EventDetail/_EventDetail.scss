@@ -39,6 +39,12 @@
         align-items: center;
         margin: 0 -5px;
     }
+
+    &-admin {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 }
 
 @include media-breakpoint-up(xl) {

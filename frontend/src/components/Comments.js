@@ -198,7 +198,7 @@ class CommentsRaw extends Component {
                             }
                             <span><Emoji comment={comment} /></span>
                         </div>
-                        {user.id === creator &&
+                        {user.id === 2 &&
                             <button className="Button Button--deny Button--small mt-1" onClick={() => this.deleteComment(comment.id, index)}>Smazat</button>
                         }
                     </div>

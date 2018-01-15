@@ -122,6 +122,9 @@ class EventDetailRaw extends PureComponent {
                     </div>
                 }
                 <div className={`container position-relative ${!eventInfo.name ? ' Loading-content' : ''}`}>
+                    <div className="EventDetail-admin">
+                        <button className="Button Button--small Button--deny">Smazat</button>
+                    </div>
                     <div className="row justify-content-center">
                         <div className="col-12 col-xl-3">
                             <div className="EventDetail-calendar">
@@ -197,7 +200,7 @@ class EventDetailRaw extends PureComponent {
                                     <div className="row">
                                         <div className="col">
                                             <h6 className="mb-3">Komentáře</h6>
-                                            <Comments creator={creator} />
+                                            <Comments />
                                         </div>
                                     </div>
                                 </div>
