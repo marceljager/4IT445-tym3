@@ -33,13 +33,23 @@ class MenuRaw extends Component {
         this.props.history.push('/landing');
     };
 
+    handleMenu = () => {
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenu.classList.contains('isOpen')) {
+            mobileMenu.classList.remove('isOpen');
+        } else {
+            mobileMenu.classList.add('isOpen');
+        }
+    };
+
     render() {
         const { user, location } = this.props;
         const MenuClass = `Menu ${location.pathname === '/' || location.pathname === '/registrace' ? 'isHidden' : ''} ${location.pathname === '/landing' ? 'Menu--transparent' : ''}`;
 
         return (
             <div className={MenuClass}>
-                <div className="Menu-fixed">
+                <div className="Menu-fixed Menu-fixed--desktop">
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-12">
@@ -98,6 +108,63 @@ class MenuRaw extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="Menu-mobile" id="mobileMenu">
+                    <div className="container">
+                        <div className="Menu-mobileMain">
+                            <Link to={user.email ? '/timeline' : '/landing'} className="Menu-logo">
+                                <ReactSVG path={LogoImg} className="Menu-logoIcon" />
+                            </Link>
+
+                            {user.email &&
+                                <button className="Hamburger" onClick={this.handleMenu}>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            }
+
+                            {!user.email &&
+                                <Link to="/" className="Button Button--secondary Button--small">
+                                    Přihlásit se
+                                </Link>
+                            }
+                        </div>
+
+                        {user.email &&
+                            <ul className="Menu-list">
+                                <li>
+                                    <Link
+                                        to="/nova-udalost/krok-1"
+                                        className={`Menu-link ${location.pathname.indexOf('nova-udalost') > 0 ? 'isActive' : ''}`}
+                                    >
+                                        Nová akce
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/timeline"
+                                        className={`Menu-link ${location.pathname === '/timeline' ? 'isActive' : ''}`}
+                                    >
+                                        Akce v okolí
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <div className="container">
+                                        <div className="d-flex justify-content-between flex-wrap w-100 py-3">
+                                            <FriendsModal />
+
+                                            <button className="Button Button--logout Button--small Button--red" onClick={this.logout}>Odhlásit se
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        }
                     </div>
                 </div>
             </div>
