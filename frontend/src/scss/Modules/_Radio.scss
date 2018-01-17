@@ -11,6 +11,13 @@
         }
     }
 
+    &-input--public {
+        &:checked + .Radio-content .Radio-radioBox {
+            background: $primary-color;
+            box-shadow: 0 0 10px rgba($primary-color, 0.57);
+        }
+    }
+
     &-content {
         display: flex;
         justify-content: flex-start;

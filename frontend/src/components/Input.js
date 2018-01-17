@@ -50,7 +50,7 @@ class InputRaw extends Component {
             return (
                 <label className="Radio" htmlFor={id}>
                     <input
-                        className="Radio-input"
+                        className={`Radio-input${id === 'public' ? ' Radio-input--public' : ''}`}
                         id={id}
                         name={name}
                         type="radio"
