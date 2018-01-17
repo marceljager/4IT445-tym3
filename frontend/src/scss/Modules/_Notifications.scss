@@ -73,6 +73,7 @@
         font-weight: bold;
         font-size: 0.875rem;
         color: $headings-color;
+        display: block;
     }
 
     &-itemTitle--simple {
@@ -103,6 +104,10 @@
     &-thumbnail {
         width: 100%;
         min-height: 100%;
+    }
+
+    &-textColumn {
+        margin-left: 10px;
     }
 
     &-icon {

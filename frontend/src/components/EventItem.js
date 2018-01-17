@@ -8,62 +8,59 @@ import Rating from './Rating';
 const EventItem = (props) => {
     const { itemType, eventInfo, date } = props;
 
-    const isEventAtDate = new Date(eventInfo.dateFrom).toDateString() === new Date(date).toDateString();
-
-    if (isEventAtDate || !date) {
-        if (itemType === 'compact') {
-            return (
-                <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--compact">
-                    <span className="EventItem-image">
-                        <img src={eventInfo.picture} alt={eventInfo.name} />
-                        <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
-                            {eventInfo.private
-                                ? 'Soukromá'
-                                : 'Veřejná'
-                            }
-                        </span>
+    // const isEventAtDate = new Date(eventInfo.dateFrom).toDateString() === new Date(date).toDateString();
+    console.log(eventInfo);
+    if (itemType === 'compact') {
+        return (
+            <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--compact">
+                <span className="EventItem-image">
+                    <img src={eventInfo.picture} alt={eventInfo.name} />
+                    <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
+                        {eventInfo.private
+                            ? 'Soukromá'
+                            : 'Veřejná'
+                        }
                     </span>
-                    <span className="EventItem-textSide">
-                        <span className="EventItem-title">{eventInfo.name}</span>
-                        <span className="EventItem-date">
-                            <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric"/>
-                            {eventInfo.dateTo && ' - '}
-                            {eventInfo.dateTo &&
-                            <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric"/>}
-                            , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long"/>
-                        </span>
+                </span>
+                <span className="EventItem-textSide">
+                    <span className="EventItem-title">{eventInfo.name}</span>
+                    <span className="EventItem-date">
+                        <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
+                        {eventInfo.dateTo && ' - '}
+                        {eventInfo.dateTo &&
+                        <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
+                        , <FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
                     </span>
-                </Link>
-            );
-        } else if (itemType === 'simple') {
-            return (
-                <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--simple">
-                    <span className="EventItem-image">
-                        <img src={eventInfo.picture} alt={eventInfo.name} />
-                        <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
-                            {eventInfo.private
-                                ? 'Soukromá'
-                                : 'Veřejná'
-                            }
-                        </span>
+                </span>
+            </Link>
+        );
+    } else if (itemType === 'simple') {
+        return (
+            <Link to={`/detail-akce/${eventInfo.id}`} className="EventItem EventItem--simple">
+                <span className="EventItem-image">
+                    <img src={eventInfo.picture} alt={eventInfo.name} />
+                    <span className={`EventItem-badge${eventInfo.private ? ' EventItem-badge--private' : ''}`}>
+                        {eventInfo.private
+                            ? 'Soukromá'
+                            : 'Veřejná'
+                        }
                     </span>
-                    <span className="EventItem-textSide">
-                        <span className="EventItem-title">{eventInfo.name}</span>
-                        <span className="EventItem-place">
-                            {eventInfo.rName}
-                        </span>
-                        <span className="EventItem-date">
-                            <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
-                            {eventInfo.dateTo && ' - '}
-                            {eventInfo.dateTo &&
-                            <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
-                            <br /><FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
-                        </span>
+                </span>
+                <span className="EventItem-textSide">
+                    <span className="EventItem-title">{eventInfo.name}</span>
+                    <span className="EventItem-place">
+                        {eventInfo.rName}
                     </span>
-                </Link>
-            );
-        }
-
+                    <span className="EventItem-date">
+                        <FormattedTime value={eventInfo.dateFrom} hour="numeric" minute="numeric" />
+                        {eventInfo.dateTo && ' - '}
+                        {eventInfo.dateTo &&
+                        <FormattedTime value={eventInfo.dateTo} hour="numeric" minute="numeric" />}
+                        <br /><FormattedDate value={eventInfo.dateFrom} day="numeric" month="long" />
+                    </span>
+                </span>
+            </Link>
+        );
     }
 
     return (

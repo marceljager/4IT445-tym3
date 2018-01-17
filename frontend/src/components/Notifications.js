@@ -28,18 +28,10 @@ class NotificationsRaw extends Component {
         }
     }
 
-    setRead = (index) => {
-        const { data } = this.state;
-        data[index].unread = false;
-
-        this.setState({ data });
-    };
-
     loadNotifications = (props) => {
         const { id, accessToken } = props.user;
-        axios.get(`${API_URL}/notifications/getNotifications?custID=${id}&access_token=${accessToken}`)
+        axios.get(`${API_URL}/notifications/getNotifications?custID=${id}&access_token=${accessToken}&[order]=id%20ASC`)
             .then((response) => {
-                console.log(response);
                 this.setState({
                     data: response.data.data
                 });
@@ -52,17 +44,14 @@ class NotificationsRaw extends Component {
     render() {
         let items = [];
         if (this.state.data.length > 0) {
-            items = this.state.data.map((notification, index) => (
-                <Notification key={index.toString()} item={notification} index={index} onSetRead={this.setRead} />
+            items = this.state.data.splice(0,5).map((notification, index) => (
+                <Notification key={index.toString()} item={notification} index={index} />
             ));
         }
         return (
             <div className="Notifications">
                 <div className="Notifications-header">
                     <span className="Notifications-title">Co se děje</span>
-                    <button className="Link" onClick={this.handleReadAllClick}>
-                        Přečteno
-                    </button>
                 </div>
                 <div className="Notifications-itemsContainer">
                     {items}

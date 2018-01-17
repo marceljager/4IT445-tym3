@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import ReactSVG from 'react-svg';
 
 import { API_URL } from '../constants';
 import Avatar from './Avatar';
 
 import feelsBadMan from '../img/noFriends.png';
+import friendsIcon from '../img/icons/friends.svg';
 
 class FriendsModalRaw extends Component {
     constructor(props) {
@@ -175,9 +177,9 @@ class FriendsModalRaw extends Component {
                         </div>
                     </div>
                 </div>
-                <button className="Button Button--secondary Button--small" onClick={this.openModal}>
-                    Přátelé
-                </button>
+                <div onClick={this.openModal} className="FriendsModal-iconContainer">
+                    <ReactSVG path={friendsIcon} className="FriendsModal-icon" />
+                </div>
             </div>
         );
     }

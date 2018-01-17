@@ -10,14 +10,15 @@ const Notification = (props) => {
     const { item } = props;
 
     const user = {
-        id: item.from,
-        photo: item.fromPic !== 'string' ? item.fromPic : null,
+        id: item.customerID,
+        photo: item.customerPhoto,
         username: item.fromName
     };
 
     let title;
     let simple;
-    switch (item.notificationtype) {
+    console.log(item);
+    switch (item.notifType) {
     case 'comment':
         title = 'přidal nový komentář';
         break;
@@ -47,24 +48,24 @@ const Notification = (props) => {
     }
 
     return (
-        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`} onMouseOver={() => props.onSetRead(props.index)} onFocus={() => props.onSetRead(props.index)}>
+        <div className={`Notifications-item${item.unread ? ' Notifications-item--unread' : ''}`}>
             <div className="Notifications-avatarContainer">
-                <img src={`./icons/${item.notificationtype}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
+                <img src={`./icons/${item.notifType}.svg`} className="Notifications-icon" alt="" width="16" height="16" />
                 <Avatar user={user} />
             </div>
             <div className="Notifications-textColumn">
-                <span className={`Notifications-itemTitle ${simple ? 'Notifications-itemTitle--simple' : ''}`}>{item.fromName} {title}</span>
+                <span className={`Notifications-itemTitle ${simple ? 'Notifications-itemTitle--simple' : ''}`}>{item.text}</span>
                 {simple &&
                     <div className="Notifications-eventName">{item.name}</div>
                 }
-                {item.notificationtype === 'photo' &&
+                {item.notiftype === 'photo' &&
                     <div className="Notifications-thumbnailContainer">
                         <img src={`./upload/userUpload/${item.photo}`} alt="" className="Notifications-thumbnail" />
                     </div>
                 }
-                {item.notificationtype === 'invitation' &&
+                {(item.notifType === 'invitation' || item.notifType === 'comment') &&
                     <div className="Notifications-container">
-                        <Link to={`/detail-akce/${item.eventID}`} className="Button Button--secondary Button--small">Zobrazit</Link>
+                        <Link to={`/detail-akce/${item.referenceID}`} className="Button Button--secondary Button--small">Zobrazit</Link>
                     </div>
                 }
                 {item.rating &&
@@ -72,9 +73,11 @@ const Notification = (props) => {
                         <Rating rating={item.rating} />
                     </div>
                 }
+                {/*
                 <div className="Notifications-date">
                     <FormattedRelative value={item.invSendDate} />
                 </div>
+                */}
             </div>
         </div>
     );
@@ -84,7 +87,7 @@ Notification.propTypes = {
     item: propTypes.shape({
         fromPic: propTypes.string,
         fromName: propTypes.string,
-        notificationtype: propTypes.string,
+        notifType: propTypes.string,
         eventID: 0,
         invSendDate: propTypes.string
     }),

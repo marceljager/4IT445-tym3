@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import ReactSVG from 'react-svg';
-import axios from 'axios';
 
 import SearchBar from './SearchBar';
 import FriendsModal from './FriendsModal';
 import Avatar from './Avatar';
 
 import LogoImg from '../img/logo.svg';
+import logout from '../img/icons/logout.svg';
 
 import { logIn, logOut } from '../actions/user';
 
@@ -94,7 +94,9 @@ class MenuRaw extends Component {
                                                 <FriendsModal />
                                             </li>
                                             <li className="Menu-navigationItem">
-                                                <button className="Button Button--logout Button--small Button--red" onClick={this.logout}>Odhlásit se</button>
+                                                <div onClick={this.logout}>
+                                                    <ReactSVG path={logout} className="Menu-icon" />
+                                                </div>
                                             </li>
                                         </ul>
                                         }
@@ -158,7 +160,8 @@ class MenuRaw extends Component {
                                         <div className="d-flex justify-content-between flex-wrap w-100 py-3">
                                             <FriendsModal />
 
-                                            <button className="Button Button--logout Button--small Button--red" onClick={this.logout}>Odhlásit se
+                                            <button className="Button Button--logout Button--small Button--red" onClick={this.logout}>
+                                                Odhlásit se
                                             </button>
                                         </div>
                                     </div>
