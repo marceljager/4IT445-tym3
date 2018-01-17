@@ -34,7 +34,7 @@ class UserProfileRaw extends Component {
     };
 
     render() {
-        const { picture, address, GPS, name, rating, numberOfRatings, openHours } = this.state.restaurantInfo;
+        const { picture, adress, GPS, name, rating, numberOfRatings, openHours } = this.state.restaurantInfo;
         let coordinates = { lat: 0, lng: 0 };
         if (GPS) {
             const coordinate = GPS.split(', ');
@@ -45,22 +45,23 @@ class UserProfileRaw extends Component {
             <div>
                 <div className="container-fluid">
                     <div className="row">
-                        <Map
-                            lat={coordinates.lat}
-                            lng={coordinates.lng}
-                            zoom={15}
-                            googleMapURL={MAPS_URL}
-                            containerElement={<div style={{ minHeight: '200px', width: '100%' }} />}
-                            mapElement={<div style={{ height: '100%', width: '100%' }} />}
-                            loadingElement={<div style={{ height: '100%', width: '100%' }} />}
-                            marker
-                            className="RestaurantProfile-map"
-                        />
+                        <div className="RestaurantProfile-map">
+                            <Map
+                                lat={coordinates.lat}
+                                lng={coordinates.lng}
+                                zoom={15}
+                                googleMapURL={MAPS_URL}
+                                containerElement={<div style={{ minHeight: '200px', width: '100%' }} />}
+                                mapElement={<div style={{ height: '100%', width: '100%' }} />}
+                                loadingElement={<div style={{ height: '100%', width: '100%' }} />}
+                                marker
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="container">
                     <div className="row mt-5">
-                        <div className="col-3">
+                        <div className="col-12">
                             { this.state.restaurantInfo &&
                                 <div className="RestaurantProfile">
                                     <div className="RestaurantProfile-photoContainer">
@@ -71,15 +72,15 @@ class UserProfileRaw extends Component {
                                             {name}
                                         </div>
                                         <Rating rating={rating} number={numberOfRatings} />
+                                        <div>
+                                            {adress}
+                                        </div>
                                         <div className="my-3">
                                             <OpeningHours data={openHours} />
                                         </div>
                                     </div>
                                 </div>
                             }
-                        </div>
-                        <div className="col-9">
-
                         </div>
                     </div>
                 </div>
