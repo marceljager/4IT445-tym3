@@ -4507,6 +4507,9 @@ h6 {
     .Radio-input:checked + .Radio-content .Radio-radioBox {
       background: #3475f2;
       box-shadow: 0 0 10px rgba(52, 117, 242, 0.57); }
+  .Radio-input--public:checked + .Radio-content .Radio-radioBox {
+    background: #27CF7B;
+    box-shadow: 0 0 10px rgba(39, 207, 123, 0.57); }
   .Radio-content {
     display: flex;
     justify-content: flex-start;
@@ -5032,7 +5035,7 @@ td.rdtYear:hover {
     height: 80px;
     overflow: hidden;
     border-radius: 5px;
-    background: red;
+    background: #989898;
     margin-right: 10px; }
     .RestOverview-img img {
       min-width: 100%;

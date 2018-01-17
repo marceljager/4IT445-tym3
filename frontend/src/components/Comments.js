@@ -182,8 +182,6 @@ class CommentsRaw extends Component {
                 picture: comment.customerPhoto
             };
 
-            console.log(this.state.comments);
-
             return (
                 <div key={index} className="Comments-item">
                     <Avatar user={author} />
