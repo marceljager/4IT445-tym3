@@ -37,7 +37,7 @@ class TimelineRaw extends Component {
     }
 
     loadPublicFeed() {
-        axios.get(`${API_URL}/events/publicFeed`)
+        axios.get(`${API_URL}/events/publicFeed?filter[order]=date%20ASC`)
             .then((response) => {
                 const publicFeed = response.data.data;
                 this.loadPersonalFeed(publicFeed);
@@ -49,7 +49,7 @@ class TimelineRaw extends Component {
 
     loadPersonalFeed(publicFeed) {
         const { id, accessToken } = this.props.user;
-        axios.get(`${API_URL}/customers/feed?custId=${id}&access_token=${accessToken}`)
+        axios.get(`${API_URL}/customers/feed?custId=${id}&access_token=${accessToken}&filter[order]=date%20ASC`)
             .then((response) => {
                 const events = response.data.data;
                 events.forEach((feedItem) => {
@@ -90,7 +90,7 @@ class TimelineRaw extends Component {
                                         <span><FormattedDate value={Date.now()} day="numeric" month="long" /></span>
                                     </div>
                                     <div className="EventsContainer-content">
-                                        <EventsFeed events={this.state.events} date={Date.now()} />
+                                        <EventsFeed events={this.state.events} today />
                                     </div>
                                 </div>
                                 <div className="EventsContainer EventsContainer--new">
@@ -102,7 +102,7 @@ class TimelineRaw extends Component {
                                         <span><strong>Ostatní</strong> akce</span>
                                     </div>
                                     <div className="EventsContainer-content">
-                                        <EventsFeed events={this.state.events} />
+                                        <EventsFeed events={this.state.events} newer />
                                     </div>
                                 </div>
                             </div>

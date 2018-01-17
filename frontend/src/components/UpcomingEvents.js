@@ -34,7 +34,7 @@ class UpcomingEvents extends PureComponent {
         axios.get(`${API_URL}/customers/${id}/Attends?access_token=${accessToken}`)
             .then((response) => {
                 const events = response.data;
-
+                console.log(response);
                 this.setState({
                     events
                 });
@@ -46,10 +46,19 @@ class UpcomingEvents extends PureComponent {
 
     render() {
         let upcomingEvents = [];
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
         if (this.state.events) {
-            upcomingEvents = this.state.events.slice(0, 5).map((event, index) => (
-                <EventItem key={index.toString()} eventInfo={event} itemType="simple" />
-            ));
+            upcomingEvents = this.state.events.map((event, index) => {
+                const varDate = new Date(event.dateFrom);
+
+                if (varDate > today) {
+                    return (
+                        <EventItem key={index.toString()} eventInfo={event} itemType="simple"/>
+                    );
+                }
+            });
         }
 
         return (
@@ -59,7 +68,7 @@ class UpcomingEvents extends PureComponent {
                 </div>
                 <div className="Notifications-itemsContainer">
                     {upcomingEvents.length === 0
-                        ? <div>Nikam</div>
+                        ? <div className="py-4 text-center">Zatím se neúčastníš žádných akcí</div>
                         : upcomingEvents
                     }
                 </div>

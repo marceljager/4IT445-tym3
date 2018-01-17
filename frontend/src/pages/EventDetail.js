@@ -112,8 +112,6 @@ class EventDetailRaw extends PureComponent {
             address = `${address[0]}, ${address[1]}`;
         }
 
-        const creator = this.state.eventInfo && this.state.eventInfo.guests.length > 0 ? this.state.eventInfo.guests[0].id : 0;
-
         return (
             <div className="EventDetail">
                 {!eventInfo.name &&
