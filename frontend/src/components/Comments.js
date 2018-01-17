@@ -179,8 +179,10 @@ class CommentsRaw extends Component {
             const author = {
                 id: comment.customerID,
                 username: comment.customerName,
-                picture: comment.photo
+                picture: comment.customerPhoto
             };
+
+            console.log(this.state.comments);
 
             return (
                 <div key={index} className="Comments-item">
