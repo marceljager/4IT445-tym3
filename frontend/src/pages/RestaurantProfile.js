@@ -43,46 +43,40 @@ class UserProfileRaw extends Component {
 
         return (
             <div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="RestaurantProfile-map">
-                            <Map
-                                lat={coordinates.lat}
-                                lng={coordinates.lng}
-                                zoom={15}
-                                googleMapURL={MAPS_URL}
-                                containerElement={<div style={{ minHeight: '200px', width: '100%' }} />}
-                                mapElement={<div style={{ height: '100%', width: '100%' }} />}
-                                loadingElement={<div style={{ height: '100%', width: '100%' }} />}
-                                marker
-                            />
-                        </div>
-                    </div>
+                <div className="RestaurantProfile-map">
+                    <Map
+                        lat={coordinates.lat}
+                        lng={coordinates.lng}
+                        zoom={15}
+                        googleMapURL={MAPS_URL}
+                        containerElement={<div style={{ minHeight: '200px', width: '100%' }} />}
+                        mapElement={<div style={{ height: '100%', width: '100%' }} />}
+                        loadingElement={<div style={{ height: '100%', width: '100%' }} />}
+                        marker
+                        hideButtons
+                    />
                 </div>
+
                 <div className="container">
-                    <div className="row mt-5">
-                        <div className="col-12">
-                            { this.state.restaurantInfo &&
-                                <div className="RestaurantProfile">
-                                    <div className="RestaurantProfile-photoContainer">
-                                        <img src={picture} alt={name} />
-                                    </div>
-                                    <div className="RestaurantProfile-content">
-                                        <div className="RestaurantProfile-name">
-                                            {name}
-                                        </div>
-                                        <Rating rating={rating} number={numberOfRatings} />
-                                        <div>
-                                            {adress}
-                                        </div>
-                                        <div className="my-3">
-                                            <OpeningHours data={openHours} />
-                                        </div>
-                                    </div>
+                    { this.state.restaurantInfo &&
+                        <div className="RestaurantProfile">
+                            <div className="RestaurantProfile-photoContainer">
+                                <img src={picture} alt={name} />
+                            </div>
+                            <div className="RestaurantProfile-content">
+                                <div className="RestaurantProfile-name">
+                                    {name}
                                 </div>
-                            }
+                                <Rating rating={rating} number={numberOfRatings} />
+                                <div>
+                                    {adress}
+                                </div>
+                                <div className="my-3">
+                                    <OpeningHours data={openHours} />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         );

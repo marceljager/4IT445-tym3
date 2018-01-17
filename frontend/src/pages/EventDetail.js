@@ -143,6 +143,7 @@ class EventDetailRaw extends PureComponent {
                                                 mapElement={<div style={{ height: '100%', width: '100%' }} />}
                                                 loadingElement={<div style={{ height: '100%', width: '100%' }} />}
                                                 marker
+                                                hideButtons
                                             />
                                         </div>
                                     }
