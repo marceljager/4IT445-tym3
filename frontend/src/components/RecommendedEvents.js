@@ -30,9 +30,10 @@ class RecomendedEvents extends Component {
     }
 
     render() {
+        console.log(this.state.events);
         let eventsList = [];
         if (this.state.events.length > 0) {
-            eventsList = this.state.events.map((event, index) => (
+            eventsList = this.state.events.slice(0, 3).map((event, index) => (
                 <EventItem key={index.toString()} itemType="compact" eventInfo={event} />
             ));
         }
