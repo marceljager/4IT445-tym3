@@ -37,8 +37,9 @@ class NotificationsRaw extends Component {
 
     loadNotifications = (props) => {
         const { id, accessToken } = props.user;
-        axios.get(`${API_URL}/invitations/getInfo?invId=${id}&access_token=${accessToken}`)
+        axios.get(`${API_URL}/notifications/getNotifications?custID=${id}&access_token=${accessToken}`)
             .then((response) => {
+                console.log(response);
                 this.setState({
                     data: response.data.data
                 });

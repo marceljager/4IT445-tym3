@@ -11,17 +11,20 @@ const EventsFeed = (props) => {
         if (props.today) {
             feed = props.events.map((event, index) => {
                 const varDate = new Date(event.dateFrom);
+                varDate.setHours(0, 0, 0, 0);
 
-                if (varDate === today) {
+                if (varDate > today || varDate < today) {
+                    return null;
+                } else {
                     return (
-                        <EventItem key={index.toString()} eventInfo={event} date={props.date}/>
+                        <EventItem key={index.toString()} eventInfo={event} date={props.date} />
                     );
                 }
-                return null;
             });
         } else if (props.newer) {
             feed = props.events.map((event, index) => {
                 const varDate = new Date(event.dateFrom);
+                varDate.setHours(0, 0, 0, 0);
 
                 if (varDate > today) {
                     return (

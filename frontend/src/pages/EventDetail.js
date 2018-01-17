@@ -112,6 +112,9 @@ class EventDetailRaw extends PureComponent {
             address = `${address[0]}, ${address[1]}`;
         }
 
+        const varDate = new Date(eventInfo.dateFrom);
+        const today = new Date();
+
         return (
             <div className="EventDetail">
                 {!eventInfo.name &&
@@ -153,7 +156,7 @@ class EventDetailRaw extends PureComponent {
                                     <div className="EventDetail-about">
                                         {eventInfo.dateText}
                                     </div>
-                                    {this.props.user.id &&
+                                    {this.props.user.id && varDate > today &&
                                         <div className={`${this.state.participationBar ? 'isVisible ' : ''}ParticipationBar d-flex align-items-center`}>
                                             <div className="container d-flex justify-content-center align-items-center">
                                                 <span className="ParticipationBar-text">Přijdeš na akci?</span>
